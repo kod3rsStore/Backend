@@ -150,7 +150,42 @@ function controllerProducts(injectedStore){
         const query = `SELECT * FROM ${TABLA} WHERE id_categories='${cat_id}'`;
         return await store.get(query);
     }
-    
+    /**
+    * Logic to get all products that math with a price range into a category or key word search.
+    * @param {Object} dataInQuery - Object with variables into query
+    *   @param {string} s - The key word to search into table
+    *   @param {string} c - The category id
+    *   @param {string} min_price - The min price
+    *   @param {string} max_price - The max price
+    *   @param {string} sort - sort by price ASC/DESC can be 'asc' 'desc'
+    * @returns {Promise<object[]>} res - Product list that match with the word to search.
+    */
+    async function getProductsByPrice(dataInQuery){
+        const min_price = dataInQuery.min_price || 0;
+        const max_price = dataInQuery.max_price;
+        const categoryId = dataInQuery.c;
+        const productName = dataInQuery.s;
+        const sort = dataInQuery.sort;
+        let query;
+        let orderBy =`ORDER BY ${TABLA}.creation_date`;
+
+        if(sort === "asc"){
+            orderBy += " ASC";
+        }else if(sort === "desc"){
+            orderBy += " DESC";
+        }else{
+            orderBy = "";
+        }
+        if(categoryId){
+            query = `SELECT * FROM ${TABLA} WHERE id_categories='${categoryId}' and cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;
+        }else if(productName){
+            query = `SELECT * FROM ${TABLA} WHERE (product_title like '%${productName}%' or description like '%${productName}%') and cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;
+        }else{
+            query = `SELECT * FROM ${TABLA} ${orderBy} WHERE cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;    
+        }
+        return await store.get(query);
+}
+
     return {
         insertProduct,
         updateProduct,
@@ -159,6 +194,7 @@ function controllerProducts(injectedStore){
         getLatestProducts,
         getProductsByName,
         getProductsByCategory,
+        getProductsByPrice,
     }
 }
 

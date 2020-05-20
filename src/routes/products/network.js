@@ -13,11 +13,11 @@ const ControllerProducts = require('./index')
 router.post('/', insertProduct);
 router.put('/', updateProduct);
 router.get('/', listProducts);
+router.get('/:id', getProduct);
 router.get('/latest', latestProducts);
 router.get('/search/name', searchProductsByName);
 router.get('/search/category', searchProductsByCategory);
 router.get('/search/price', searchProductsByPrice);
-router.get('/:id', getProduct);
 
 /**
  * API Endpoint to insert a Product in the data base.
@@ -121,6 +121,27 @@ async function searchProductsByCategory(req, res, next){
     }catch(err){
         response.error(req, res, err.message, 500, 'error network Products search by category');
     }
+}
+
+/**
+* API Endpoint to search all products with a price range into results of search by category or key word..
+* @method GET 
+* @param {Object} req - Object with query variables to do filters.
+*   @param {string} req.query.min_price - min price
+*   @param {string} req.query.max_price - max price
+*   @param {string} req.query.s - key word to search into table
+*   @param {string} req.query.c - category id
+*   @param {string} req.query.sort - can be 'asc' 'desc'
+* @returns {<Object[]>} res - Product list that match with the price range.
+* @example ?min_price=1&max_price=5&c=hombres&sort=asc   ?min_price=1&max_price=5&s=jeans&sort=desc
+*/
+async function searchProductsByPrice(req, res, next){
+    try{
+        const resultSearchProductsByPrice = await ControllerProducts.getProductsByPrice(req.query);
+        response.success(req, res, resultSearchProductsByPrice, 200);
+    }catch(err){
+        response.error(req, res, err.message, 500, 'error network Products');
+    }        
 }
 
 module.exports = router;
