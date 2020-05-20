@@ -23,3 +23,24 @@ function handleCon(){
 }
 
 handleCon();
+
+/**
+ * Insert data into the target table
+ * @param {string} table - The target table 
+ * @param {object} data - Data to insert into table
+ * @returns {promise} result of data insertion
+ */
+function insert(table, data){
+    return new Promise( (resolve, reject) => {
+        connection.query(`INSERT INTO ${table} SET ?`, data, (err, result) => {
+            if(err){
+                return reject(err);
+            }
+            resolve(result);
+        })
+    })
+}
+
+module.exports = {
+    insert,
+}

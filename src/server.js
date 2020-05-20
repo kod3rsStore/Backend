@@ -1,7 +1,7 @@
 const express = require('express');
 const config = require('./config/index');
 
-const user = require('./routes/users/network.js');
+const user = require('./routes/users/network');
 
 const app = express();
 app.use(express.json());
