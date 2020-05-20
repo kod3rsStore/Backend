@@ -4,6 +4,7 @@
   "description": "e-commerce api",
   "main": "server.js",
   "scripts": {
+    "jsdocs": "./node_modules/.bin/jsdoc -r -c .jsdocsconfig.json",
     "dev": "nodemon src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,6 +29,7 @@
     "nanoid": "^3.1.9"
   },
   "devDependencies": {
+    "jsdoc": "^3.6.4",
     "nodemon": "^2.0.4"
   }
 }
