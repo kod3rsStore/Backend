@@ -14,7 +14,7 @@ router.post('/', insertProduct);
 router.put('/', updateProduct);
 router.get('/', listProducts);
 router.get('/latest', latestProducts);
-router.get('/search/name', searchByName);
+router.get('/search/name', searchProductsByName);
 router.get('/search/price', searchByPrice);
 router.get('/search/category', searchByCategory);
 router.get('/:id', getProduct);
@@ -89,6 +89,22 @@ async function latestProducts(req, res, next){
     } catch (err) {
         response.error(req, res, err.message, 500, 'error network Products Sort');
     }
+}
+
+/**
+* API Endpoint to search all products with a word that match into the product description or title.
+* @method GET 
+* @param {query} req - s: The word to search into the products
+* @returns {<Object[]>} res - Product list that match with the word in the database.
+* @example ?s=word_to_search
+*/
+async function searchProductsByName(req, res, next){
+    try{
+        const resultSearchProductsByName = await Controller.getProductsByName(req.query.s);
+        response.success(req, res, resultSearchProductsByName, 200);
+    }catch(err){
+        response.error(req, res, err.message, 500, 'error network Products search by name');
+    }    
 }
 
 module.exports = router;

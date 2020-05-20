@@ -128,10 +128,19 @@ function controllerProducts(injectedStore){
     * @param {string} qty - quantity of products to send to client.
     * @returns {Promise<object[]>} res - Product list sorted by 'latest uploaded'.
     */
-   async function getLatestProducts(qty){
-        query = `SELECT * FROM ${TABLA} ORDER BY creation_date DESC LIMIT ${qty}`;    
+    async function getLatestProducts(qty){
+        query = `SELECT * FROM ${TABLA_PHOTOS} ORDER BY creation_date DESC LIMIT ${qty}`;    
         return await store.get(query);
     }
+    /**
+    * Logic to get all products that match with the word to search.
+    * @param {string} searchWord - The word to search into the products
+    * @returns {Promise<object[]>} res - Product list that match with the word to search.
+    */
+   async function getProductsByName(searchWord){
+    const query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE product_title like'%${searchWord}%' or description like '%${searchWord}%'`;
+    return await store.get(query);
+}
 
     return {
         insertProduct,
@@ -139,6 +148,7 @@ function controllerProducts(injectedStore){
         listProducts,
         getProduct,
         getLatestProducts,
+        getProductsByName,
     }
 }
 
