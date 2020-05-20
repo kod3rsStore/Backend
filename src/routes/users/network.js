@@ -11,6 +11,9 @@ const ControllerUser = require('./index')
  *@type {router} - Routs to manage Users
  */
 router.post('/', insertUser);
+router.put('/', updateUser);
+router.get('/', list);
+router.get('/:id', get);
 /**
  * API Endpoint to insert an User in the data base.
  * @method POST 
@@ -28,6 +31,26 @@ async function insertUser(req, res, next){
         response.success(req, res, userRes, 200);
     } catch( err){
         response.error(req, res, err.message, 500, 'error network user Insert');
+    }
+}
+
+/**
+ * API Endpoint to update an User information.
+ * @method PUT 
+ * @param {Object} req - The User information to be updated
+ * @returns {Object} res - result of User update
+ * @example
+ *      body = {
+ *          "email": "email@host.com"
+ * 	        "password": "1234"     
+ *      }
+ */
+async function updateUser(req, res, next){
+    try {
+        const updateRes = await Controller.update(req.body);
+        response.success(req, res, updateRes, 200);
+    } catch( err){
+        response.error(req, res, err.message, 500, 'error network user update');
     }
 }
 
