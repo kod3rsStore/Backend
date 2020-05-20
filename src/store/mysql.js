@@ -41,6 +41,56 @@ function insert(table, data){
     })
 }
 
+/**
+ * Update tuples with a customized query in the target table and id target.
+ * @param {string} query - The customized query to UPDATE data
+ * @param {Object} data - The data to update
+ * @returns {Promise} - result of the update operation.
+ */
+function update(query, data){
+    return new Promise( (resolve, reject) => {
+        connection.query(query,data, (err, result) => {
+            if(err){
+                return reject(err);
+            }
+            resolve(result);
+        })
+    })
+}
+/**
+ * List all tuples from the target table
+ * @param {String} table - The target table 
+ * @returns {Promise<object[]>} - array of objects with query results.
+ */
+function list(table){
+    return new Promise( (resolve, reject) => {
+        connection.query(`SELECT * FROM ${table}`, (err, data) => {
+            if (err){
+                return reject(err);
+            }
+            resolve(data);
+        })
+    })
+}
+
+/**
+ * Fetch tuples with a customized query from the target table.
+ * @param {string} query - The customized query 
+ * @returns {Promise} - array of objects with query results.
+ */
+function get(query){
+    return new Promise( (resolve, reject) => {
+        connection.query(query, (err, data) => {
+            if (err){
+                return reject(err);
+            }
+            resolve(data || null);
+        })
+    })
+}
 module.exports = {
     insert,
+    update,
+    list,
+    get,
 }
