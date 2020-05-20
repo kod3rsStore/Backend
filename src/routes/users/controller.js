@@ -34,9 +34,45 @@ function controllerUser(injectedStore){
         }
             return await store.insert(TABLA_USERS, user);
     }
+
+    /**
+     * Logic to update information of an User.
+     * @param {Object} body - The User information 
+     * @returns {Promise<object[]>} res - result of User update
+     */
+    async function updateUser(body){
+        let columns={};
+        if(body.email){
+            columns.email=body.email;
+        }
+        if(body.password){
+            const pwd = await bcrypt.hash(body.password,5);
+            columns.password=pwd;
+        }
+        if(body.first_name){
+            columns.first_name=body.first_name;
+        }
+        if(body.last_name){
+            columns.last_name=body.last_name;
+        }
+        const queryUpdateUser = `UPDATE ${TABLA_USERS} SET ? WHERE id_users='${body.id_user}'`;
+        return await store.update(queryUpdateUser, columns);
+    }
+
+    /**
+     * Logic to get one User with an ID target.
+     * @param {string} id - The User ID target 
+     * @returns {Promise<object[]>} res - result of one User
+     */
+    async function getUser(id_user){
+        const query = `SELECT * FROM ${TABLA_USERS} WHERE id_users='${id_user}'`;
+        return await store.get(query);
+    }
+
     return {
         insertUser,
-
+        getUser,
+        updateUser,
     }
 }
 
