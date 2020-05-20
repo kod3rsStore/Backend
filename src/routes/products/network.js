@@ -15,8 +15,8 @@ router.put('/', updateProduct);
 router.get('/', listProducts);
 router.get('/latest', latestProducts);
 router.get('/search/name', searchProductsByName);
-router.get('/search/price', searchByPrice);
-router.get('/search/category', searchByCategory);
+router.get('/search/category', searchProductsByCategory);
+router.get('/search/price', searchProductsByPrice);
 router.get('/:id', getProduct);
 
 /**
@@ -69,7 +69,7 @@ async function listProducts(req, res, next){
 */
 async function getProduct(req, res, next){
     try{
-        const resGetProduct = await Controller.getProduct(req.params.id);
+        const resGetProduct = await ControllerProducts.getProduct(req.params.id);
         response.success(req, res, resGetProduct, 200);
     }catch(err){
         response.error(req, res, err.message, 500, 'error network Products');
@@ -84,7 +84,7 @@ async function getProduct(req, res, next){
  */
 async function latestProducts(req, res, next){
     try {
-        const resLatestProducts = await Controller.getLatestProducts(req.query.q);
+        const resLatestProducts = await ControllerProducts.getLatestProducts(req.query.q);
         response.success(req, res, resLatestProducts, 200);
     } catch (err) {
         response.error(req, res, err.message, 500, 'error network Products Sort');
@@ -100,11 +100,27 @@ async function latestProducts(req, res, next){
 */
 async function searchProductsByName(req, res, next){
     try{
-        const resultSearchProductsByName = await Controller.getProductsByName(req.query.s);
+        const resultSearchProductsByName = await ControllerProducts.getProductsByName(req.query.s);
         response.success(req, res, resultSearchProductsByName, 200);
     }catch(err){
         response.error(req, res, err.message, 500, 'error network Products search by name');
     }    
+}
+
+/**
+* API Endpoint to search all products that match with a product category.
+* @method GET 
+* @param {query} req - The category id
+* @returns {<Object[]>} res - Product list that match with the category.
+* @example ?cat_id=category_id
+*/
+async function searchProductsByCategory(req, res, next){
+    try{
+        const resultSearchByCategory = await ControllerProducts.getProductsByCategory(req.query.cat_id);
+        response.success(req, res, resultSearchByCategory, 200);
+    }catch(err){
+        response.error(req, res, err.message, 500, 'error network Products search by category');
+    }
 }
 
 module.exports = router;

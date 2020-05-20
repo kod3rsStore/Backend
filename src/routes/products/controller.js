@@ -137,11 +137,20 @@ function controllerProducts(injectedStore){
     * @param {string} searchWord - The word to search into the products
     * @returns {Promise<object[]>} res - Product list that match with the word to search.
     */
-   async function getProductsByName(searchWord){
-    const query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE product_title like'%${searchWord}%' or description like '%${searchWord}%'`;
-    return await store.get(query);
-}
-
+    async function getProductsByName(searchWord){
+        const query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE product_title like'%${searchWord}%' or description like '%${searchWord}%'`;
+        return await store.get(query);
+    }
+    /**
+    * Logic to get all products that match with a category.
+    * @param {string} cat_id - The category id
+    * @returns {Promise<object[]>} res - Product list that match with the category id.
+    */
+    async function getProductsByCategory(cat_id){
+        const query = `SELECT * FROM ${TABLA} WHERE id_categories='${cat_id}'`;
+        return await store.get(query);
+    }
+    
     return {
         insertProduct,
         updateProduct,
@@ -149,6 +158,7 @@ function controllerProducts(injectedStore){
         getProduct,
         getLatestProducts,
         getProductsByName,
+        getProductsByCategory,
     }
 }
 
