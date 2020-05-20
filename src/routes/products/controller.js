@@ -129,7 +129,7 @@ function controllerProducts(injectedStore){
     * @returns {Promise<object[]>} res - Product list sorted by 'latest uploaded'.
     */
     async function getLatestProducts(qty){
-        query = `SELECT * FROM ${TABLA_PHOTOS} ORDER BY creation_date DESC LIMIT ${qty}`;    
+        const query = `SELECT * FROM ${TABLA_PRODUCTS} ORDER BY creation_date DESC LIMIT ${qty}`;    
         return await store.get(query);
     }
     /**
@@ -147,7 +147,7 @@ function controllerProducts(injectedStore){
     * @returns {Promise<object[]>} res - Product list that match with the category id.
     */
     async function getProductsByCategory(cat_id){
-        const query = `SELECT * FROM ${TABLA} WHERE id_categories='${cat_id}'`;
+        const query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE id_categories='${cat_id}'`;
         return await store.get(query);
     }
     /**
@@ -167,7 +167,7 @@ function controllerProducts(injectedStore){
         const productName = dataInQuery.s;
         const sort = dataInQuery.sort;
         let query;
-        let orderBy =`ORDER BY ${TABLA}.creation_date`;
+        let orderBy =`ORDER BY ${TABLA_PRODUCTS}.creation_date`;
 
         if(sort === "asc"){
             orderBy += " ASC";
@@ -177,11 +177,11 @@ function controllerProducts(injectedStore){
             orderBy = "";
         }
         if(categoryId){
-            query = `SELECT * FROM ${TABLA} WHERE id_categories='${categoryId}' and cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;
+            query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE id_categories='${categoryId}' and cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;
         }else if(productName){
-            query = `SELECT * FROM ${TABLA} WHERE (product_title like '%${productName}%' or description like '%${productName}%') and cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;
+            query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE (product_title like '%${productName}%' or description like '%${productName}%') and cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;
         }else{
-            query = `SELECT * FROM ${TABLA} ${orderBy} WHERE cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;    
+            query = `SELECT * FROM ${TABLA_PRODUCTS} ${orderBy} WHERE cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;    
         }
         return await store.get(query);
 }

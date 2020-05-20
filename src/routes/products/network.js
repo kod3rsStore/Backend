@@ -13,11 +13,11 @@ const ControllerProducts = require('./index')
 router.post('/', insertProduct);
 router.put('/', updateProduct);
 router.get('/', listProducts);
-router.get('/:id', getProduct);
 router.get('/latest', latestProducts);
 router.get('/search/name', searchProductsByName);
 router.get('/search/category', searchProductsByCategory);
 router.get('/search/price', searchProductsByPrice);
+router.get('/:id', getProduct);
 
 /**
  * API Endpoint to insert a Product in the data base.
