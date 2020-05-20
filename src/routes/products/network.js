@@ -13,7 +13,7 @@ const ControllerProducts = require('./index')
 router.post('/', insertProduct);
 router.put('/', updateProduct);
 router.get('/', listProducts);
-router.get('/latest', latest);
+router.get('/latest', latestProducts);
 router.get('/search/name', searchByName);
 router.get('/search/price', searchByPrice);
 router.get('/search/category', searchByCategory);
@@ -75,3 +75,20 @@ async function getProduct(req, res, next){
         response.error(req, res, err.message, 500, 'error network Products');
     }
 }
+
+/**
+ * API Endpoint to fetch all products sorted by date, from latest uploaded and a qty limited.
+ * @method GET 
+ * @param {Object} req - q: The QTY of products to be sent to client. 
+ * @returns {Object} res - result of products list sorted by date.
+ */
+async function latestProducts(req, res, next){
+    try {
+        const resLatestProducts = await Controller.getLatestProducts(req.query.q);
+        response.success(req, res, resLatestProducts, 200);
+    } catch (err) {
+        response.error(req, res, err.message, 500, 'error network Products Sort');
+    }
+}
+
+module.exports = router;

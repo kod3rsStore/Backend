@@ -123,11 +123,22 @@ function controllerProducts(injectedStore){
         return await store.get(query);
     }
 
+    /**
+    * Logic to get all products sorted by latest uploaded.
+    * @param {string} qty - quantity of products to send to client.
+    * @returns {Promise<object[]>} res - Product list sorted by 'latest uploaded'.
+    */
+   async function getLatestProducts(qty){
+        query = `SELECT * FROM ${TABLA} ORDER BY creation_date DESC LIMIT ${qty}`;    
+        return await store.get(query);
+    }
+
     return {
         insertProduct,
         updateProduct,
         listProducts,
         getProduct,
+        getLatestProducts,
     }
 }
 
