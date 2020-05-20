@@ -46,7 +46,7 @@ async function insertUser(req, res, next){
  */
 async function updateUser(req, res, next){
     try {
-        const updateRes = await Controller.updateUser(req.body);
+        const updateRes = await ControllerUser.updateUser(req.body);
         response.success(req, res, updateRes, 200);
     } catch( err){
         response.error(req, res, err.message, 500, 'error network user update');
@@ -61,7 +61,7 @@ async function updateUser(req, res, next){
  */
 async function get(req, res, next){
     try {
-        const userGetById = await Controller.getUser(req.params.id);
+        const userGetById = await ControllerUser.getUser(req.params.id);
         response.success(req, res, userGetById, 200);
     } catch( err){
         response.error(req, res, err.message, 500, 'error network user');

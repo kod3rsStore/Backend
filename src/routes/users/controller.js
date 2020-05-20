@@ -55,7 +55,7 @@ function controllerUser(injectedStore){
         if(body.last_name){
             columns.last_name=body.last_name;
         }
-        const queryUpdateUser = `UPDATE ${TABLA} SET ? WHERE id_users='${body.id_user}'`;
+        const queryUpdateUser = `UPDATE ${TABLA_USERS} SET ? WHERE id_users='${body.id_user}'`;
         return await store.update(queryUpdateUser, columns);
     }
 
@@ -65,7 +65,7 @@ function controllerUser(injectedStore){
      * @returns {Promise<object[]>} res - result of one User
      */
     async function getUser(id_user){
-        const query = `SELECT * FROM ${TABLA} WHERE id_users='${id_user}'`;
+        const query = `SELECT * FROM ${TABLA_USERS} WHERE id_users='${id_user}'`;
         return await store.get(query);
     }
 
