@@ -1,0 +1,29 @@
+{
+  "name": "backend-api",
+  "version": "0.1.0",
+  "description": "e-commerce api",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kod3rsStore/Backend"
+  },
+  "keywords": [
+    "ecommerce"
+  ],
+  "author": "kod3rs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kod3rsStore/Backend/issues"
+  },
+  "homepage": "https://github.com/kod3rsStore/Backend#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
