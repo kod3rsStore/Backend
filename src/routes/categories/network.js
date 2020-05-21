@@ -49,7 +49,7 @@ async function updateCategory(req, res, next){
  */
 async function listCategories(req, res, next){
     try{
-        const categoriesList = await ControllerCategories.list();
+        const categoriesList = await ControllerCategories.listCategories();
         response.success(req, res, categoriesList, 200);
     }catch(err){
         response.error(req, res, err.message, 500, 'error network list Categories');
