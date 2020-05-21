@@ -6,7 +6,8 @@
   "scripts": {
     "jsdocs": "./node_modules/.bin/jsdoc -r -c .jsdocsconfig.json",
     "dev": "nodemon src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha ./tests",
+    "coverage": "./node_modules/.bin/nyc npm run test"
   },
   "repository": {
     "type": "git",
@@ -30,7 +31,11 @@
     "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "jsdoc": "^3.6.4",
-    "nodemon": "^2.0.4"
+    "mocha": "^7.1.2",
+    "nodemon": "^2.0.4",
+    "nyc": "^15.0.1"
   }
 }
