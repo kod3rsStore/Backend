@@ -18,7 +18,7 @@ router.get('/:id', getAddresses);
  */
 async function insertAddress(req, res, next){
     try{
-        const resInsertAddress = await ControllerAddresses.insert(req.body);
+        const resInsertAddress = await ControllerAddresses.insertAddress(req.body);
         response.success(req, res, resInsertAddress, 201);
     }catch(err){
         response.error(req, res, err.message, 500, 'error network insert Addresses');
