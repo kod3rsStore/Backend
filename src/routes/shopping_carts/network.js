@@ -58,7 +58,12 @@ async function removeProductFromCart(req, res, next){
         response.error(req, res, err.message, 500, 'error network shopping cart - remove product from shopping cart');
     }
 }
-
+/**
+* API Endpoint to update the quantiry of a product from shopping cart
+* @method PATCH 
+* @param {Object} req - id_user, id_product, new_qty: Information to find the product and update it.
+* @returns {<Object[]>} res - update operation result
+*/
 async function updateQtyProductOfCart(req, res, next){
     try {
         const updateQtyProductCartRes = await ControllerShoppingCart.updateQtyProductOfCart(req.body.id_user, req.body.id_product, req.body.new_qty);
