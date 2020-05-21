@@ -1,0 +1,12 @@
+[
+    {
+        "id_currencies": "MXN",
+        "currency":"Pesos Mexicanos",
+        "creation_date": "5/21/2020"
+    },
+    {
+        "id_currencies": "COP",
+        "currency":"Pesos Colombianos",
+        "creation_date": "5/21/2020"
+    }
+]
