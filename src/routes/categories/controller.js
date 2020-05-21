@@ -41,11 +41,28 @@ function controllerCategories(injectedStore){
         return await store.update(query, category);
     }
 
+    /**
+     * Logic to list all Categories of the store.
+     * @returns {Promise<object[]>} res - List of Categories
+     */
+    async function listCategories(){
+        return await store.list(TABLA_CAT);
+    }
+     /**
+     * Logic to get one Category with a category ID target.
+     * @param {string} id - The Category ID target 
+     * @returns {Promise<object[]>} res - category
+     */
+    async function getCategoryById(id_cat){
+        const query = `SELECT * FROM ${TABLA_CAT} WHERE id_categories='${id_cat}'`;
+        return await store.get(query);
+    }
+
     return {
         insertCategory,
         updateCategory,
-        list,
-        get,
+        listCategories,
+        getCategoryById,
     }
 }
 
