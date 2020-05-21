@@ -19,7 +19,7 @@ app.use('/api/user', user);
 app.use('/api/products', products);
 app.use('/api/categories', categories);
 app.use('/api/addresses', addresses);
-app.use('/api/shopcart', shopcart);
+app.use('/api/shopcarts', shopcart);
 
 app.listen(config.port, function (){
     console.log(`Server is listening in: http://localhost:${config.port}`);
