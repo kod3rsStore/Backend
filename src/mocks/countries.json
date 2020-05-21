@@ -1,0 +1,14 @@
+[{
+    "id_countries_catalog": "MX",
+    "country":"México",
+    "id_currencies": "MXN",
+    "available": true,
+    "creation_date":  "5/21/2020"
+
+},{
+    "id_countries_catalog": "CO",
+    "country":"Colombia",
+    "id_currencies": "COP",
+    "available": true,
+    "creation_date":  "5/21/2020"
+}]
