@@ -30,12 +30,39 @@ function controllerAddresses(injectedStore){
         }
         return await store.insert(TABLA_ADDR, address);
     }
+    /**
+     * Logic to update an Address
+     * @method PUT 
+     * @param {Object} body - The Address information to be updated body.id_directions: id of address
+     * @returns {Object} res - result of Address update operation
+    */
+    async function updateAddress(body) {
+        const address = {
+            id_cities_catalog: body.id_cities_catalog,
+            id_countries_catalog: body.id_countries_catalog,
+            id_states_catalog: body.id_states_catalog,
+            street: body.street,
+            street_number: body.street_number,
+            id_postal_codes: body.id_postal_codes,
+            available: body.available,
+        }
+        const query = `UPDATE ${TABLA_ADDR} SET ? WHERE id_directions='${body.id_directions}'`;
+        return await store.update(query, address);
+    }
+    /**
+     * Logic to get all Addresses with an user ID target.
+     * @param {string} id_user - The User ID of addresses target 
+     * @returns {Promise<object[]>} res - addresses list own to an user ID
+     */
+    async function getAddresses(id_user){
+        const query = `SELECT * FROM ${TABLA_ADDR} WHERE id_users='${id_user}'`;
+        return await store.get(query);
+    }
 
     return {
         insertAddress,
-        update,
-        list,
-        get,
+        updateAddress,
+        getAddresses,
     }
 }
 
