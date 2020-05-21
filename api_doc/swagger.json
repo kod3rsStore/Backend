@@ -1,0 +1,99 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "This is an API that serve services to an Online store, It is able to manage users, shopping carts, products loader, etc.",
+      "version": "0.1.0",
+      "title": "Online store"
+    },
+    "host": "kod3rsstore.com",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "products",
+        "description": "Everything about products"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/products": {
+        "post": {
+          "tags": [
+            "products"
+          ],
+          "summary": "Add a new product to the store",
+          "description": "",
+          "operationId": "addProduct",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Product object that needs to be added to the store",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/products"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "product created"
+            },
+            "405": {
+              "description": "Invalid input"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "products": {
+        "type": "object",
+        "required": [
+          "description",
+          "photo",
+          "cost",
+          "qty",
+          "available",
+          "score"
+        ],
+        "properties": {
+          "description": {
+            "type": "string",
+            "example": "Beautiful pink shirt"
+          },
+          "photo": {
+            "type": "string",
+            "example": "https://images.pexels.com/photos/3377538/pexels-photo-3377538.jpeg"
+          },
+          "cost": {
+            "type": "string",
+            "example": "1000"
+          },
+          "qty": {
+            "type": "string",
+            "example": "23"
+          },
+          "available": {
+            "type": "boolean",
+            "example": true
+          },
+          "score": {
+            "type": "string",
+            "example": "5"
+          }
+        }
+      }
+    },
+    "externalDocs": {
+      "description": "Find out more about Swagger",
+      "url": "http://swagger.io"
+    }
+  }
