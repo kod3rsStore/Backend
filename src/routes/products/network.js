@@ -28,7 +28,7 @@ router.get('/:id', getProduct);
 async function insertProduct(req, res, next){
     try{
         const resInsertProduct = await ControllerProducts.insertProduct(req.body);
-        response.success(req, res, resInsertProduct, 200);
+        response.success(req, res, resInsertProduct, 201);
     }catch(err){
         response.error(req, res, err.message, 500, 'error network Products Insertion');
     }
@@ -42,7 +42,7 @@ async function insertProduct(req, res, next){
 async function updateProduct(req, res, next){
     try{
         const resUpdateProduct = await ControllerProducts.updateProduct(req.body);
-        response.success(req, res, resUpdateProduct, 200);
+        response.success(req, res, resUpdateProduct, 201);
     }catch(err){
         response.error(req, res, err.message, 500, 'error network Products Update');
     }

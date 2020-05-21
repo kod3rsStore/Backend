@@ -27,7 +27,7 @@ router.get('/:id', get);
 async function insertUser(req, res, next){
     try {
         const userRes = await ControllerUser.insertUser(req.body);
-        response.success(req, res, userRes, 200);
+        response.success(req, res, userRes, 201);
     } catch( err){
         response.error(req, res, err.message, 500, 'error network user Insert');
     }
@@ -47,7 +47,7 @@ async function insertUser(req, res, next){
 async function updateUser(req, res, next){
     try {
         const updateRes = await ControllerUser.updateUser(req.body);
-        response.success(req, res, updateRes, 200);
+        response.success(req, res, updateRes, 201);
     } catch( err){
         response.error(req, res, err.message, 500, 'error network user update');
     }
