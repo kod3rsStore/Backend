@@ -11,6 +11,7 @@ const ControllerShoppingCart = require('./index')
  *@type {router} - Routs to manage Shopping carts
  */
 router.post('/', addProductToCart);
+router.patch('/', updateQtyProductOfCart);
 router.delete('/', removeProductFromCart);
 router.get('/:id', getShoppingCartUser);
 
@@ -55,6 +56,15 @@ async function removeProductFromCart(req, res, next){
         response.success(req, res, removeProductCartResult, 200);
     } catch( err){
         response.error(req, res, err.message, 500, 'error network shopping cart - remove product from shopping cart');
+    }
+}
+
+async function updateQtyProductOfCart(req, res, next){
+    try {
+        const updateQtyProductCartRes = await ControllerShoppingCart.updateQtyProductOfCart(req.body.id_user, req.body.id_product, req.body.new_qty);
+        response.success(req, res, updateQtyProductCartRes, 201);
+    } catch( err){
+        response.error(req, res, err.message, 500, 'error network shopping cart - update qty of product from shopping cart');
     }
 }
 module.exports = router;

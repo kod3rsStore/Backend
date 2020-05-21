@@ -100,10 +100,31 @@ function controllerShoppingCart(injectedStore){
         return await store.remove(query);
     }
 
+    /**
+     * Logic to Update the qty of products of a product into shopping cart of an user.
+     * @param {string} id_user - The User id own of shopping cart 
+     * @param {string} id_product - The product that will be updated
+     * @param {string} newQty - The quantity to be updated
+     * @returns {Promise<object[]>} res - update operation result.
+     */
+    async function updateQtyProductOfCart(id_user, id_product, newQty){
+        //UPDATE shopping_cart_products SET quantity=3 WHERE id_products='rObClQxTqfx_nTuVXWOGz' and id_shopping_carts=(SELECT id_shopping_carts FROM shopping_carts WHERE id_users='0kfJIxZCKeRopOjtx4fVg')
+        const quantity = {
+            quantity: newQty,
+        }
+        const query = `
+            UPDATE shopping_cart_products SET ? 
+                WHERE id_products='${id_product}' and id_shopping_carts=
+                (SELECT id_shopping_carts FROM shopping_carts WHERE id_users='${id_user}')
+        `
+        return await store.update(query, quantity);
+    }
+
     return {
         addProductToCart,
         getUserShoppingCart,
         removeProductFromCart,
+        updateQtyProductOfCart,
     }
 
 }
