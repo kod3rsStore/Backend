@@ -163,7 +163,7 @@ function controllerProducts(injectedStore){
     async function getProductsByPrice(dataInQuery){
         const min_price = dataInQuery.min_price || 0;
         const max_price = dataInQuery.max_price;
-        const categoryId = dataInQuery.c;
+        const categoryId = dataInQuery.cat_id;
         const productName = dataInQuery.s;
         const sort = dataInQuery.sort;
         let query;
