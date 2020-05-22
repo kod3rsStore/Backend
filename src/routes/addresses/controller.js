@@ -46,7 +46,7 @@ function controllerAddresses(injectedStore){
             id_postal_codes: body.id_postal_codes,
             available: body.available,
         }
-        const query = `UPDATE ${TABLA_ADDR} SET ? WHERE id_directions='${body.id_directions}'`;
+        const query = `UPDATE ${TABLA_ADDR} SET ? WHERE id_directions='${body.id_directions}' and id_users='${body.id_user}'`;
         return await store.update(query, address);
     }
     /**

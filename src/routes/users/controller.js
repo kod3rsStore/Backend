@@ -32,7 +32,14 @@ function controllerUser(injectedStore){
             available: 1,
             password: await bcrypt.hash(body.password,5),
         }
-            return await store.insert(TABLA_USERS, user);
+            try{
+                await store.insert(TABLA_USERS, user);
+                return {
+                    id_user: user.id_users,
+                }
+            }catch(err){
+                throw err;
+            }
     }
 
     /**
