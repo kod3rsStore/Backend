@@ -10,7 +10,7 @@ const ControllerUser = require('./index')
  * Router endpoint of User
  *@type {router} - Routs to manage Users
  */
-router.post('/', insertUser);
+router.post('/signup', insertUser);
 router.put('/', updateUser);
 router.get('/:id', get);
 /**
