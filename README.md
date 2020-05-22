@@ -46,7 +46,7 @@ npm intall
 ### Execution
 
 ```
-npm run start
+npm run dev
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
@@ -54,7 +54,17 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+```
+npm run test
+```
+## Running the tests with coverage report
+
+```
+npm run coverage
+```
+## API documentation
+Yo need to start the server ``` nom run dev ``` to get access to documentation.
+> Go to:  [http://localhost:3000/api/documentation/swagger/](http://localhost:3000/api/documentation/swagger/)
 
 ### Break down into end to end tests
 

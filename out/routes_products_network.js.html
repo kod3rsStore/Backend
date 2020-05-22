@@ -1,4 +1,32 @@
-/**Network to manage endpoints about Products
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: routes/products/network.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: routes/products/network.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**Network to manage endpoints about Products
  * @module routes/products/network
  */
 const express = require('express');
@@ -51,7 +79,7 @@ async function updateProduct(req, res, next){
 /**
  * API Endpoint to list all Products from the data base.
  * @method GET
- * @returns {Array.<Object>} res - list of Products
+ * @returns {Array.&lt;Object>} res - list of Products
  */
 async function listProducts(req, res, next){
     try{
@@ -65,7 +93,7 @@ async function listProducts(req, res, next){
 * API Endpoint to get a Product with a product ID target.
 * @method GET 
 * @param {params} req - The Product ID 
-* @returns {Array.<Object>} res - Product
+* @returns {Array.&lt;Object>} res - Product
 */
 async function getProduct(req, res, next){
     try{
@@ -80,7 +108,7 @@ async function getProduct(req, res, next){
  * API Endpoint to fetch all products sorted by date, from latest uploaded and a qty limited.
  * @method GET 
  * @param {Object} req - q: The QTY of products to be sent to client. 
- * @returns {Array.<Object>} res - result of products list sorted by date.
+ * @returns {Array.&lt;Object>} res - result of products list sorted by date.
  */
 async function latestProducts(req, res, next){
     try {
@@ -95,7 +123,7 @@ async function latestProducts(req, res, next){
 * API Endpoint to search all products with a word that match into the product description or title.
 * @method GET 
 * @param {query} req - s: The word to search into the products
-* @returns {Array.<Object>} res - Product list that match with the word in the database.
+* @returns {Array.&lt;Object>} res - Product list that match with the word in the database.
 * @example ?s=word_to_search
 */
 async function searchProductsByName(req, res, next){
@@ -111,7 +139,7 @@ async function searchProductsByName(req, res, next){
 * API Endpoint to search all products that match with a product category.
 * @method GET 
 * @param {query} req - The category id
-* @returns {Array.<Object>} res - Product list that match with the category.
+* @returns {Array.&lt;Object>} res - Product list that match with the category.
 * @example ?cat_id=category_id
 */
 async function searchProductsByCategory(req, res, next){
@@ -132,8 +160,8 @@ async function searchProductsByCategory(req, res, next){
 *   @param {string} req.query.s - key word to search into table
 *   @param {string} req.query.c - category id
 *   @param {string} req.query.sort - can be 'asc' 'desc'
-* @returns {Array.<Object>} res - Product list that match with the price range.
-* @example ?min_price=1&max_price=5&c=hombres&sort=asc   ?min_price=1&max_price=5&s=jeans&sort=desc
+* @returns {Array.&lt;Object>} res - Product list that match with the price range.
+* @example ?min_price=1&amp;max_price=5&amp;c=hombres&amp;sort=asc   ?min_price=1&amp;max_price=5&amp;s=jeans&amp;sort=desc
 */
 async function searchProductsByPrice(req, res, next){
     try{
@@ -144,4 +172,26 @@ async function searchProductsByPrice(req, res, next){
     }        
 }
 
-module.exports = router;
+module.exports = router;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-mysql.html">mysql</a></li><li><a href="module-routes_addresses_controller.html">routes/addresses/controller</a></li><li><a href="module-routes_addresses_network.html">routes/addresses/network</a></li><li><a href="module-routes_categories_controller.html">routes/categories/controller</a></li><li><a href="module-routes_categories_network.html">routes/categories/network</a></li><li><a href="module-routes_products_controller.html">routes/products/controller</a></li><li><a href="module-routes_products_network.html">routes/products/network</a></li><li><a href="module-routes_shopping_carts_controller.html">routes/shopping_carts/controller</a></li><li><a href="module-routes_shopping_carts_network.html">routes/shopping_carts/network</a></li><li><a href="module-routes_user_controller.html">routes/user/controller</a></li><li><a href="module-routes_user_network.html">routes/user/network</a></li><li><a href="module-server.html">server</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri May 22 2020 14:53:06 GMT-0500 (Colombia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

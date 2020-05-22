@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: routes/user/network</title>
+    <title>JSDoc: Module: routes/addresses/network</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: routes/user/network</h1>
+    <h1 class="page-title">Module: routes/addresses/network</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Network to manage endpoints about Users</div>
+            <div class="description">Network to manage endpoints about Addresses of an user</div>
         
 
         
@@ -87,7 +87,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_users_network.js.html">routes/users/network.js</a>, <a href="routes_users_network.js.html#line1">line 1</a>
+        <a href="routes_addresses_network.js.html">routes/addresses/network.js</a>, <a href="routes_addresses_network.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -152,7 +152,7 @@
 
 
 <div class="description">
-    API Endpoint to get an User with an ID target.
+    API Endpoint to get all Addresses with an user ID target.
 </div>
 
 
@@ -194,7 +194,7 @@
             <td class="type">
             
                 
-<span class="param-type">params</span>
+<span class="param-type">Object</span>
 
 
             
@@ -204,7 +204,7 @@
 
             
 
-            <td class="description last">The User ID</td>
+            <td class="description last">The user ID</td>
         </tr>
 
     
@@ -245,7 +245,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_users_network.js.html">routes/users/network.js</a>, <a href="routes_users_network.js.html#line56">line 56</a>
+        <a href="routes_addresses_network.js.html">routes/addresses/network.js</a>, <a href="routes_addresses_network.js.html#line42">line 42</a>
     </li></ul></dd>
     
 
@@ -274,7 +274,7 @@
 
         
 <div class="param-desc">
-    res - User
+    res - Addresses own to user id
 </div>
 
 
@@ -311,7 +311,7 @@
 
 
 <div class="description">
-    API Endpoint to insert an User in the data base.
+    API Endpoint to insert an Address in the data base.
 </div>
 
 
@@ -363,7 +363,7 @@
 
             
 
-            <td class="description last">The User information</td>
+            <td class="description last">The address information</td>
         </tr>
 
     
@@ -404,7 +404,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_users_network.js.html">routes/users/network.js</a>, <a href="routes_users_network.js.html#line16">line 16</a>
+        <a href="routes_addresses_network.js.html">routes/addresses/network.js</a>, <a href="routes_addresses_network.js.html#line13">line 13</a>
     </li></ul></dd>
     
 
@@ -433,7 +433,7 @@
 
         
 <div class="param-desc">
-    res - result of User insertion
+    res - result of Address insertion
 </div>
 
 
@@ -453,14 +453,6 @@
     
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>body = {
-         "email": "email@host.com"
-	        "password": "1234"     
-     }</code></pre>
 
 
 
@@ -478,7 +470,7 @@
 
 
 <div class="description">
-    API Endpoint to update an User information.
+    API Endpoint to update an Address in the data base.
 </div>
 
 
@@ -530,7 +522,7 @@
 
             
 
-            <td class="description last">The User information to be updated</td>
+            <td class="description last">The Address information to be updated</td>
         </tr>
 
     
@@ -571,7 +563,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_users_network.js.html">routes/users/network.js</a>, <a href="routes_users_network.js.html#line36">line 36</a>
+        <a href="routes_addresses_network.js.html">routes/addresses/network.js</a>, <a href="routes_addresses_network.js.html#line28">line 28</a>
     </li></ul></dd>
     
 
@@ -600,7 +592,7 @@
 
         
 <div class="param-desc">
-    res - result of User update
+    res - result of Address update operation
 </div>
 
 
@@ -620,14 +612,6 @@
     
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>body = {
-         "email": "email@host.com"
-	        "password": "1234"     
-     }</code></pre>
 
 
 

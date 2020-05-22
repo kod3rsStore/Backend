@@ -10,7 +10,7 @@ const ControllerUser = require('./index')
  * Router endpoint of User
  *@type {router} - Routs to manage Users
  */
-router.post('/', insertUser);
+router.post('/signup', insertUser);
 router.put('/', updateUser);
 router.get('/:id', get);
 /**
@@ -57,7 +57,7 @@ async function updateUser(req, res, next){
  * API Endpoint to get an User with an ID target.
  * @method GET 
  * @param {params} req - The User ID 
- * @returns {<Object[]>} res - User
+ * @returns {Array.<Object>} res - User
  */
 async function get(req, res, next){
     try {
