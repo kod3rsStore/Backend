@@ -3,7 +3,7 @@
  */
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const mock = require('./mock.json');
+const mock = require('./mockup.json');
 
 chai.should();
 chai.use(chaiHttp);
