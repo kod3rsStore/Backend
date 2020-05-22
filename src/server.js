@@ -15,7 +15,7 @@ app.use(express.json());
 /**
  * API Routes 
  */
-app.use('/api/user', user);
+app.use('/api/user/signup', user);
 app.use('/api/products', products);
 app.use('/api/categories', categories);
 app.use('/api/addresses', addresses);

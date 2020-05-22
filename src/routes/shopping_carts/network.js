@@ -53,7 +53,7 @@ async function getShoppingCartUser(req, res, next){
 async function removeProductFromCart(req, res, next){
     try {
         const removeProductCartResult = await ControllerShoppingCart.removeProductFromCart(req.body.id_user, req.body.id_product);
-        response.success(req, res, removeProductCartResult, 200);
+        response.success(req, res, removeProductCartResult, 201);
     } catch( err){
         response.error(req, res, err.message, 500, 'error network shopping cart - remove product from shopping cart');
     }
