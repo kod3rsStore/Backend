@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: routes/user/network</title>
+    <title>JSDoc: Module: routes/categories/network</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: routes/user/network</h1>
+    <h1 class="page-title">Module: routes/categories/network</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Network to manage endpoints about Users</div>
+            <div class="description">Network to manage endpoints about Categories</div>
         
 
         
@@ -87,7 +87,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_users_network.js.html">routes/users/network.js</a>, <a href="routes_users_network.js.html#line1">line 1</a>
+        <a href="routes_categories_network.js.html">routes/categories/network.js</a>, <a href="routes_categories_network.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -144,6 +144,116 @@
     
 
     
+    <h4 class="name" id="~GET"><span class="type-signature">(inner) </span>GET<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;Object>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    API Endpoint to list all Categories of the data base.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_categories_network.js.html">routes/categories/network.js</a>, <a href="routes_categories_network.js.html#line45">line 45</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    res - list of Categories
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;Object></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="~GET"><span class="type-signature">(inner) </span>GET<span class="signature">(req)</span><span class="type-signature"> &rarr; {Array.&lt;Object>}</span></h4>
     
 
@@ -152,7 +262,7 @@
 
 
 <div class="description">
-    API Endpoint to get an User with an ID target.
+    API Endpoint to get a Category with a category ID target.
 </div>
 
 
@@ -194,7 +304,7 @@
             <td class="type">
             
                 
-<span class="param-type">params</span>
+<span class="param-type">Object</span>
 
 
             
@@ -204,7 +314,7 @@
 
             
 
-            <td class="description last">The User ID</td>
+            <td class="description last">The Category ID</td>
         </tr>
 
     
@@ -245,7 +355,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_users_network.js.html">routes/users/network.js</a>, <a href="routes_users_network.js.html#line56">line 56</a>
+        <a href="routes_categories_network.js.html">routes/categories/network.js</a>, <a href="routes_categories_network.js.html#line58">line 58</a>
     </li></ul></dd>
     
 
@@ -274,7 +384,7 @@
 
         
 <div class="param-desc">
-    res - User
+    res - Category
 </div>
 
 
@@ -311,7 +421,7 @@
 
 
 <div class="description">
-    API Endpoint to insert an User in the data base.
+    API Endpoint to create a Category in the categories table of data base.
 </div>
 
 
@@ -363,7 +473,7 @@
 
             
 
-            <td class="description last">The User information</td>
+            <td class="description last">The Category information</td>
         </tr>
 
     
@@ -404,7 +514,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_users_network.js.html">routes/users/network.js</a>, <a href="routes_users_network.js.html#line16">line 16</a>
+        <a href="routes_categories_network.js.html">routes/categories/network.js</a>, <a href="routes_categories_network.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -433,7 +543,7 @@
 
         
 <div class="param-desc">
-    res - result of User insertion
+    res - result of Category insertion
 </div>
 
 
@@ -453,14 +563,6 @@
     
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>body = {
-         "email": "email@host.com"
-	        "password": "1234"     
-     }</code></pre>
 
 
 
@@ -478,7 +580,7 @@
 
 
 <div class="description">
-    API Endpoint to update an User information.
+    API Endpoint to update a Category in the categories table of data base.
 </div>
 
 
@@ -530,7 +632,7 @@
 
             
 
-            <td class="description last">The User information to be updated</td>
+            <td class="description last">The Category information to be updated</td>
         </tr>
 
     
@@ -571,7 +673,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="routes_users_network.js.html">routes/users/network.js</a>, <a href="routes_users_network.js.html#line36">line 36</a>
+        <a href="routes_categories_network.js.html">routes/categories/network.js</a>, <a href="routes_categories_network.js.html#line30">line 30</a>
     </li></ul></dd>
     
 
@@ -600,7 +702,7 @@
 
         
 <div class="param-desc">
-    res - result of User update
+    res - result of Category update operation
 </div>
 
 
@@ -620,14 +722,6 @@
     
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>body = {
-         "email": "email@host.com"
-	        "password": "1234"     
-     }</code></pre>
 
 
 

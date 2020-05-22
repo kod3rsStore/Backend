@@ -43,7 +43,7 @@ async function updateAddress(req, res, next){
  * API Endpoint to get all Addresses with an user ID target.
  * @method GET 
  * @param {Object} req - The user ID 
- * @returns {<Object[]>} res - Addresses own to user id
+ * @returns {Array.<Object>} res - Addresses own to user id
  */
 async function getAddresses(req, res, next){
     try{

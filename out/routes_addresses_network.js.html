@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: routes/users/network.js</title>
+    <title>JSDoc: Source: routes/addresses/network.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: routes/users/network.js</h1>
+    <h1 class="page-title">Source: routes/addresses/network.js</h1>
 
     
 
@@ -26,75 +26,62 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**Network to manage endpoints about Users
- * @module routes/user/network
+            <pre class="prettyprint source linenums"><code>/**Network to manage endpoints about Addresses of an user
+ * @module routes/addresses/network
  */
 const express = require('express');
 const router = express.Router();
 const response = require('../../../network/response');
-const ControllerUser = require('./index')
+const ControllerAddresses = require('./index')
 
+//Router
+router.post('/', insertAddress);
+router.put('/', updateAddress);
+router.get('/:id', getAddresses);
 /**
- * Router endpoint of User
- *@type {router} - Routs to manage Users
- */
-router.post('/signup', insertUser);
-router.put('/', updateUser);
-router.get('/:id', get);
-/**
- * API Endpoint to insert an User in the data base.
+ * API Endpoint to insert an Address in the data base.
  * @method POST 
- * @param {Object} req - The User information 
- * @returns {Object} res - result of User insertion
- * @example
- *      body = {
- *          "email": "email@host.com"
- * 	        "password": "1234"     
- *      }
+ * @param {Object} req - The address information 
+ * @returns {Object} res - result of Address insertion
  */
-async function insertUser(req, res, next){
-    try {
-        const userRes = await ControllerUser.insertUser(req.body);
-        response.success(req, res, userRes, 201);
-    } catch( err){
-        response.error(req, res, err.message, 500, 'error network user Insert');
+async function insertAddress(req, res, next){
+    try{
+        const resInsertAddress = await ControllerAddresses.insertAddress(req.body);
+        response.success(req, res, resInsertAddress, 201);
+    }catch(err){
+        response.error(req, res, err.message, 500, 'error network insert Addresses');
     }
 }
 
 /**
- * API Endpoint to update an User information.
+ * API Endpoint to update an Address in the data base.
  * @method PUT 
- * @param {Object} req - The User information to be updated
- * @returns {Object} res - result of User update
- * @example
- *      body = {
- *          "email": "email@host.com"
- * 	        "password": "1234"     
- *      }
+ * @param {Object} req - The Address information to be updated
+ * @returns {Object} res - result of Address update operation
  */
-async function updateUser(req, res, next){
-    try {
-        const updateRes = await ControllerUser.updateUser(req.body);
-        response.success(req, res, updateRes, 201);
-    } catch( err){
-        response.error(req, res, err.message, 500, 'error network user update');
+async function updateAddress(req, res, next){
+    try{
+        const resUpdateAddress = await ControllerAddresses.updateAddress(req.body);
+        response.success(req, res, resUpdateAddress, 201);
+    }catch(err){
+        response.error(req, res, err.message, 500, 'error network Update Addresses');
+    }
+}
+/**
+ * API Endpoint to get all Addresses with an user ID target.
+ * @method GET 
+ * @param {Object} req - The user ID 
+ * @returns {Array.&lt;Object>} res - Addresses own to user id
+ */
+async function getAddresses(req, res, next){
+    try{
+        const resGetAddresses = await ControllerAddresses.getAddresses(req.params.id);
+        response.success(req, res, resGetAddresses, 200);
+    }catch(err){
+        response.error(req, res, err.message, 500, 'error network get Addresses');
     }
 }
 
-/**
- * API Endpoint to get an User with an ID target.
- * @method GET 
- * @param {params} req - The User ID 
- * @returns {Array.&lt;Object>} res - User
- */
-async function get(req, res, next){
-    try {
-        const userGetById = await ControllerUser.getUser(req.params.id);
-        response.success(req, res, userGetById, 200);
-    } catch( err){
-        response.error(req, res, err.message, 500, 'error network user');
-    }
-}
 module.exports = router;</code></pre>
         </article>
     </section>

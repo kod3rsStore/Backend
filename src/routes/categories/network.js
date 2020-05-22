@@ -45,7 +45,7 @@ async function updateCategory(req, res, next){
 /**
  * API Endpoint to list all Categories of the data base.
  * @method GET
- * @returns {<Object[]>} res - list of Categories
+ * @returns {Array.<Object>} res - list of Categories
  */
 async function listCategories(req, res, next){
     try{
@@ -59,7 +59,7 @@ async function listCategories(req, res, next){
 * API Endpoint to get a Category with a category ID target.
 * @method GET 
 * @param {Object} req - The Category ID 
-* @returns {<Object[]>} res - Category
+* @returns {Array.<Object>} res - Category
 */
 async function getCategoryById(req, res, next){
     try{

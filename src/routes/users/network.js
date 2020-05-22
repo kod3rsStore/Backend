@@ -57,7 +57,7 @@ async function updateUser(req, res, next){
  * API Endpoint to get an User with an ID target.
  * @method GET 
  * @param {params} req - The User ID 
- * @returns {<Object[]>} res - User
+ * @returns {Array.<Object>} res - User
  */
 async function get(req, res, next){
     try {
