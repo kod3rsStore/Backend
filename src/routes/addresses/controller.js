@@ -12,6 +12,7 @@ function controllerAddresses(injectedStore){
     }
     /**
      * Logic to insert an Address into the store.
+     * @method POST
      * @param {Object} body - The Address information: body.user_id: user id own of address  
      * @returns {Promise<object[]>} res - result of Address insertion
      */
@@ -51,6 +52,7 @@ function controllerAddresses(injectedStore){
     }
     /**
      * Logic to get all Addresses with an user ID target.
+     * @method GET
      * @param {string} id_user - The User ID of addresses target 
      * @returns {Promise<object[]>} res - addresses list own to an user ID
      */
