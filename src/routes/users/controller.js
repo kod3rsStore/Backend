@@ -4,7 +4,7 @@
 const { nanoid } = require('nanoid');
 const bcrypt = require('bcryptjs');
 
-const TABLA_USERS = 'users';
+const TABLA_USERS = 'Users';
 
 function controllerUser(injectedStore){
     let store = injectedStore;
@@ -76,10 +76,22 @@ function controllerUser(injectedStore){
         return await store.get(query);
     }
 
+    /**
+     * Logic to get one User by email.
+     * @param {string} email - The User email 
+     * @returns {Promise<object[]>} res - result of one User
+     */
+    async function getUserbyEmail(email){
+        const query = `SELECT * FROM ${TABLA_USERS} WHERE email='${email}'`;
+        return await store.get(query);
+    }
+
+
     return {
         insertUser,
         getUser,
         updateUser,
+        getUserbyEmail,
     }
 }
 
