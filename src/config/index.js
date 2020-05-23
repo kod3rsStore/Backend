@@ -8,8 +8,15 @@ const config = {
         host: process.env.DB_HOST,
         database: process.env.DB_NAME,
         port: process.env.DB_PORT,
-        flags: process.env.DB_FLAGS
+        flags: process.env.DB_FLAGS,
       },
+      defaultAdminPassword: process.env.DEFAULT_ADMIN_PASSWORD,
+      defaultUserPassword: process.env.DEFAULT_USER_PASSWORD,
+      authJwtSecret:process.env.AUTH_JWT_SECRET,
+      publicApiKeyToken:process.env.PUBLIC_API_KEY_TOKEN,
+      userApiKeyToken:process.env.USER_API_KEY_TOKEN,
+      adminApiKeyToken:process.env.ADMIN_API_KEY_TOKEN,
+      sellerApiKeyToken:process.env.SELLER_API_KEY_TOKEN,
 }
 
 module.exports = config;
