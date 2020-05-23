@@ -1,4 +1,4 @@
-[
+const module_access = [
     {
         "id_module_access": "",
         "module":"user",
@@ -86,8 +86,9 @@
         "id_security_levels": "V1Ser3d8_Z5jdHi6B-myT"
     },{
         "id_module_access": "",
-        "module":"",
-        "endpoint": "",
+        "module":"products",
+        "endpoint": "read",
         "id_security_levels": "KSdE5EstgZ5jdHi6B-myT"
     },
-]
+];
+module.exports=module_access;

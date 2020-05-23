@@ -4,7 +4,8 @@ require('dotenv').config({path: '../../.env'})
 const chalk = require('chalk');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
-const debug = require('debug')('app:scripts:api-keys');
+const { nanoid } = require('nanoid');
+const debug = require('debug')('app:scripts:seed');
 const config = require('../../src/config');
 const store = require('../../src/store/mysql');
 
@@ -34,9 +35,9 @@ const users = require('../mocks/users')
 users.forEach(async (item) => {
     let pass;
     if(item.security_code==1){
-        pass= await bcrypt.hash(config.defaultAdminPassword, 10);
+        pass= await bcrypt.hash(config.defaultAdminPassword, 5);
     }else{
-        pass = await bcrypt.hash(config.defaultUserPassword, 10);
+        pass = await bcrypt.hash(config.defaultUserPassword, 5);
     }
     const data = {
     id_users: item.id_users,
@@ -162,7 +163,26 @@ debug(chalk.green(`Inserting Product_photos`));
 const categories = require('../mocks/categories')
 //Saving states table
 categories.forEach(async (item) => {
-    return await store.insert('Categories', item);
+    //return await store.insert('Categories', item);
 })
 debug(chalk.green(`Inserting Categories`)); 
+/*
+*Procesing the module_access Mock
+*
+*/
+const module_access = require('../mocks/module_access')
+//Saving states table
+module_access.forEach(async (item) => {
+
+    const data = {
+        id_module_access:  nanoid(),
+        module:item.module,
+        endpoint: item.endpoint,
+        id_security_levels: item.id_security_levels
+    }
+
+    //console.log(data);
+    return await store.insert('Module_access', data);
+})
+debug(chalk.green(`Inserting Module_access`)); 
 
