@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 161.35.49.22:3306
--- Generation Time: May 23, 2020 at 08:29 AM
+-- Generation Time: May 23, 2020 at 08:39 PM
 -- Server version: 8.0.20
 -- PHP Version: 7.4.5
 
@@ -41,7 +41,7 @@ CREATE TABLE `Albums` (
 
 CREATE TABLE `Categories` (
   `id_categories` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `description` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `description` varchar(200) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `id_parent_category` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `creation_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -165,6 +165,7 @@ CREATE TABLE `Postal_codes` (
 
 CREATE TABLE `Products` (
   `id_products` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `title` varchar(150) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `description` varchar(200) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `cost` bigint NOT NULL,
   `quantity` int NOT NULL,
@@ -173,7 +174,7 @@ CREATE TABLE `Products` (
   `available` tinyint(1) NOT NULL,
   `id_countries` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `id_albums` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `id_categories` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `id_categories` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `score` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -204,7 +205,7 @@ CREATE TABLE `Security_levels` (
   `security_level_description` varchar(250) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `available` tinyint(1) NOT NULL,
   `creation_date` date NOT NULL,
-  `token` varchar(200) COLLATE utf8_spanish_ci NOT NULL
+  `token` varchar(200) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -270,7 +271,7 @@ CREATE TABLE `Users` (
   `last_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `email` varchar(250) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `photo` varchar(500) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `security_code` varchar(5) COLLATE utf8_spanish_ci NOT NULL,
+  `security_code` varchar(5) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `creation_date` date DEFAULT NULL,
   `score` int NOT NULL,
   `available` tinyint(1) NOT NULL
@@ -283,8 +284,8 @@ CREATE TABLE `Users` (
 --
 
 CREATE TABLE `User_types` (
-  `id_user_types` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `user_type` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `id_user_types` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `user_type` varchar(250) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `user_type_code` int NOT NULL,
   `available` tinyint(1) NOT NULL,
   `creation_date` date NOT NULL

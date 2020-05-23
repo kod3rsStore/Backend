@@ -2,7 +2,7 @@
 require('dotenv').config({path: '../../.env'})
 
 const chalk = require('chalk');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const { nanoid } = require('nanoid');
 const debug = require('debug')('app:scripts:seed');
