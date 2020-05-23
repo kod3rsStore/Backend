@@ -182,7 +182,55 @@ module_access.forEach(async (item) => {
     }
 
     //console.log(data);
-    return await store.insert('Module_access', data);
+    //return await store.insert('Module_access', data);
 })
 debug(chalk.green(`Inserting Module_access`)); 
+
+/*
+*Procesing the directions Mock
+*
+*/
+const directions = require('../mocks/directions')
+//Saving states table
+directions.forEach(async (item) => {
+    //return await store.insert('Directions', item);
+})
+debug(chalk.green(`Inserting Directions`)); 
+
+/*
+*Procesing the currencies Mock
+*
+*/
+const currencies = require('../mocks/currencies')
+//Saving states table
+currencies.forEach(async (item) => {
+    //return await store.insert('Currencies', item);
+})
+debug(chalk.green(`Inserting Currencies`)); 
+/*
+*Procesing the countries_catalog Mock
+*
+*/
+const countries_catalog = require('../mocks/countries_catalog')
+//Saving states table
+countries_catalog.forEach(async (item) => {
+    //return await store.insert('Countries_catalog', item);
+})
+debug(chalk.green(`Inserting Countries_catalog`)); 
+
+/*
+*Procesing the cities_catalog Mock
+*
+*/
+debug(chalk.green(`Inserting Cities_catalog`)); 
+const cities_catalog = require('../mocks/cities_catalog')
+//Saving states table
+let i=0;
+cities_catalog.forEach(async (item) => {
+    debug(chalk.green(`Inserting City number ${i++}`)); 
+    return await store.insert('Cities_catalog', item);
+})
+
+
+
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 161.35.49.22:3306
--- Generation Time: May 22, 2020 at 08:00 PM
+-- Generation Time: May 23, 2020 at 08:29 AM
 -- Server version: 8.0.20
 -- PHP Version: 7.4.5
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `Albums` (
-  `id_albums` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `id_albums` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(250) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `created_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -40,8 +40,9 @@ CREATE TABLE `Albums` (
 --
 
 CREATE TABLE `Categories` (
-  `id_categories` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `description` int NOT NULL,
+  `id_categories` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `description` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `id_parent_category` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `creation_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -52,10 +53,9 @@ CREATE TABLE `Categories` (
 --
 
 CREATE TABLE `Cities_catalog` (
-  `id_cities_catalog` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `id_cities_catalog` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `city` varchar(250) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `id_states_catalog` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `id_postal_codes` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `id_states_catalog` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `available` tinyint(1) NOT NULL,
   `creation_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -93,16 +93,16 @@ CREATE TABLE `Currencies` (
 --
 
 CREATE TABLE `Directions` (
-  `id_directions` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `id_cities_catalog` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `id_countries_catalog` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `id_states_catalog` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `id_directions` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `id_cities_catalog` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `id_countries_catalog` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `id_states_catalog` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `street` varchar(250) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `street_number` varchar(250) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `id_postal_codes` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `id_postal_codes` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `available` tinyint(1) NOT NULL,
   `creation_date` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `id_users` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
+  `id_users` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -164,24 +164,18 @@ CREATE TABLE `Postal_codes` (
 --
 
 CREATE TABLE `Products` (
-  `id_products` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `id_products` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(200) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `cost` bigint NOT NULL,
   `quantity` int NOT NULL,
   `creation_date` date NOT NULL,
-  `id_seller` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `id_users_seller` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `available` tinyint(1) NOT NULL,
-  `id_countries` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `id_albums` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `id_countries` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `id_albums` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `id_categories` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `score` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Dumping data for table `Products`
---
-
-INSERT INTO `Products` (`id_products`, `description`, `cost`, `quantity`, `creation_date`, `id_seller`, `available`, `id_countries`, `id_albums`, `score`) VALUES
-('iddelproducto', 'esta es la description', 200, 12, '2020-05-18', '123', 1, '123', '123', 4);
 
 -- --------------------------------------------------------
 
@@ -190,10 +184,10 @@ INSERT INTO `Products` (`id_products`, `description`, `cost`, `quantity`, `creat
 --
 
 CREATE TABLE `Product_photos` (
-  `id_product_photos` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `id_product_photos` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(250) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `photo` varchar(500) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `id_albums` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `id_albums` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `created_date` date NOT NULL,
   `visible` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -271,7 +265,7 @@ CREATE TABLE `States_catalog` (
 CREATE TABLE `Users` (
   `id_users` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `login` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `password` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `first_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `last_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `email` varchar(250) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
