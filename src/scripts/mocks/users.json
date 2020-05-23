@@ -1,4 +1,4 @@
-  {
+module.exports =  [{
     "id_users": "cbba56ca-60a1-4ad1-b9",
     "login": "dmorfett0",
     "password": "MIAMhi",
@@ -70,7 +70,7 @@
     "last_name": "Gummow",
     "email": "lgummow5@blog.com",
     "photo": "http://dummyimage.com/208x243.bmp/cc0000/ffffff",
-    "security_code": 5,
+    "security_code": 2,
     "creation_date": "5/21/2020",
     "score": 4,
     "available": false
@@ -109,7 +109,7 @@
     "last_name": "Rowntree",
     "email": "prowntree8@buzzfeed.com",
     "photo": "http://dummyimage.com/193x125.bmp/dddddd/000000",
-    "security_code": 2,
+    "security_code": 3,
     "creation_date": "5/21/2020",
     "score": 5,
     "available": false
@@ -127,3 +127,4 @@
     "score": 4,
     "available": false
   }
+]
