@@ -1,25 +1,26 @@
-[
+const categories = [
     {
         "id_categories":"00000001",
         "description": "Caballeros",
-        "id_parent_category": "",
-        "creation_date":"5/21/2020"
+        "id_parent_category": null,
+        "creation_date":"2020/05/21"
     },
     {
         "id_categories":"00000002",
         "description": "Damas",
-        "id_parent_category": "",
-        "creation_date":"5/21/2020"
+        "id_parent_category": null,
+        "creation_date":"2020/05/21"
     },    {
         "id_categories":"00000003",
         "description": "Accesorios",
-        "id_parent_category": "",
-        "creation_date":"5/21/2020"
+        "id_parent_category": null,
+        "creation_date":"2020/05/21"
     },    {
         "id_categories":"00000004",
         "description": "Ropa Deportiva Caballero",
         "id_parent_category": "00000001",
-        "creation_date":"5/21/2020"
+        "creation_date":"2020/05/21"
     }
 
-]
+];
+module.exports = categories;

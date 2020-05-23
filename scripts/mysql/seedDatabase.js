@@ -144,4 +144,25 @@ albums.forEach(async (item) => {
 })
 debug(chalk.green(`Inserting Albums`)); 
 
+/*
+*Procesing the product_photos Mock
+*
+*/
+const product_photos = require('../mocks/product_photos')
+//Saving states table
+product_photos.forEach(async (item) => {
+    //return await store.insert('Product_photos', item);
+})
+debug(chalk.green(`Inserting Product_photos`)); 
+
+/*
+*Procesing the categories Mock
+*
+*/
+const categories = require('../mocks/categories')
+//Saving states table
+categories.forEach(async (item) => {
+    return await store.insert('Categories', item);
+})
+debug(chalk.green(`Inserting Categories`)); 
 
