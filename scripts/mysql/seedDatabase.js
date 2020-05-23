@@ -119,8 +119,29 @@ debug(chalk.green(`Inserting Security_levels`));
 const states = require('../mocks/states')
 //Saving states table
 states.forEach(async (item) => {
-    return await store.insert('States_catalog', item);
+    //return await store.insert('States_catalog', item);
 })
 debug(chalk.green(`Inserting States`)); 
+
+/*
+*Procesing the products Mock
+*
+*/
+const products = require('../mocks/products')
+//Saving states table
+products.forEach(async (item) => {
+    //return await store.insert('Products', item);
+})
+debug(chalk.green(`Inserting Products`)); 
+/*
+*Procesing the albums Mock
+*
+*/
+const albums = require('../mocks/albums')
+//Saving states table
+albums.forEach(async (item) => {
+    //return await store.insert('Albums', item);
+})
+debug(chalk.green(`Inserting Albums`)); 
 
 
