@@ -96,9 +96,26 @@ function get(query){
         })
     })
 }
+
+/**
+ * delete method. Be carefully - yo can delete the whole content of table
+ * @param {string} query - The customized query 
+ * @returns {Promise} - results from Dada base delete operation.
+ */
+function remove(query){
+    return new Promise( (resolve, reject) => {
+        connection.query(query, (err, data) => {
+            if (err){
+                return reject(err);
+            }
+            resolve(data || null);
+        })
+    })
+}
 module.exports = {
     insert,
     update,
     list,
     get,
+    remove,
 }

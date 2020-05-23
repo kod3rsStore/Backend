@@ -1,4 +1,32 @@
-/**Controller to manage store of products endpoint
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: routes/products/controller.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: routes/products/controller.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**Controller to manage store of products endpoint
  * @module routes/products/controller
  */
 const { nanoid } = require('nanoid');
@@ -15,7 +43,7 @@ function controllerProducts(injectedStore){
     /**
      * Logic to insert a Product into the store.
      * @param {Object} body - The Product information 
-     * @returns {Promise<object[]>} res - result of Product insertion
+     * @returns {Promise&lt;object[]>} res - result of Product insertion
      */
     async function insertProduct(body) {
         const product = {
@@ -107,7 +135,7 @@ function controllerProducts(injectedStore){
 
     /**
      * Logic to list all Products of the store.
-     * @returns {Promise<object[]>} res - List of Products
+     * @returns {Promise&lt;object[]>} res - List of Products
      */
     async function listProducts(){
         return await store.list(TABLA_PRODUCTS);
@@ -116,7 +144,7 @@ function controllerProducts(injectedStore){
     /**
      * Logic to get one Product with a product ID target.
      * @param {string} id - The product ID target 
-     * @returns {Promise<object[]>} res - result of one Product
+     * @returns {Promise&lt;object[]>} res - result of one Product
      */
     async function getProduct(id){
         const query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE id_products='${id}'`;
@@ -126,7 +154,7 @@ function controllerProducts(injectedStore){
     /**
     * Logic to get all products sorted by latest uploaded.
     * @param {string} qty - quantity of products to send to client.
-    * @returns {Promise<object[]>} res - Product list sorted by 'latest uploaded'.
+    * @returns {Promise&lt;object[]>} res - Product list sorted by 'latest uploaded'.
     */
     async function getLatestProducts(qty){
         const query = `SELECT * FROM ${TABLA_PRODUCTS} ORDER BY creation_date DESC LIMIT ${qty}`;    
@@ -135,7 +163,7 @@ function controllerProducts(injectedStore){
     /**
     * Logic to get all products that match with the word to search.
     * @param {string} searchWord - The word to search into the products
-    * @returns {Promise<object[]>} res - Product list that match with the word to search.
+    * @returns {Promise&lt;object[]>} res - Product list that match with the word to search.
     */
     async function getProductsByName(searchWord){
         const query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE product_title like'%${searchWord}%' or description like '%${searchWord}%'`;
@@ -144,7 +172,7 @@ function controllerProducts(injectedStore){
     /**
     * Logic to get all products that match with a category.
     * @param {string} cat_id - The category id
-    * @returns {Promise<object[]>} res - Product list that match with the category id.
+    * @returns {Promise&lt;object[]>} res - Product list that match with the category id.
     */
     async function getProductsByCategory(cat_id){
         const query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE id_categories='${cat_id}'`;
@@ -158,7 +186,7 @@ function controllerProducts(injectedStore){
     *   @param {string} min_price - The min price
     *   @param {string} max_price - The max price
     *   @param {string} sort - sort by price ASC/DESC can be 'asc' 'desc'
-    * @returns {Promise<object[]>} res - Product list that match with the word to search.
+    * @returns {Promise&lt;object[]>} res - Product list that match with the word to search.
     */
     async function getProductsByPrice(dataInQuery){
         const min_price = dataInQuery.min_price || 0;
@@ -177,11 +205,11 @@ function controllerProducts(injectedStore){
             orderBy = "";
         }
         if(categoryId){
-            query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE id_categories='${categoryId}' and cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;
+            query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE id_categories='${categoryId}' and cost >= ${min_price} and cost &lt;= ${max_price} ${orderBy}`;
         }else if(productName){
-            query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE (product_title like '%${productName}%' or description like '%${productName}%') and cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;
+            query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE (product_title like '%${productName}%' or description like '%${productName}%') and cost >= ${min_price} and cost &lt;= ${max_price} ${orderBy}`;
         }else{
-            query = `SELECT * FROM ${TABLA_PRODUCTS} ${orderBy} WHERE cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;    
+            query = `SELECT * FROM ${TABLA_PRODUCTS} ${orderBy} WHERE cost >= ${min_price} and cost &lt;= ${max_price} ${orderBy}`;    
         }
         return await store.get(query);
 }
@@ -198,4 +226,26 @@ function controllerProducts(injectedStore){
     }
 }
 
-module.exports = controllerProducts;
+module.exports = controllerProducts;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-mysql.html">mysql</a></li><li><a href="module-routes_addresses_controller.html">routes/addresses/controller</a></li><li><a href="module-routes_addresses_network.html">routes/addresses/network</a></li><li><a href="module-routes_categories_controller.html">routes/categories/controller</a></li><li><a href="module-routes_categories_network.html">routes/categories/network</a></li><li><a href="module-routes_products_controller.html">routes/products/controller</a></li><li><a href="module-routes_products_network.html">routes/products/network</a></li><li><a href="module-routes_shopping_carts_controller.html">routes/shopping_carts/controller</a></li><li><a href="module-routes_shopping_carts_network.html">routes/shopping_carts/network</a></li><li><a href="module-routes_user_controller.html">routes/user/controller</a></li><li><a href="module-routes_user_network.html">routes/user/network</a></li><li><a href="module-server.html">server</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri May 22 2020 14:53:06 GMT-0500 (Colombia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
