@@ -5,12 +5,16 @@ const express = require('express');
 const router = express.Router();
 const response = require('../../../network/response');
 const ControllerCategories = require('./index')
-
+/**Validations */
+const validationHandler = require('../../utils/middleware/validationHandler');
+const { categoryIdSchema } = require('../../utils/schemas/categories');
+const { createCategorySchema } = require('../../utils/schemas/categories');
+const { updateCategorySchema } = require('../../utils/schemas/categories');
 //Routs
-router.post('/', insertCategory);
-router.put('/', updateCategory);
+router.post('/', validationHandler(createCategorySchema), insertCategory);
+router.put('/', validationHandler(updateCategorySchema), updateCategory);
 router.get('/', listCategories);
-router.get('/:id', getCategoryById);
+router.get('/:id', validationHandler(categoryIdSchema, 'params'), getCategoryById);
 
 /**
  * API Endpoint to create a Category in the categories table of data base.

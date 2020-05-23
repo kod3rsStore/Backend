@@ -8,7 +8,7 @@ const Controller = require('./index')
 
 /**Validation */
 const loginSchema = require('../../utils/schemas/login')
-const validationHandler = require('../../../utils/middleware/validationHandler');
+const validationHandler = require('../../utils/middleware/validationHandler');
 
 router.post('/', validationHandler(loginSchema), login);
 
