@@ -52,9 +52,9 @@ users.forEach(async (item) => {
     score: item.score,
     available: item.available
     }
-    //return await store.insert('Users', data);
+    return await store.insert('Users', data);
 })
-debug(chalk.green(`Inserting Users`)); // prettier-ignore
+debug(chalk.green(`Inserting Users`)); 
 /*
 *Procesing the security_levels Mock
 *
@@ -109,7 +109,7 @@ security_levels.forEach(async (item) => {
         token,
     }
 
-    //return await store.insert('Security_levels', data);
+    return await store.insert('Security_levels', data);
 })
 debug(chalk.green(`Inserting Security_levels`)); 
 
@@ -120,7 +120,7 @@ debug(chalk.green(`Inserting Security_levels`));
 const states = require('../mocks/states')
 //Saving states table
 states.forEach(async (item) => {
-    //return await store.insert('States_catalog', item);
+    return await store.insert('States_catalog', item);
 })
 debug(chalk.green(`Inserting States`)); 
 
@@ -131,7 +131,7 @@ debug(chalk.green(`Inserting States`));
 const products = require('../mocks/products')
 //Saving states table
 products.forEach(async (item) => {
-    //return await store.insert('Products', item);
+    return await store.insert('Products', item);
 })
 debug(chalk.green(`Inserting Products`)); 
 /*
@@ -141,7 +141,7 @@ debug(chalk.green(`Inserting Products`));
 const albums = require('../mocks/albums')
 //Saving states table
 albums.forEach(async (item) => {
-    //return await store.insert('Albums', item);
+    return await store.insert('Albums', item);
 })
 debug(chalk.green(`Inserting Albums`)); 
 
@@ -152,7 +152,7 @@ debug(chalk.green(`Inserting Albums`));
 const product_photos = require('../mocks/product_photos')
 //Saving states table
 product_photos.forEach(async (item) => {
-    //return await store.insert('Product_photos', item);
+    return await store.insert('Product_photos', item);
 })
 debug(chalk.green(`Inserting Product_photos`)); 
 
@@ -163,7 +163,7 @@ debug(chalk.green(`Inserting Product_photos`));
 const categories = require('../mocks/categories')
 //Saving states table
 categories.forEach(async (item) => {
-    //return await store.insert('Categories', item);
+    return await store.insert('Categories', item);
 })
 debug(chalk.green(`Inserting Categories`)); 
 /*
@@ -182,7 +182,7 @@ module_access.forEach(async (item) => {
     }
 
     //console.log(data);
-    //return await store.insert('Module_access', data);
+    return await store.insert('Module_access', data);
 })
 debug(chalk.green(`Inserting Module_access`)); 
 
@@ -193,7 +193,7 @@ debug(chalk.green(`Inserting Module_access`));
 const directions = require('../mocks/directions')
 //Saving states table
 directions.forEach(async (item) => {
-    //return await store.insert('Directions', item);
+    return await store.insert('Directions', item);
 })
 debug(chalk.green(`Inserting Directions`)); 
 
@@ -204,7 +204,7 @@ debug(chalk.green(`Inserting Directions`));
 const currencies = require('../mocks/currencies')
 //Saving states table
 currencies.forEach(async (item) => {
-    //return await store.insert('Currencies', item);
+    return await store.insert('Currencies', item);
 })
 debug(chalk.green(`Inserting Currencies`)); 
 /*
@@ -214,7 +214,7 @@ debug(chalk.green(`Inserting Currencies`));
 const countries_catalog = require('../mocks/countries_catalog')
 //Saving states table
 countries_catalog.forEach(async (item) => {
-    //return await store.insert('Countries_catalog', item);
+    return await store.insert('Countries_catalog', item);
 })
 debug(chalk.green(`Inserting Countries_catalog`)); 
 
@@ -227,7 +227,7 @@ const cities_catalog = require('../mocks/cities_catalog')
 //Saving states table
 let i=0;
 cities_catalog.forEach(async (item) => {
-    debug(chalk.green(`Inserting City number ${i++}`)); 
+    //debug(chalk.green(`Inserting City number ${i++}`)); 
     return await store.insert('Cities_catalog', item);
 })
 
