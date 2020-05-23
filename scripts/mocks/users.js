@@ -1,14 +1,14 @@
-module.exports =  [{
+const users =  [{
     "id_users": "cbba56ca-60a1-4ad1-b9",
-    "login": "dmorfett0",
+    "login": "admin",
     "password": "MIAMhi",
     "first_name": "Davide",
     "last_name": "Morfett",
-    "email": "dmorfett0@google.ru",
+    "email": "admin@kod3rsstore.com",
     "photo": "http://dummyimage.com/145x187.png/ff4444/ffffff",
-    "security_code": 2,
-    "creation_date": "5/21/2020",
-    "score": 2,
+    "security_code": 1,
+    "creation_date": "2020/05/21",
+    "score": 5,
     "available": true
   },{
     "id_users": "bcf9862f-e232-4902-ac",
@@ -19,7 +19,7 @@ module.exports =  [{
     "email": "wburgett1@opera.com",
     "photo": "http://dummyimage.com/186x156.jpg/5fa2dd/ffffff",
     "security_code": 2,
-    "creation_date": "5/21/2020",
+    "creation_date": "2020/05/21",
     "score": 4,
     "available": true
   },
@@ -32,7 +32,7 @@ module.exports =  [{
     "email": "pbilborough2@tripod.com",
     "photo": "http://dummyimage.com/198x148.png/dddddd/000000",
     "security_code": 2,
-    "creation_date": "5/21/2020",
+    "creation_date": "2020/05/21",
     "score": 2,
     "available": false
   },
@@ -45,7 +45,7 @@ module.exports =  [{
     "email": "tcochet3@cnbc.com",
     "photo": "http://dummyimage.com/213x225.bmp/cc0000/ffffff",
     "security_code": 2,
-    "creation_date": "5/21/2020",
+    "creation_date": "2020/05/21",
     "score": 3,
     "available": false
   },
@@ -58,7 +58,7 @@ module.exports =  [{
     "email": "gblaschek4@nifty.com",
     "photo": "http://dummyimage.com/135x166.png/cc0000/ffffff",
     "security_code": 2,
-    "creation_date": "5/21/2020",
+    "creation_date": "2020/05/21",
     "score": 5,
     "available": false
   },
@@ -71,7 +71,7 @@ module.exports =  [{
     "email": "lgummow5@blog.com",
     "photo": "http://dummyimage.com/208x243.bmp/cc0000/ffffff",
     "security_code": 2,
-    "creation_date": "5/21/2020",
+    "creation_date": "2020/05/21",
     "score": 4,
     "available": false
   },
@@ -84,7 +84,7 @@ module.exports =  [{
     "email": "dlawford6@xing.com",
     "photo": "http://dummyimage.com/122x204.png/dddddd/000000",
     "security_code": 2,
-    "creation_date": "5/21/2020",
+    "creation_date": "2020/05/21",
     "score": 1,
     "available": false
   },
@@ -97,7 +97,7 @@ module.exports =  [{
     "email": "epigney7@ucsd.edu",
     "photo": "http://dummyimage.com/243x159.bmp/ff4444/ffffff",
     "security_code": 2,
-    "creation_date": "5/21/2020",
+    "creation_date": "2020/05/21",
     "score": 3,
     "available": true
   },
@@ -110,7 +110,7 @@ module.exports =  [{
     "email": "prowntree8@buzzfeed.com",
     "photo": "http://dummyimage.com/193x125.bmp/dddddd/000000",
     "security_code": 3,
-    "creation_date": "5/21/2020",
+    "creation_date": "2020/05/21",
     "score": 5,
     "available": false
   },
@@ -123,8 +123,10 @@ module.exports =  [{
     "email": "pwestmarland9@unblog.fr",
     "photo": "http://dummyimage.com/100x102.bmp/cc0000/ffffff",
     "security_code": 2,
-    "creation_date": "5/21/2020",
+    "creation_date": "2020/05/21",
     "score": 4,
     "available": false
   }
 ]
+
+module.exports = users;

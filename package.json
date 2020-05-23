@@ -29,6 +29,8 @@
     "nanoid": "^3.1.9"
   },
   "devDependencies": {
+    "bcrypt": "^4.0.1",
+    "chalk": "^4.0.0",
     "jsdoc": "^3.6.4",
     "nodemon": "^2.0.4"
   }
