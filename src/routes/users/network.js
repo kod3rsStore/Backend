@@ -5,14 +5,18 @@ const express = require('express');
 const router = express.Router();
 const response = require('../../../network/response');
 const ControllerUser = require('./index')
-
+/**Validations */
+const validationHandler = require('../../utils/middleware/validationHandler');
+const { createUserSchema } = require('../../utils/schemas/users');
+const { updateUserSchema } = require('../../utils/schemas/users');
+const { userIdSchema } = require('../../utils/schemas/users');
 /**
  * Router endpoint of User
  *@type {router} - Routs to manage Users
  */
-router.post('/signup', insertUser);
-router.put('/', updateUser);
-router.get('/:id', get);
+router.post('/signup', validationHandler(createUserSchema) , insertUser);
+router.put('/', validationHandler(updateUserSchema), updateUser);
+router.get('/:id', validationHandler(userIdSchema, 'params'), get);
 /**
  * API Endpoint to insert an User in the data base.
  * @method POST 

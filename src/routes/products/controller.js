@@ -181,7 +181,7 @@ function controllerProducts(injectedStore){
         }else if(productName){
             query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE (product_title like '%${productName}%' or description like '%${productName}%') and cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;
         }else{
-            query = `SELECT * FROM ${TABLA_PRODUCTS} ${orderBy} WHERE cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;    
+            query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;    
         }
         return await store.get(query);
 }
