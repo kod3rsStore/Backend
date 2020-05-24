@@ -24,9 +24,10 @@ function controllerUser(injectedStore){
             last_name: '',
             email: body.email,
             photo: '',
-            security_code: body.security_code,
+            security_code: '2',
             creation_date: new Date(),
-            score: 0,
+            score: 5,
+
             available: 1,
             password: await bcrypt.hash(body.password,5),
         }

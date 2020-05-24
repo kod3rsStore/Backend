@@ -1,6 +1,6 @@
 const directions = [
     {
-        "id_directions": "d9ae36ff-3c77-4949-a6b8-4921e8e201f0",
+        "id_directions": "d9ae36ff-3c77-4949-a6",
         "id_cities_catalog": "1027",
         "id_countries_catalog": "MX",
         "id_states_catalog": "BC",
@@ -12,7 +12,7 @@ const directions = [
         "id_users": "cbba56ca-60a1-4ad1-b9"
     },
     {
-        "id_directions": "5b767ae6-205e-4f38-9f91-469395d12915",
+        "id_directions": "5b767ae6-205e-4f38-9f",
         "id_cities_catalog": "2565",
         "id_countries_catalog": "MX",
         "id_states_catalog": "COA",
@@ -24,7 +24,7 @@ const directions = [
         "id_users": "bcf9862f-e232-4902-ac"
     },
     {
-        "id_directions": "fe45dfbe-a5e1-41af-8fa0-0938fa2eca31",
+        "id_directions": "fe45dfbe-a5e1-41af-8f",
         "id_cities_catalog": "12078",
         "id_countries_catalog": "MX",
         "id_states_catalog": "GRO",
@@ -36,7 +36,7 @@ const directions = [
         "id_users": "449a58fe-2523-4dad-aa"
     },
     {
-        "id_directions": "eb8c0a58-dcb3-4264-a929-ba83565eac71",
+        "id_directions": "eb8c0a58-dcb3-4264-a9",
         "id_cities_catalog": "11005",
         "id_countries_catalog": "MX",
         "id_states_catalog": "GTO",
@@ -48,7 +48,7 @@ const directions = [
         "id_users": "1ff767a4-a287-49b9-94"
     },
     {
-        "id_directions": "dbcf2c8b-dea1-4d4d-ab1d-d6d9660c14c5",
+        "id_directions": "dbcf2c8b-dea1-4d4d-ab",
         "id_cities_catalog": "1027",
         "id_countries_catalog": "MX",
         "id_states_catalog": "BC",
@@ -60,7 +60,7 @@ const directions = [
         "id_users": "c664a763-d0f0-4b90-a9"
     },
     {
-        "id_directions": "d999476a-a989-476f-9ebf-b1b1eed1480f",
+        "id_directions": "d999476a-a989-476f-9e",
         "id_cities_catalog": "14019",
         "id_countries_catalog": "MX",
         "id_states_catalog": "JAL",
@@ -72,7 +72,7 @@ const directions = [
         "id_users": "c112d463-b65b-4fed-9a"
     },
     {
-        "id_directions": "51910b6e-3f4c-46df-a727-823620bb69d9",
+        "id_directions": "51910b6e-3f4c-46df-a7",
         "id_cities_catalog": "14003",
         "id_countries_catalog": "MX",
         "id_states_catalog": "JAL",
@@ -84,7 +84,7 @@ const directions = [
         "id_users": "f2f61c90-50c2-49b9-b6"
     },
     {
-        "id_directions": "ce110269-7d27-4eaa-bd6a-c6257bbffced",
+        "id_directions": "ce110269-7d27-4eaa-bd",
         "id_cities_catalog": "14004",
         "id_countries_catalog": "MX",
         "id_states_catalog": "JAL",
@@ -96,7 +96,7 @@ const directions = [
         "id_users": "fd22d31d-e0b0-4cb3-8e"
     },
     {
-        "id_directions": "1d7bf1f5-731f-4be7-87ea-9d27e9251879",
+        "id_directions": "1d7bf1f5-731f-4be7-87",
         "id_cities_catalog": "14001",
         "id_countries_catalog": "MX",
         "id_states_catalog": "JAL",
@@ -108,7 +108,7 @@ const directions = [
         "id_users": "8e38d1e4-1cd4-4bc9-83"
     },
     {
-        "id_directions": "7555fb30-e9f1-4645-993f-25c23d3eb60d",
+        "id_directions": "7555fb30-e9f1-4645-99",
         "id_cities_catalog": "15004",
         "id_countries_catalog": "MX",
         "id_states_catalog": "MEX",

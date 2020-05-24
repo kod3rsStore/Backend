@@ -1,9 +1,9 @@
 const passport = require('passport');
 const { Strategy, ExtractJwt } = require('passport-jwt');
 const boom = require('@hapi/boom');
-
+const config = require('../../../config/index.js');
 const userController = require('../../../routes/users/index');
-const { config } = require('../../../config/index');
+
 
 passport.use(
     new Strategy({
