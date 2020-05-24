@@ -5,11 +5,15 @@ const express = require('express');
 const router = express.Router();
 const response = require('../../../network/response');
 const ControllerAddresses = require('./index')
-
+/**Validations */
+const validationHandler = require('../../utils/middleware/validationHandler');
+const { createAddressSchema } = require('../../utils/schemas/addresses');
+const { updateAddressSchema } = require('../../utils/schemas/addresses');
+const { userIdSchema } = require('../../utils/schemas/users');
 //Router
-router.post('/', insertAddress);
-router.put('/', updateAddress);
-router.get('/:id', getAddresses);
+router.post('/', validationHandler(createAddressSchema), insertAddress);
+router.put('/', validationHandler(updateAddressSchema), updateAddress);
+router.get('/:id', validationHandler(userIdSchema, 'params'), getAddresses);
 /**
  * API Endpoint to insert an Address in the data base.
  * @method POST 

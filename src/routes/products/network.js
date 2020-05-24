@@ -6,18 +6,27 @@ const router = express.Router();
 const response = require('../../../network/response');
 const ControllerProducts = require('./index')
 
+/**validations */
+const validationHandler = require('../../utils/middleware/validationHandler');
+const { productIdSchema, 
+        getLatestProductsSchema,
+        getProductsByNameSchema,
+        getProductsByCategorySchema,
+        getProductsByPriceSchema,
+        createProductsSchema,
+        updateProductsSchema } = require('../../utils/schemas/products');
 /**
  * Router to manage the endpoint of products
  *@type {router} - Routs to manage Products
  */
-router.post('/', insertProduct);
-router.put('/', updateProduct);
+router.post('/', validationHandler(createProductsSchema) ,insertProduct);
+router.put('/', validationHandler(updateProductsSchema), updateProduct);
 router.get('/', listProducts);
-router.get('/latest', latestProducts);
-router.get('/search/name', searchProductsByName);
-router.get('/search/category', searchProductsByCategory);
-router.get('/search/price', searchProductsByPrice);
-router.get('/:id', getProduct);
+router.get('/latest', validationHandler(getLatestProductsSchema, 'query'), latestProducts);
+router.get('/search/name', validationHandler(getProductsByNameSchema, 'query'), searchProductsByName);
+router.get('/search/category', validationHandler(getProductsByCategorySchema, 'query') , searchProductsByCategory);
+router.get('/search/price', validationHandler(getProductsByPriceSchema, 'query'), searchProductsByPrice);
+router.get('/:id', validationHandler(productIdSchema,'params'), getProduct);
 
 /**
  * API Endpoint to insert a Product in the data base.
