@@ -15,18 +15,25 @@ const { productIdSchema,
         getProductsByPriceSchema,
         createProductsSchema,
         updateProductsSchema } = require('../../utils/schemas/products');
+
+
+/**JWT Strategy */
+const passport = require('passport');
+require('../../utils/auth/strategies/jwt');
+
+
 /**
  * Router to manage the endpoint of products
  *@type {router} - Routs to manage Products
  */
-router.post('/', validationHandler(createProductsSchema) ,insertProduct);
-router.put('/', validationHandler(updateProductsSchema), updateProduct);
-router.get('/', listProducts);
-router.get('/latest', validationHandler(getLatestProductsSchema, 'query'), latestProducts);
-router.get('/search/name', validationHandler(getProductsByNameSchema, 'query'), searchProductsByName);
-router.get('/search/category', validationHandler(getProductsByCategorySchema, 'query') , searchProductsByCategory);
-router.get('/search/price', validationHandler(getProductsByPriceSchema, 'query'), searchProductsByPrice);
-router.get('/:id', validationHandler(productIdSchema,'params'), getProduct);
+router.post('/',passport.authenticate('jwt', { session: false }), validationHandler(createProductsSchema) ,insertProduct);
+router.put('/',passport.authenticate('jwt', { session: false }), validationHandler(updateProductsSchema), updateProduct);
+router.get('/',passport.authenticate('jwt', { session: false }), listProducts);
+router.get('/latest',passport.authenticate('jwt', { session: false }), validationHandler(getLatestProductsSchema, 'query'), latestProducts);
+router.get('/search/name',passport.authenticate('jwt', { session: false }), validationHandler(getProductsByNameSchema, 'query'), searchProductsByName);
+router.get('/search/category',passport.authenticate('jwt', { session: false }), validationHandler(getProductsByCategorySchema, 'query') , searchProductsByCategory);
+router.get('/search/price',passport.authenticate('jwt', { session: false }), validationHandler(getProductsByPriceSchema, 'query'), searchProductsByPrice);
+router.get('/:id',passport.authenticate('jwt', { session: false }), validationHandler(productIdSchema,'params'), getProduct);
 
 /**
  * API Endpoint to insert a Product in the data base.
