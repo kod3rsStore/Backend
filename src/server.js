@@ -10,12 +10,14 @@ const categories = require('./routes/categories/network');
 const addresses = require('./routes/addresses/network');
 const shopcart = require('./routes/shopping_carts/network');
 const swaggerDoc = require('../api_doc/swagger.js');
+const auth = require('./routes/auth/network');
 
 const app = express();
 app.use(express.json());
 /**
  * API Routes 
  */
+app.use('/api/auth/', auth);
 app.use('/api/user/', user);
 app.use('/api/products', products);
 app.use('/api/categories', categories);
