@@ -1,7 +1,9 @@
 const boom = require('@hapi/boom');
+const response = require('../../../network/response');
 
 function scopesValidationHandler(allowedScopes){
     return function(req,res, next){
+        console.log(req.user.scopes);
         if(!req.user || (req.user && !req.user.scopes)){
             response.error(req, res, error.message, 401, 'Missing scopes');
             return false;
@@ -12,7 +14,7 @@ function scopesValidationHandler(allowedScopes){
         if(hasAccess){
             next();
         }else{
-            response.error(req, res, error.message, 401, 'Insuficient scopes');
+            response.error(req, res, 'Insuficient scopes', 401, 'Insuficient scopes');
            return false;
         }
     }
