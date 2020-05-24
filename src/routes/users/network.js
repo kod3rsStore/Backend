@@ -11,6 +11,8 @@ const { createUserSchema } = require('../../utils/schemas/users');
 const { updateUserSchema } = require('../../utils/schemas/users');
 const { userIdSchema } = require('../../utils/schemas/users');
 
+const scopesValidationHandler = require('../../utils/middleware/scopesValidationHandler');
+
 /** Securing our Endpoints */
 
 /**JWT Strategy */
@@ -21,9 +23,21 @@ require('../../utils/auth/strategies/jwt');
  * Router endpoint of User
  *@type {router} - Routs to manage Users
  */
-router.post('/signup',passport.authenticate('jwt', { session: false }), validationHandler(createUserSchema) , insertUser);
-router.put('/',passport.authenticate('jwt', { session: false }), validationHandler(updateUserSchema), updateUser);
-router.get('/:id',passport.authenticate('jwt', { session: false }), validationHandler(userIdSchema, 'params'), get);
+router.post('/',
+    passport.authenticate('jwt', { session: false }),
+    scopesValidationHandler(['create:user']),
+    validationHandler(createUserSchema),
+    insertUser) ;
+router.put('/',
+    passport.authenticate('jwt', { session: false }), 
+    scopesValidationHandler(['update:user']),
+    validationHandler(updateUserSchema), 
+    updateUser);
+router.get('/:id', 
+    passport.authenticate('jwt', { session: false }),
+    scopesValidationHandler(['read:user']),     
+    validationHandler(userIdSchema, 'params'), 
+    get);
 /**
  * API Endpoint to insert an User in the data base.
  * @method POST 
@@ -35,11 +49,11 @@ router.get('/:id',passport.authenticate('jwt', { session: false }), validationHa
  * 	        "password": "1234"     
  *      }
  */
-async function insertUser(req, res, next){
+async function insertUser(req, res, next) {
     try {
         const userRes = await ControllerUser.insertUser(req.body);
         response.success(req, res, userRes, 201);
-    } catch( err){
+    } catch (err) {
         response.error(req, res, err.message, 500, 'error network user Insert');
     }
 }
@@ -55,11 +69,11 @@ async function insertUser(req, res, next){
  * 	        "password": "1234"     
  *      }
  */
-async function updateUser(req, res, next){
+async function updateUser(req, res, next) {
     try {
         const updateRes = await ControllerUser.updateUser(req.body);
         response.success(req, res, updateRes, 201);
-    } catch( err){
+    } catch (err) {
         response.error(req, res, err.message, 500, 'error network user update');
     }
 }
@@ -70,11 +84,11 @@ async function updateUser(req, res, next){
  * @param {params} req - The User ID 
  * @returns {Array.<Object>} res - User
  */
-async function get(req, res, next){
+async function get(req, res, next) {
     try {
         const userGetById = await ControllerUser.getUser(req.params.id);
         response.success(req, res, userGetById, 200);
-    } catch( err){
+    } catch (err) {
         response.error(req, res, err.message, 500, 'error network user');
     }
 }
