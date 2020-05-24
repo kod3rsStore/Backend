@@ -1169,13 +1169,21 @@
                 "type": "string",
                 "example": "x2hiDguB0JtNZK-o14DDg"
               },
-              "product_title": {
+              "title": {
                 "type": "string",
                 "example": "Cinturon correa en cuero"
               },
               "description": {
                 "type": "string",
                 "example": "correa cuero, 10 años de garantia"
+              },
+              "url": {
+                "type": "string",
+                "example": "http://dummyimage.com/101x176.png/dddddd/000000"
+              },
+              "alt": {
+                "type": "string",
+                "example": "photography description"
               },
               "cost": {
                 "type": "integer",
@@ -1185,25 +1193,9 @@
                 "type": "integer",
                 "example": 106
               },
-              "creation_date": {
-                "type": "string",
-                "example": "2020-05-20T05:00:00.000Z"
-              },
-              "id_seller": {
-                "type": "string",
-                "example": "123"
-              },
               "available": {
                 "type": "boolean",
                 "example": 1
-              },
-              "id_countries": {
-                "type": "string",
-                "example": "123"
-              },
-              "id_albums": {
-                "type": "string",
-                "example": "N7Ow4zbrg4lJxKPzK9D0x"
               },
               "id_categories": {
                 "type": "string",
@@ -1340,7 +1332,7 @@
                 "type": "string",
                 "example": "x2hiDguB0JtNZK-o14DDg"
               },
-              "product_title": {
+              "title": {
                 "type": "string",
                 "example": "Cinturon correa en cuero"
               },
@@ -1348,13 +1340,13 @@
                 "type": "string",
                 "example": "correa cuero, 10 años de garanti"
               },
-              "url_photo": {
+              "photo": {
                 "type": "string",
                 "example": "https://cdn.pixabay.com/photo/2015/06/24/01/15/morning-819362_960_720.jpg"
               },
               "alt": {
                 "type": "string",
-                "example": "foto de cinturon correa cuero"
+                "example": "Description of photography"
               },
               "cost": {
                 "type": "integer",

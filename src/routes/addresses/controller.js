@@ -3,7 +3,7 @@
  */
 const { nanoid } = require('nanoid');
 
-const TABLA_ADDR = 'directions';
+const TABLA_ADDR = 'Directions';
  
 function controllerAddresses(injectedStore){
     let store = injectedStore;

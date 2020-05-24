@@ -27,6 +27,7 @@ function controllerUser(injectedStore){
             security_code: '2',
             creation_date: new Date(),
             score: 5,
+
             available: 1,
             password: await bcrypt.hash(body.password,5),
         }
@@ -60,6 +61,12 @@ function controllerUser(injectedStore){
         if(body.last_name){
             columns.last_name=body.last_name;
         }
+        if(body.available){
+            columns.available=body.available;
+        }
+        if(body.photo){
+            columns.photo=body.photo;
+        }
         const queryUpdateUser = `UPDATE ${TABLA_USERS} SET ? WHERE id_users='${body.id_user}'`;
         return await store.update(queryUpdateUser, columns);
     }
@@ -70,7 +77,7 @@ function controllerUser(injectedStore){
      * @returns {Promise<object[]>} res - result of one User
      */
     async function getUser(id_user){
-        const query = `SELECT * FROM ${TABLA_USERS} WHERE id_users='${id_user}'`;
+        const query = `SELECT first_name, last_name, email, photo FROM ${TABLA_USERS} WHERE id_users='${id_user}'`;
         return await store.get(query);
     }
 
