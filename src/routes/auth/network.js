@@ -28,15 +28,8 @@ router.get('/', (req, res) => {
 
 
   /**
- * API Endpoint to update an User information.
- * @method PUT 
- * @param {Object} req - The User information to be updated
- * @returns {Object} res - result of User update
- * @example
- *      body = {
- *          "email": "email@host.com"
- * 	        "password": "1234"     
- *      }
+ * API Endpoint to Log in 
+ *
  */
 router.post('/sign-in', async function (req, res, next) {
     const {apiKeyToken} = req.body;
@@ -81,18 +74,9 @@ router.post('/sign-in', async function (req, res, next) {
       })(req, res, next);
 });
 
-
-
 /**
- * API Endpoint to update an User information.
- * @method PUT 
- * @param {Object} req - The User information to be updated
- * @returns {Object} res - result of User update
- * @example
- *      body = {
- *          "email": "email@host.com"
- * 	        "password": "1234"     
- *      }
+ * API Endpoint to sign-up.
+ *
  */
 
 router.post('/sign-up', 
