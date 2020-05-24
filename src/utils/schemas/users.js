@@ -6,7 +6,8 @@ const userIdSchema = joi.object({
 
 const createUserSchema = joi.object({
     email: joi.string().email().required(),
-    password: joi.string().required()
+    password: joi.string().required(),
+    security_code: joi.string().max(1)
 });
 
 const updateUserSchema = joi.object({
@@ -14,7 +15,9 @@ const updateUserSchema = joi.object({
     first_name: joi.string().max(100),
     last_name: joi.string().max(100),
     email: joi.string().email(),
-    password: joi.string()
+    password: joi.string(),
+    available: joi.boolean(),
+    photo: joi.string()
 });
 
 
