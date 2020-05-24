@@ -10,13 +10,20 @@ const validationHandler = require('../../utils/middleware/validationHandler');
 const { createUserSchema } = require('../../utils/schemas/users');
 const { updateUserSchema } = require('../../utils/schemas/users');
 const { userIdSchema } = require('../../utils/schemas/users');
+
+/** Securing our Endpoints */
+
+/**JWT Strategy */
+const passport = require('passport');
+require('../../utils/auth/strategies/jwt');
+
 /**
  * Router endpoint of User
  *@type {router} - Routs to manage Users
  */
-router.post('/signup', validationHandler(createUserSchema) , insertUser);
-router.put('/', validationHandler(updateUserSchema), updateUser);
-router.get('/:id', validationHandler(userIdSchema, 'params'), get);
+router.post('/signup',passport.authenticate('jwt', { session: false }), validationHandler(createUserSchema) , insertUser);
+router.put('/',passport.authenticate('jwt', { session: false }), validationHandler(updateUserSchema), updateUser);
+router.get('/:id',passport.authenticate('jwt', { session: false }), validationHandler(userIdSchema, 'params'), get);
 /**
  * API Endpoint to insert an User in the data base.
  * @method POST 

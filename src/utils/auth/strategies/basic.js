@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const { config } = require('../../../config/index');
 const userController = require('../../../routes/users/index');
 
-
+console.log(`[basic.js] ${config}`);
 /**
  * Basic authentication using passport 
  */
