@@ -16,6 +16,7 @@ const { productIdSchema,
         createProductsSchema,
         updateProductsSchema } = require('../../utils/schemas/products');
 
+const scopesValidationHandler = require('../../utils/middleware/scopesValidationHandler');
 
 /**JWT Strategy */
 const passport = require('passport');
@@ -26,14 +27,46 @@ require('../../utils/auth/strategies/jwt');
  * Router to manage the endpoint of products
  *@type {router} - Routs to manage Products
  */
-router.post('/',passport.authenticate('jwt', { session: false }), validationHandler(createProductsSchema) ,insertProduct);
-router.put('/',passport.authenticate('jwt', { session: false }), validationHandler(updateProductsSchema), updateProduct);
-router.get('/',passport.authenticate('jwt', { session: false }), listProducts);
-router.get('/latest',passport.authenticate('jwt', { session: false }), validationHandler(getLatestProductsSchema, 'query'), latestProducts);
-router.get('/search/name',passport.authenticate('jwt', { session: false }), validationHandler(getProductsByNameSchema, 'query'), searchProductsByName);
-router.get('/search/category',passport.authenticate('jwt', { session: false }), validationHandler(getProductsByCategorySchema, 'query') , searchProductsByCategory);
-router.get('/search/price',passport.authenticate('jwt', { session: false }), validationHandler(getProductsByPriceSchema, 'query'), searchProductsByPrice);
-router.get('/:id',passport.authenticate('jwt', { session: false }), validationHandler(productIdSchema,'params'), getProduct);
+router.post('/',
+        passport.authenticate('jwt', { session: false }),
+        scopesValidationHandler(['create:products']),
+        validationHandler(createProductsSchema) ,
+        insertProduct);
+router.put('/',
+        passport.authenticate('jwt', { session: false }), 
+        scopesValidationHandler(['update:products']),
+        validationHandler(updateProductsSchema), 
+        updateProduct);
+router.get('/',
+        passport.authenticate('jwt', { session: false }), 
+        scopesValidationHandler(['read:products']),
+        listProducts);
+router.get('/latest',
+        passport.authenticate('jwt', { session: false }),
+        scopesValidationHandler(['read:products']),         
+        validationHandler(getLatestProductsSchema, 'query'), 
+        latestProducts);
+router.get('/:id',
+        passport.authenticate('jwt', { session: false }), 
+        scopesValidationHandler(['read:products']),         
+        validationHandler(productIdSchema,'params'), 
+        getProduct);        
+router.get('/search/name',
+        passport.authenticate('jwt', { session: false }), 
+        scopesValidationHandler(['search:products']), 
+        validationHandler(getProductsByNameSchema, 'query'), 
+        searchProductsByName);
+router.get('/search/category',
+        passport.authenticate('jwt', { session: false }), 
+        scopesValidationHandler(['search:products']),         
+        validationHandler(getProductsByCategorySchema, 'query') , 
+        searchProductsByCategory);
+router.get('/search/price',
+        passport.authenticate('jwt', { session: false }),
+        scopesValidationHandler(['search:products']),          
+        validationHandler(getProductsByPriceSchema, 'query'), 
+        searchProductsByPrice);
+
 
 /**
  * API Endpoint to insert a Product in the data base.
