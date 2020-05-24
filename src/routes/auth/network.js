@@ -31,35 +31,30 @@ router.post('/sign-in', async function (req, res, next) {
             if (error) {
               next(error);
             }
-            const apiKey = await authController.getAuth({ token: apiKeyToken });
-  
+            const apiKey = await authController.getAuth(apiKeyToken);
+            let scopes = [];
+            apiKey.forEach((item) => {
+              scopes.push(item.access);
+            })
             if (!apiKey) {
               next(boom.unauthorized());
-            }
-            
+            } 
             const { id_users, login, email} = user;
             const payload = {
               sub: id_users,
               login,
               email,
-              scopes: apiKey.scopes
+              scopes
             };
             const token = jwt.sign(payload, config.authJwtSecret, {
               expiresIn: '15m'
             });
-            console.log(user);
             response.success(req, res, { token, user: { id_users, login, email } }, 200);
-            //return res.status(200).json({ token, user: { id_user, login, email } });
           });
         } catch (error) {
           next(error);
         }
       })(req, res, next);
-
 });
-
-
-
-
 
 module.exports = router;

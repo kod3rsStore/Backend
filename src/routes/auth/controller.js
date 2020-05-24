@@ -21,7 +21,7 @@ function authController(injectedStore){
 
     async function getAuth(key) {
         const query = `
-        SELECT concat(M.endpoint,"-",M.module)
+        SELECT concat(M.endpoint,":",M.module) as access
         FROM ${database}.Security_levels  as S
         JOIN ${database}.Module_access as M on S.id_security_levels=M.id_security_levels
         where S.token ='${key}'
