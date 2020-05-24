@@ -10,10 +10,18 @@ const validationHandler = require('../../utils/middleware/validationHandler');
 const { createAddressSchema } = require('../../utils/schemas/addresses');
 const { updateAddressSchema } = require('../../utils/schemas/addresses');
 const { userIdSchema } = require('../../utils/schemas/users');
+
+/** Securing our Endpoints */
+
+/**JWT Strategy */
+const passport = require('passport');
+require('../../utils/auth/strategies/jwt');
+
+
 //Router
-router.post('/', validationHandler(createAddressSchema), insertAddress);
-router.put('/', validationHandler(updateAddressSchema), updateAddress);
-router.get('/:id', validationHandler(userIdSchema, 'params'), getAddresses);
+router.post('/',passport.authenticate('jwt', { session: false }), validationHandler(createAddressSchema), insertAddress);
+router.put('/',passport.authenticate('jwt', { session: false }), validationHandler(updateAddressSchema), updateAddress);
+router.get('/:id',passport.authenticate('jwt', { session: false }), validationHandler(userIdSchema, 'params'), getAddresses);
 /**
  * API Endpoint to insert an Address in the data base.
  * @method POST 
