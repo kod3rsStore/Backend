@@ -11,14 +11,22 @@ const { cartIdSchema } = require('../../utils/schemas/shopping_carts');
 const { addProductToCartSchema } = require('../../utils/schemas/shopping_carts');
 const { updateQtyProductSchema } = require('../../utils/schemas/shopping_carts');
 const { removeProductSchema } = require('../../utils/schemas/shopping_carts');
+
+/** Securing our Endpoints */
+
+/**JWT Strategy */
+const passport = require('passport');
+require('../../utils/auth/strategies/jwt');
+
+
 /**
  * Router endpoint of Shopping cart
  *@type {router} - Routs to manage Shopping carts
  */
-router.post('/', validationHandler(addProductToCartSchema), addProductToCart);
-router.patch('/', validationHandler(updateQtyProductSchema), updateQtyProductOfCart);
-router.delete('/', validationHandler(removeProductSchema), removeProductFromCart);
-router.get('/:id', validationHandler(cartIdSchema, 'params'), getShoppingCartUser);
+router.post('/',passport.authenticate('jwt', { session: false }), validationHandler(addProductToCartSchema), addProductToCart);
+router.patch('/',passport.authenticate('jwt', { session: false }), validationHandler(updateQtyProductSchema), updateQtyProductOfCart);
+router.delete('/',passport.authenticate('jwt', { session: false }), validationHandler(removeProductSchema), removeProductFromCart);
+router.get('/:id',passport.authenticate('jwt', { session: false }), validationHandler(cartIdSchema, 'params'), getShoppingCartUser);
 
 /**
  * API Endpoint to Create a shopping cart and insert a product into.
