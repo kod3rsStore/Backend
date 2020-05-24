@@ -11,16 +11,32 @@ const { categoryIdSchema } = require('../../utils/schemas/categories');
 const { createCategorySchema } = require('../../utils/schemas/categories');
 const { updateCategorySchema } = require('../../utils/schemas/categories');
 
+const scopesValidationHandler = require('../../utils/middleware/scopesValidationHandler');
 
 /**JWT Strategy */
 const passport = require('passport');
 require('../../utils/auth/strategies/jwt');
 
 //Routes
-router.post('/',passport.authenticate('jwt', { session: false }), validationHandler(createCategorySchema), insertCategory);
-router.put('/',passport.authenticate('jwt', { session: false }), validationHandler(updateCategorySchema), updateCategory);
-router.get('/',passport.authenticate('jwt', { session: false }), listCategories);
-router.get('/:id',passport.authenticate('jwt', { session: false }), validationHandler(categoryIdSchema, 'params'), getCategoryById);
+router.post('/',
+        passport.authenticate('jwt', { session: false }),
+        scopesValidationHandler(['create:categories']),
+        validationHandler(createCategorySchema),
+        insertCategory);
+router.put('/',
+        passport.authenticate('jwt', { session: false }), 
+        scopesValidationHandler(['update:categories']),        
+        validationHandler(updateCategorySchema), 
+        updateCategory);
+router.get('/',
+        passport.authenticate('jwt', { session: false }),
+        scopesValidationHandler(['read:categories']),         
+        listCategories);
+router.get('/:id',
+        passport.authenticate('jwt', { session: false }),
+        scopesValidationHandler(['read:categories']),         
+        validationHandler(categoryIdSchema, 'params'), 
+        getCategoryById);
 
 /**
  * API Endpoint to create a Category in the categories table of data base.
