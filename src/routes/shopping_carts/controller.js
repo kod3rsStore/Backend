@@ -3,10 +3,10 @@
  */
 const { nanoid } = require('nanoid');
 
-const TABLA_PRODUCTS = 'products';
-const TABLA_PHOTOS = 'product_photos';
-const TABLA_SHOPCART = 'shopping_carts';
-const TABLA_PRODUCTS_CART =  'shopping_cart_products';
+const TABLA_PRODUCTS = 'Products';
+const TABLA_PHOTOS = 'Product_photos';
+const TABLA_SHOPCART = 'Shopping_carts';
+const TABLA_PRODUCTS_CART =  'Shopping_cart_products';
 
 
 function controllerShoppingCart(injectedStore){
@@ -21,7 +21,7 @@ function controllerShoppingCart(injectedStore){
      */
     async function addProductToCart(body) {
 
-        const product = {
+        const productShoppingCart = {
             id_shopping_cart_products: nanoid(),
             id_products: body.id_product,
             quantity: body.quantity,
@@ -42,24 +42,24 @@ function controllerShoppingCart(injectedStore){
             throw err;
         } 
         if(id_cart.length > 0){
-            product.id_shopping_carts = id_cart[0].id_shopping_carts;
+            productShoppingCart.id_shopping_carts = id_cart[0].id_shopping_carts;
         }else{
             try {
                 const shopping_cart = {
                     id_shopping_carts: nanoid(),
                     creation_date: new Date(),
-                    puchase_date: null,
+                    puchase_date: new Date(),
                     id_payments_history:'na',
                     id_users: body.id_user,
                     historic_order: false,
                 };
                 await store.insert(TABLA_SHOPCART, shopping_cart);
-                product.id_shopping_carts = shopping_cart.id_shopping_carts;
+                productShoppingCart.id_shopping_carts = shopping_cart.id_shopping_carts;
             } catch (err) {
                 throw err;
             }
         }
-        return await store.insert(TABLA_PRODUCTS_CART, product)
+        return await store.insert(TABLA_PRODUCTS_CART, productShoppingCart)
     }
     /**
      * Logic to fetch the shopping cart of an user.
@@ -69,13 +69,13 @@ function controllerShoppingCart(injectedStore){
     async function getUserShoppingCart(user_id){
     try{
         const query = `
-            SELECT p.id_products ,p.product_title, p.description, photo.url_photo, photo.description alt, p.cost, res.quantity, p.quantity as 'stock'
+            SELECT p.id_products ,p.title, p.description, photo.photo, photo.description alt, p.cost, res.quantity, p.quantity as 'stock'
                 FROM ${TABLA_PRODUCTS} as p JOIN
                     (SELECT id_products, quantity FROM ${TABLA_PRODUCTS_CART} 
                         WHERE id_shopping_carts=(SELECT id_shopping_carts FROM ${TABLA_SHOPCART} 
                             WHERE id_users='${user_id}')) as res 
                 ON p.id_products=res.id_products
-                LEFT JOIN (SELECT pf.id_albums,p.id_products, pf.description, pf.url_photo 
+                LEFT JOIN (SELECT pf.id_albums,p.id_products, pf.description, pf.photo 
                     FROM ${TABLA_PRODUCTS} as p 
                     JOIN ${TABLA_PHOTOS} as pf ON p.id_albums=pf.id_albums) as photo
                 ON p.id_products=photo.id_products
@@ -93,8 +93,8 @@ function controllerShoppingCart(injectedStore){
      */
     async function removeProductFromCart(id_user, id_product){
         const query = `
-        DELETE FROM shopping_cart_products 
-            WHERE id_shopping_carts=(select id_shopping_carts from shopping_carts as sp 
+        DELETE FROM ${TABLA_PRODUCTS_CART} 
+            WHERE id_shopping_carts=(select id_shopping_carts from ${TABLA_SHOPCART} as sp 
                 WHERE sp.id_users='${id_user}') and id_products='${id_product}'
         `
         return await store.remove(query);
@@ -113,9 +113,9 @@ function controllerShoppingCart(injectedStore){
             quantity: newQty,
         }
         const query = `
-            UPDATE shopping_cart_products SET ? 
+            UPDATE ${TABLA_PRODUCTS_CART} SET ? 
                 WHERE id_products='${id_product}' and id_shopping_carts=
-                (SELECT id_shopping_carts FROM shopping_carts WHERE id_users='${id_user}')
+                (SELECT id_shopping_carts FROM ${TABLA_SHOPCART} WHERE id_users='${id_user}')
         `
         return await store.update(query, quantity);
     }

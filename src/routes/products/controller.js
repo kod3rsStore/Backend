@@ -3,9 +3,14 @@
  */
 const { nanoid } = require('nanoid');
 
-const TABLA_PRODUCTS = 'products';
-const TABLA_ALBUMS = 'albums';
-const TABLA_PHOTOS = 'product_photos';
+const TABLA_PRODUCTS = 'Products';
+const TABLA_ALBUMS = 'Albums';
+const TABLA_PHOTOS = 'Product_photos';
+const COL_PRODUCTS = `id_products, title, p.description, photo.photo url, 
+                    photo.description alt, cost, quantity, available,id_categories, score`
+const QUERY_PRODUCT_PHOTOS = `SELECT ${COL_PRODUCTS} FROM ${TABLA_PRODUCTS} p 
+                    LEFT JOIN ${TABLA_PHOTOS} photo 
+                    ON p.id_albums=photo.id_albums`
 
 function controllerProducts(injectedStore){
     let store = injectedStore;
@@ -20,13 +25,13 @@ function controllerProducts(injectedStore){
     async function insertProduct(body) {
         const product = {
             description: body.description,
-            product_title: body.title,
+            title: body.title,
             cost: body.cost,
             quantity: body.quantity,
             creation_date: new Date(),
-            id_seller: '123',
+            id_users_seller: '8e38d1e4-1cd4-4bc9-83',
             available: 1,
-            id_countries:'123',
+            id_countries:'MX',
             id_categories:body.id_categories,
             score: 0,
         }
@@ -34,7 +39,6 @@ function controllerProducts(injectedStore){
 
         const album = {
             id_albums: nanoid(), 
-            id_products: product.id_products,
             description: body.title,
             created_date: new Date()
         }
@@ -49,7 +53,7 @@ function controllerProducts(injectedStore){
             const photo = {
                 id_product_photos: nanoid(),
                 description: body.photo.description,
-                url_photo: body.photo.url,
+                photo: body.photo.url,
                 id_albums: album.id_albums,
                 created_date: new Date(),
                 visible: true,
@@ -75,12 +79,12 @@ function controllerProducts(injectedStore){
          */
         const product = {
             description: body.description,
-            product_title: body.title,
+            title: body.title,
             cost: body.cost,
             quantity: body.quantity,
-            id_seller: '123',
+            id_users_seller: '8e38d1e4-1cd4-4bc9-83',
             available: body.available,
-            id_countries:'123',
+            id_countries:'MX',
             id_categories:body.id_categories,
         }
 
@@ -90,10 +94,10 @@ function controllerProducts(injectedStore){
              */
             const photo = {
                 description: body.photo.description,
-                url_photo: body.photo.url,
+                photo: body.photo.url,
                 visible: body.photo.visible,
             }
-            const queryUpdatePhoto = `UPDATE ${TABLA_PHOTOS} SET ? WHERE id_albums=(SELECT id_albums FROM ${TABLA_ALBUMS} WHERE albums.id_products='${body.id_products}')`;
+            const queryUpdatePhoto = `UPDATE ${TABLA_PHOTOS} SET ? WHERE id_albums=(SELECT id_albums FROM ${TABLA_PRODUCTS} WHERE id_products='${body.id_products}')`;
             try{
                 await store.update(queryUpdatePhoto, photo);
             }catch(err){
@@ -110,7 +114,10 @@ function controllerProducts(injectedStore){
      * @returns {Promise<object[]>} res - List of Products
      */
     async function listProducts(){
-        return await store.list(TABLA_PRODUCTS);
+        const query = `select ${COL_PRODUCTS} 
+            FROM ${TABLA_PRODUCTS} p 
+            LEFT JOIN ${TABLA_PHOTOS} photo ON p.id_albums=photo.id_albums`
+        return await store.get(query);
     }
 
     /**
@@ -119,7 +126,11 @@ function controllerProducts(injectedStore){
      * @returns {Promise<object[]>} res - result of one Product
      */
     async function getProduct(id){
-        const query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE id_products='${id}'`;
+        const query = `
+        select ${COL_PRODUCTS} 
+         FROM ${TABLA_PRODUCTS} p 
+         JOIN ${TABLA_PHOTOS} photo ON p.id_albums=photo.id_albums WHERE p.id_products='${id}'
+        `
         return await store.get(query);
     }
 
@@ -129,7 +140,8 @@ function controllerProducts(injectedStore){
     * @returns {Promise<object[]>} res - Product list sorted by 'latest uploaded'.
     */
     async function getLatestProducts(qty){
-        const query = `SELECT * FROM ${TABLA_PRODUCTS} ORDER BY creation_date DESC LIMIT ${qty}`;    
+        const query = `${QUERY_PRODUCT_PHOTOS} 
+            ORDER BY creation_date DESC LIMIT ${qty}`;    
         return await store.get(query);
     }
     /**
@@ -138,7 +150,8 @@ function controllerProducts(injectedStore){
     * @returns {Promise<object[]>} res - Product list that match with the word to search.
     */
     async function getProductsByName(searchWord){
-        const query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE product_title like'%${searchWord}%' or description like '%${searchWord}%'`;
+        const query = `${QUERY_PRODUCT_PHOTOS} 
+            WHERE p.title like '%${searchWord}%' or p.description like '%${searchWord}%'`;
         return await store.get(query);
     }
     /**
@@ -147,7 +160,8 @@ function controllerProducts(injectedStore){
     * @returns {Promise<object[]>} res - Product list that match with the category id.
     */
     async function getProductsByCategory(cat_id){
-        const query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE id_categories='${cat_id}'`;
+        const query = `${QUERY_PRODUCT_PHOTOS}
+                        WHERE id_categories='${cat_id}'`;
         return await store.get(query);
     }
     /**
@@ -167,7 +181,7 @@ function controllerProducts(injectedStore){
         const productName = dataInQuery.s;
         const sort = dataInQuery.sort;
         let query;
-        let orderBy =`ORDER BY ${TABLA_PRODUCTS}.creation_date`;
+        let orderBy =`ORDER BY p.creation_date`;
 
         if(sort === "asc"){
             orderBy += " ASC";
@@ -177,11 +191,11 @@ function controllerProducts(injectedStore){
             orderBy = "";
         }
         if(categoryId){
-            query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE id_categories='${categoryId}' and cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;
+            query = `${QUERY_PRODUCT_PHOTOS} WHERE id_categories='${categoryId}' and cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;
         }else if(productName){
-            query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE (product_title like '%${productName}%' or description like '%${productName}%') and cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;
+            query = `${QUERY_PRODUCT_PHOTOS} WHERE (p.title like '%${productName}%' or p.description like '%${productName}%') and cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;
         }else{
-            query = `SELECT * FROM ${TABLA_PRODUCTS} WHERE cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;    
+            query = `${QUERY_PRODUCT_PHOTOS} WHERE cost >= ${min_price} and cost <= ${max_price} ${orderBy}`;    
         }
         return await store.get(query);
 }

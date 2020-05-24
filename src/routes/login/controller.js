@@ -3,7 +3,7 @@
  */
 const bcrypt = require('bcryptjs');
 
-const TABLA = 'users';
+const TABLA = 'Users';
 
 function controller(injectedStore){
     let store = injectedStore;

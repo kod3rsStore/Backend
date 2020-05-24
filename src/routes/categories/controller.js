@@ -3,7 +3,7 @@
  */
 const { nanoid } = require('nanoid');
 
-const TABLA_CAT = 'categories';
+const TABLA_CAT = 'Categories';
  
 function controllerCategories(injectedStore){
     let store = injectedStore;
