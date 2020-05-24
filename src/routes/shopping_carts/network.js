@@ -5,15 +5,20 @@ const express = require('express');
 const router = express.Router();
 const response = require('../../../network/response');
 const ControllerShoppingCart = require('./index')
-
+/**Validations */
+const validationHandler = require('../../utils/middleware/validationHandler');
+const { cartIdSchema } = require('../../utils/schemas/shopping_carts');
+const { addProductToCartSchema } = require('../../utils/schemas/shopping_carts');
+const { updateQtyProductSchema } = require('../../utils/schemas/shopping_carts');
+const { removeProductSchema } = require('../../utils/schemas/shopping_carts');
 /**
  * Router endpoint of Shopping cart
  *@type {router} - Routs to manage Shopping carts
  */
-router.post('/', addProductToCart);
-router.patch('/', updateQtyProductOfCart);
-router.delete('/', removeProductFromCart);
-router.get('/:id', getShoppingCartUser);
+router.post('/', validationHandler(addProductToCartSchema), addProductToCart);
+router.patch('/', validationHandler(updateQtyProductSchema), updateQtyProductOfCart);
+router.delete('/', validationHandler(removeProductSchema), removeProductFromCart);
+router.get('/:id', validationHandler(cartIdSchema, 'params'), getShoppingCartUser);
 
 /**
  * API Endpoint to Create a shopping cart and insert a product into.
