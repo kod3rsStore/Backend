@@ -1,6 +1,6 @@
 const store = require('../../store/mysql');
-const ctrlAddresses = require('./controller');
+const ctrlUser = require('./controller');
 /**
  * dependencies injection
  */
-module.exports = ctrlAddresses(store);
+module.exports = ctrlUser(store);
