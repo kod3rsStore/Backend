@@ -46,11 +46,8 @@ router.post('/sign-in', async function (req, res, next) {
             if (error) {
               next(error);
             }
-            const apiKey = await authController.getAuth(apiKeyToken);
-            let scopes = [];
-            apiKey.forEach((item) => {
-              scopes.push(item.access);
-            })
+            const apiKey = await authController.getAuthbyIdUser(user.id_users);
+
             if (!apiKey) {
               response.error(req, res, error.message, 401, 'Unauthorized');
               return false;
@@ -60,7 +57,7 @@ router.post('/sign-in', async function (req, res, next) {
               sub: id_users,
               login,
               email,
-              scopes
+              scopes: apiKey
             };
             const token = jwt.sign(payload, config.authJwtSecret, {
               expiresIn: '15m'
