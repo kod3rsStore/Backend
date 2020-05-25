@@ -27,11 +27,8 @@ function controllerShoppingCart(injectedStore){
             quantity: body.quantity,
             legacy_cost: 0,
             creation_date: new Date(),
-            id_albums:'na',
-            id_countries:'na',
             id_currencies:'na',
             id_payments_history:'na',
-            id_user_seller: 'na',
         };
 
         const query = `SELECT id_shopping_carts FROM ${TABLA_SHOPCART} WHERE id_users='${body.id_user}' and historic_order=false LIMIT 1`;
@@ -48,7 +45,7 @@ function controllerShoppingCart(injectedStore){
                 const shopping_cart = {
                     id_shopping_carts: nanoid(),
                     creation_date: new Date(),
-                    puchase_date: new Date(),
+                    purchase_date: null,
                     id_payments_history:'na',
                     id_users: body.id_user,
                     historic_order: false,
