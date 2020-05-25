@@ -10,6 +10,14 @@ const createUserSchema = joi.object({
     security_code: joi.string().max(1)
 });
 
+const createProviderUserSchema = joi.object({
+    first_name: joi.string(),
+    email: joi.string().email().required(),
+    password: joi.string().required(),
+    photo: joi.string(),
+    apiKeyToken: joi.string().required(),
+});
+
 const updateUserSchema = joi.object({
     id_user: joi.string().max(21).required(),
     first_name: joi.string().max(100),
@@ -25,4 +33,5 @@ module.exports = {
     createUserSchema,
     updateUserSchema,
     userIdSchema,
+    createProviderUserSchema
 }
