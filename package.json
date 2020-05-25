@@ -6,7 +6,7 @@
   "scripts": {
     "jsdocs": "./node_modules/.bin/jsdoc -r -c .jsdocsconfig.json",
     "dev": "nodemon src/server.js",
-    "test": "./node_modules/.bin/mocha ./tests",
+    "test": "./node_modules/.bin/mocha ./tests/integration/integration_test.js",
     "coverage": "./node_modules/.bin/nyc npm run test"
   },
   "repository": {

@@ -23,17 +23,17 @@ require('../../utils/auth/strategies/jwt');
 //Router
 router.post('/',
         passport.authenticate('jwt', { session: false }), 
-        scopesValidationHandler(['create:addresses']),        
+        scopesValidationHandler(['read:products']),        
         validationHandler(createAddressSchema), 
         insertAddress);
 router.put('/',
         passport.authenticate('jwt', { session: false }), 
-        scopesValidationHandler(['create:addresses']),   
+        scopesValidationHandler(['read:products']),   
         validationHandler(updateAddressSchema), 
         updateAddress);
 router.get('/:id',
         passport.authenticate('jwt', { session: false }),
-        scopesValidationHandler(['create:addresses']),    
+        scopesValidationHandler(['read:products']),    
         validationHandler(userIdSchema, 'params'), 
         getAddresses);
 /**

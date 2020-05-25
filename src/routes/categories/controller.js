@@ -23,7 +23,7 @@ function controllerCategories(injectedStore){
             creation_date: new Date(),     
         }
         category.id_categories = nanoid();
-            return await store.insert(TABLA_CAT, category);
+        return await store.insert(TABLA_CAT, category);
     }
     /**
      * Logic to update a Category

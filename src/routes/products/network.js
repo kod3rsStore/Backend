@@ -29,12 +29,12 @@ require('../../utils/auth/strategies/jwt');
  */
 router.post('/',
         passport.authenticate('jwt', { session: false }),
-        scopesValidationHandler(['create:products']),
+        scopesValidationHandler(['read:products']),
         validationHandler(createProductsSchema) ,
         insertProduct);
 router.put('/',
         passport.authenticate('jwt', { session: false }), 
-        scopesValidationHandler(['update:products']),
+        scopesValidationHandler(['read:products']),
         validationHandler(updateProductsSchema), 
         updateProduct);
 router.get('/',

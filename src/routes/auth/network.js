@@ -31,9 +31,13 @@ router.get('/', (req, res) => {
  *
  */
 router.post('/sign-in', async function (req, res, next) {
+  try{  
     const {apiKeyToken} = req.body;
     if (!apiKeyToken) {
-        next(boom.unauthorized('apiKeyToken is required'));
+      throw new Error("apiKeyToken is required")
+    }
+    if(apiKeyToken != config.publicApiKeyToken || apiKeyToken != config.publicApiKeyToken){
+      throw new Error("A valid apiKeyToken is required")
     }
     passport.authenticate('basic', function(error, user) {
         try {
@@ -68,6 +72,9 @@ router.post('/sign-in', async function (req, res, next) {
           next(error);
         }
       })(req, res, next);
+    }catch(error){
+      response.error(req, res, error.message, 500)
+    }
 });
 
 /**
