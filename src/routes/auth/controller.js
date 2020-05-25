@@ -28,9 +28,25 @@ function authController(injectedStore){
         `;
         return await store.get(query);
     }
+    async function getAuthbyIdUser(id) {
+        const query = `
+        SELECT concat(M.endpoint,":",M.module) as access
+        FROM ${database}.Security_levels  as S
+        JOIN ${database}.Module_access as M on S.id_security_levels=M.id_security_levels
+        JOIN ${database}.Users as U on U.security_code=S.security_code
+        where U.id_users='${id}'
+        `;
+        let result = await store.get(query);
+        let scopes = [];
+        result.forEach((item) => {
+          scopes.push(item.access);
+        })
+        return scopes;
+    }
 
     return {
        getAuth,
+       getAuthbyIdUser,
     }
 
 }

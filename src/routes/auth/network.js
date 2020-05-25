@@ -113,41 +113,45 @@ router.post('/sign-up',
 });
 
 router.post('/sign-provider',
-validationHandler(createProviderUserSchema),
-async function(req, res, next){
- const { body } = req;
- const {apiKeyToken, ...user}= body;
+    validationHandler(createProviderUserSchema),
+    async function(req, res, next){
+    const { body } = req;
+    const {apiKeyToken, ...user}= body;
 
- 
- if(!apiKeyToken){
-   next(boom.unauthorized('apiKeyToken is required'));
- }
- try{
-  //console.log(user);
-  const queriedUser = await ControllerUser.getOrCreateUser({user});
-  const apiKey = await authController.getAuth(apiKeyToken);
-  let usersData=[];
-  queriedUser.forEach((item) => {
-    usersData.push(JSON.parse(JSON.stringify(item)));
-  })
-  if(!apiKey){
-    next(boom.unauthorized());
-  }
-  
-  const { id_users, first_name, email} = usersData[0];
-  const payload = {
-    id: id_users,
-    first_name,
-    email,
-    scopes: apiKey.scopes
-  }
-  const token = jwt.sign(payload, config.authJwtSecret, {
-    expiresIn: '15m'
-  });
-  return res.status(200).json({token, user: {id_users, first_name, email}});
- }catch(error){
-   next(error);
- }
+    
+    if(!apiKeyToken){
+      next(boom.unauthorized('apiKeyToken is required'));
+    }
+    try{
+      //console.log(user);
+      const queriedUser = await ControllerUser.getOrCreateUser({user});
+      let usersData=[];
+      queriedUser.forEach((item) => {
+        usersData.push(JSON.parse(JSON.stringify(item)));
+      })
+
+      //const apiKey = await authController.getAuth(apiKeyToken);
+      const apiKey = await authController.getAuthbyIdUser(usersData[0].id_users);
+
+
+      if(!apiKey){
+        next(boom.unauthorized());
+      }
+      
+      const { id_users, first_name, email} = usersData[0];
+      const payload = {
+        id: id_users,
+        first_name,
+        email,
+        scopes: apiKey
+      }
+      const token = jwt.sign(payload, config.authJwtSecret, {
+        expiresIn: '15m'
+      });
+      return res.status(200).json({token, user: {id_users, first_name, email}});
+    }catch(error){
+      next(error);
+    }
 })
 
 
