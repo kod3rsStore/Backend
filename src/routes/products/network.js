@@ -53,17 +53,17 @@ router.get('/:id',
         getProduct);        
 router.get('/search/name',
         passport.authenticate('jwt', { session: false }), 
-        scopesValidationHandler(['search:products']), 
+        scopesValidationHandler(['read:products']), 
         validationHandler(getProductsByNameSchema, 'query'), 
         searchProductsByName);
 router.get('/search/category',
         passport.authenticate('jwt', { session: false }), 
-        scopesValidationHandler(['search:products']),         
+        scopesValidationHandler(['read:products']),         
         validationHandler(getProductsByCategorySchema, 'query') , 
         searchProductsByCategory);
 router.get('/search/price',
         passport.authenticate('jwt', { session: false }),
-        scopesValidationHandler(['search:products']),          
+        scopesValidationHandler(['read:products']),          
         validationHandler(getProductsByPriceSchema, 'query'), 
         searchProductsByPrice);
 
