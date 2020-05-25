@@ -20,10 +20,10 @@ function controllerUser(injectedStore){
         const user = {
             id_users: nanoid(),
             login: '',
-            first_name: '',
+            first_name: body.first_name ? body.first_name : '',
             last_name: '',
             email: body.email,
-            photo: '',
+            photo: body.photo ? body.photo : '',
             security_code: '2',
             creation_date: new Date(),
             score: 5,
@@ -90,6 +90,21 @@ function controllerUser(injectedStore){
         const query = `SELECT * FROM ${TABLA_USERS} WHERE email='${email}'`;
         return await store.get(query);
     }
+    /**
+     * Logic to get or create an user from an external authentication (Google).
+     * @param {object} user - The User data
+     * @returns {Promise<object[]>} res - result of one User
+     */
+    async function getOrCreateUser({ user }){
+        //let queriedUser=null;
+        const queriedUser = await this.getUserbyEmail(user.email);
+        if(Object.keys(queriedUser).length!=0){
+            return queriedUser;
+        }
+        await this.insertUser(user);
+        return await this.getUserbyEmail( user.email )
+
+    }
 
 
     return {
@@ -97,6 +112,7 @@ function controllerUser(injectedStore){
         getUser,
         updateUser,
         getUserbyEmail,
+        getOrCreateUser
     }
 }
 
