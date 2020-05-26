@@ -33,7 +33,6 @@ require('../../utils/auth/strategies/jwt');
  *@type {router} - Routs to manage Products
  */
 router.post('/',
-        function () {console.log(createScopeSchema.validate)},
         passport.authenticate('jwt', { session: false }),
         scopesValidationHandler(['create:scopes']),
         //validationHandler(createScopeSchema), 
@@ -54,7 +53,6 @@ router.get('/:idSecurity',
  * @returns {Object} res - result of Scope insertion
  */
 async function insertScopes(req, res, next){
-    console.log(req.body);
     try{
         const resInsertScope = await ControllerScopes.insertScopes(req.body);
         response.success(req, res, resInsertScope, 201);

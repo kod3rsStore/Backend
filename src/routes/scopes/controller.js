@@ -16,7 +16,6 @@ function controllerScopes(injectedStore){
      * @returns {Promise<object[]>} res - result of Scope insertion
      */
     async function insertScopes(body) {
-        console.log(`[insertScopes] ${body}`);
         const scope = {
             id_module_access: nanoid(),
             module: body.module,
@@ -36,7 +35,7 @@ function controllerScopes(injectedStore){
         /**
          * @const {id} - object to insert into product table
          */
-        const deleteScope = `DELETE FROM  ${TABLA_PRODUCTS} WHERE id_module_access='${id}'`;
+        const deleteScope = `DELETE FROM  ${TABLE_SCOPES} WHERE id_module_access='${id}'`;
         return await store.remove(deleteScope);
     }
 
@@ -45,9 +44,10 @@ function controllerScopes(injectedStore){
      * @returns {Promise<object[]>} res - List of Scopes
      */
     async function listScopes(idSecurity){
-        const query = `select concat(M.endpoint,":",M.module) as access 
-            FROM ${TABLE_SCOPES} p 
-            WHERE id_security_levels = ${idSecurity}`;
+        const query = `select concat(endpoint,":",module) as access 
+            FROM ${TABLE_SCOPES}
+            WHERE id_security_levels = '${idSecurity}'
+            order by module`;
         let result = await store.get(query);
         let scopes = [];
         result.forEach((item) => {
