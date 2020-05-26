@@ -5,7 +5,11 @@ const express = require('express');
 const router = express.Router();
 const response = require('../../../network/response');
 const ControllerProducts = require('./index')
-
+/**Upload files */
+const multer = require('multer');
+const upload = multer({
+    dest: 'public/uploads/images/products'
+})
 /**validations */
 const validationHandler = require('../../utils/middleware/validationHandler');
 const { productIdSchema, 
@@ -30,6 +34,7 @@ require('../../utils/auth/strategies/jwt');
 router.post('/',
         passport.authenticate('jwt', { session: false }),
         scopesValidationHandler(['read:products']),
+        upload.single('file'),
         validationHandler(createProductsSchema) ,
         insertProduct);
 router.put('/',
@@ -53,17 +58,17 @@ router.get('/:id',
         getProduct);        
 router.get('/search/name',
         passport.authenticate('jwt', { session: false }), 
-        scopesValidationHandler(['read:products']), 
+        scopesValidationHandler(['search:products']), 
         validationHandler(getProductsByNameSchema, 'query'), 
         searchProductsByName);
 router.get('/search/category',
         passport.authenticate('jwt', { session: false }), 
-        scopesValidationHandler(['read:products']),         
+        scopesValidationHandler(['search:products']),         
         validationHandler(getProductsByCategorySchema, 'query') , 
         searchProductsByCategory);
 router.get('/search/price',
         passport.authenticate('jwt', { session: false }),
-        scopesValidationHandler(['read:products']),          
+        scopesValidationHandler(['search:products']),          
         validationHandler(getProductsByPriceSchema, 'query'), 
         searchProductsByPrice);
 
@@ -76,7 +81,7 @@ router.get('/search/price',
  */
 async function insertProduct(req, res, next){
     try{
-        const resInsertProduct = await ControllerProducts.insertProduct(req.body);
+        const resInsertProduct = await ControllerProducts.insertProduct(req.body, req.file);
         response.success(req, res, resInsertProduct, 201);
     }catch(err){
         response.error(req, res, err.message, 500, 'error network Products Insertion');

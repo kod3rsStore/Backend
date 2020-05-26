@@ -26,6 +26,7 @@ app.use('/api/categories', categories);
 app.use('/api/addresses', addresses);
 app.use('/api/shopcarts', shopCart);
 app.use('/api/documentation/swagger', swaggerDoc);
+app.use('/statics', express.static('public'));
 
 app.listen(config.port, function (){
     console.log(`Server is listening in: http://localhost:${config.port}`);

@@ -20,21 +20,21 @@ require('../../utils/auth/strategies/jwt');
 //Routes
 router.post('/',
         passport.authenticate('jwt', { session: false }),
-        scopesValidationHandler(['read:products']),
+        scopesValidationHandler(['read:categories']),
         validationHandler(createCategorySchema),
         insertCategory);
 router.put('/',
         passport.authenticate('jwt', { session: false }), 
-        scopesValidationHandler(['read:products']),        
+        scopesValidationHandler(['read:categories']),        
         validationHandler(updateCategorySchema), 
         updateCategory);
 router.get('/',
         passport.authenticate('jwt', { session: false }),
-        scopesValidationHandler(['read:products']),         
+        scopesValidationHandler(['read:categories']),         
         listCategories);
 router.get('/:id',
         passport.authenticate('jwt', { session: false }),
-        scopesValidationHandler(['read:products']),         
+        scopesValidationHandler(['read:categories']),         
         validationHandler(categoryIdSchema, 'params'), 
         getCategoryById);
 

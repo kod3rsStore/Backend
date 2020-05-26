@@ -2,7 +2,8 @@
 # Edit at https://www.gitignore.io/?templates=node,linux,macos,dotenv,windows
 #notas
 .notes.txt
-
+### uploads ###
+uploads
 ### dotenv ###
 .env
 

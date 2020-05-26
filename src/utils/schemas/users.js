@@ -24,7 +24,7 @@ const updateUserSchema = joi.object({
     last_name: joi.string().max(100),
     email: joi.string().email(),
     password: joi.string(),
-    available: joi.boolean(),
+    available: joi.number().max(1),
     photo: joi.string()
 });
 
