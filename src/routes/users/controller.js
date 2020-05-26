@@ -3,6 +3,8 @@
  */
 const { nanoid } = require('nanoid');
 const bcrypt = require('bcryptjs');
+const config = require('../../config/index');
+
 const TABLA_USERS = 'Users';
 
 function controllerUser(injectedStore){
@@ -45,7 +47,7 @@ function controllerUser(injectedStore){
      * @param {Object} body - The User information 
      * @returns {Promise<object[]>} res - result of User update
      */
-    async function updateUser(body){
+    async function updateUser(body, file){
         let columns={};
         if(body.email){
             columns.email=body.email;
@@ -63,8 +65,9 @@ function controllerUser(injectedStore){
         if(body.available){
             columns.available=body.available;
         }
-        if(body.photo){
-            columns.photo=body.photo;
+        if(file){
+            let profile_image_url = `http://localhost:${config.port}/statics/uploads/images/profile/` + file.filename;
+            columns.photo = profile_image_url;
         }
         const queryUpdateUser = `UPDATE ${TABLA_USERS} SET ? WHERE id_users='${body.id_user}'`;
         return await store.update(queryUpdateUser, columns);

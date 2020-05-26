@@ -14,7 +14,7 @@ const scopesValidationHandler = require('../../utils/middleware/scopesValidation
 /**Upload files */
 const multer = require('multer');
 const upload = multer({
-    dest: 'uploads/images/users'
+    dest: 'public/uploads/images/profile'
 })
 /** Securing our Endpoints */
 //,
@@ -41,7 +41,7 @@ router.get('/:id',
  */
 async function updateUser(req, res, next) {
     try {
-        const updateRes = await ControllerUser.updateUser(req.body);
+        const updateRes = await ControllerUser.updateUser(req.body, req.file);
         response.success(req, res, updateRes, 201);
     } catch (err) {
         response.error(req, res, err.message, 500, 'error network user update');

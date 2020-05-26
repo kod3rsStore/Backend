@@ -5,7 +5,11 @@ const express = require('express');
 const router = express.Router();
 const response = require('../../../network/response');
 const ControllerProducts = require('./index')
-
+/**Upload files */
+const multer = require('multer');
+const upload = multer({
+    dest: 'public/uploads/images/profile'
+})
 /**validations */
 const validationHandler = require('../../utils/middleware/validationHandler');
 const { productIdSchema, 
