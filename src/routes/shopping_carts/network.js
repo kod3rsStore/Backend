@@ -27,22 +27,22 @@ require('../../utils/auth/strategies/jwt');
  */
 router.post('/',
         passport.authenticate('jwt', { session: false }), 
-        scopesValidationHandler(['create:shopping_carts']),
+        scopesValidationHandler(['read:products']),
         validationHandler(addProductToCartSchema), 
         addProductToCart);
 router.patch('/',
         passport.authenticate('jwt', { session: false }),
-        scopesValidationHandler(['update:shopping_carts']), 
+        scopesValidationHandler(['read:products']), 
         validationHandler(updateQtyProductSchema), 
         updateQtyProductOfCart);
 router.delete('/',
         passport.authenticate('jwt', { session: false }),
-        scopesValidationHandler(['delete:shopping_carts']),
+        scopesValidationHandler(['read:products']),
         validationHandler(removeProductSchema), 
         removeProductFromCart);
 router.get('/:id',
         passport.authenticate('jwt', { session: false }),
-        scopesValidationHandler(['read:shopping_carts']), 
+        scopesValidationHandler(['read:products']), 
         validationHandler(cartIdSchema, 'params'), 
         getShoppingCartUser);
 

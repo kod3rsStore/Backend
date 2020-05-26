@@ -19,7 +19,7 @@ app.use(express.json());
  * API Routes 
  */
 app.use('/api/auth/', auth);
-app.use('/api/user/', user);
+app.use('/api/users/', user);
 app.use('/api/scopes/', scopes);
 app.use('/api/products', products);
 app.use('/api/categories', categories);

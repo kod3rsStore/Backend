@@ -19,23 +19,14 @@ const scopesValidationHandler = require('../../utils/middleware/scopesValidation
 const passport = require('passport');
 require('../../utils/auth/strategies/jwt');
 
-/**
- * Router endpoint of User
- *@type {router} - Routs to manage Users
- */
-router.post('/',
-    passport.authenticate('jwt', { session: false }),
-    scopesValidationHandler(['create:user']),
-    validationHandler(createUserSchema),
-    insertUser) ;
 router.put('/',
     passport.authenticate('jwt', { session: false }), 
-    scopesValidationHandler(['update:user']),
+    scopesValidationHandler(['read:products']),
     validationHandler(updateUserSchema), 
     updateUser);
 router.get('/:id', 
     passport.authenticate('jwt', { session: false }),
-    scopesValidationHandler(['read:user']),     
+    scopesValidationHandler(['read:products']),     
     validationHandler(userIdSchema, 'params'), 
     get);
 /**

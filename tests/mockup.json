@@ -1,8 +1,94 @@
 {
     "users":{
-        "id_user": "PeJbzjBNiazWgvtWDPBtC"
+        "id_user": "U_kuWPAlggYpqGB6KEOuI",
+        "email":"antury@ucsd.edu",
+        "password": "root"
+    },
+    "signUp":{
+        "email": "andres4@ucsd.edu",
+        "password": "secret",
+        "security_code": "2"
+    },
+    "categories":{
+        "id_categories": "8RM9U-ouzTTvGThIqoKOl" ,
+        "description": "accesorios para niños en cuero",
+        "cat_name":"accesorios niños +8",
+        "id_parent_category": "8RM9U-ouzTTvGThIqoKOl"
+    },
+    "addCategories":{
+        "description": "Accesories made with genuine leather",
+        "cat_name":"leather Accesories",
+        "id_parent_category": ""
+    },
+    "addProductCart": {
+        "id_user":"U_kuWPAlggYpqGB6KEOuI",
+        "id_product": "i1CfWy7JyBN2NYaQaqtgR",
+        "quantity":2
+    },	
+    "updateProductCart": {
+        "id_user":"U_kuWPAlggYpqGB6KEOuI",
+        "id_product": "i1CfWy7JyBN2NYaQaqtgR",
+        "new_qty":4
+    },
+    "removeProductCart": {
+        "id_user":"U_kuWPAlggYpqGB6KEOuI",
+        "id_product": "i1CfWy7JyBN2NYaQaqtgR"
+    },
+    "updateUser":{
+        "id_user":"U_kuWPAlggYpqGB6KEOuI",
+        "email": "antury@ucsd.edu",
+        "password":"root",
+        "first_name":"Wilson",
+        "last_name": "Antury",
+        "available": true,
+        "photo": "http://dummyimage.com/213x225.bmp/cc0000/ffffff "
     },
     "products":{
-        "id_product": "_AI9-HNn_u_IakdXyeQhT"
+        "id_products":"i1CfWy7JyBN2NYaQaqtgR",
+        "description": "Accesories made for real leather lovers",
+        "title": "lather belt, color : brown",
+        "photo": 
+            {
+                "url":"http://dummyimage.com/101x176.png/dddddd/000000 ",
+                "description":"photo of belt color brown ",
+                "visible":true
+            },
+        "cost": 700,
+        "quantity": 47,
+        "available": true,	
+        "id_categories":"8RM9U-ouzTTvGThIqoKOl"
+    },
+    "addProducts":{
+        "description": "accesories made for leather lovers",
+        "title": 1,
+        "photo": 
+            {
+                "url":"https://cdn.pixabay.com/photo/2015/06/24/01/15/morning-819362_960_720.jpg",
+                "description":"photo lether belt"
+            },
+        "cost": 60000,
+        "quantity": 106,
+        "available": true,	
+        "id_categories":"8RM9U-ouzTTvGThIqoKOl"
+    },
+    "updateAddresses": {
+        "id_directions": "2VzN_xXc7J84YZTCVTxzB",
+        "id_user":"EZ5dgvn3g4IO6JCVy2LT5",
+        "id_cities_catalog": "14003",
+        "id_countries_catalog":"MX",
+        "id_states_catalog": "JAL",
+        "street": "Butternut",
+        "street_number": "74240",
+        "id_postal_codes": "04567",
+        "available": true
+    },
+    "createAddress": {
+        "id_user":"U_kuWPAlggYpqGB6KEOuI",
+        "id_cities_catalog": "14001",
+        "id_countries_catalog":"MX",
+        "id_states_catalog": "JAL",
+        "street": "Manley",
+        "street_number": "9790",
+        "id_postal_codes": "45345"
     }
 }

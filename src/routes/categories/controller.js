@@ -18,12 +18,12 @@ function controllerCategories(injectedStore){
     async function insertCategory(body) {
         const category = {
             description: body.description,
-            cat_name: body.cat_name,
+            category_name: body.cat_name,
             id_parent_category: body.id_parent_category,
             creation_date: new Date(),     
         }
         category.id_categories = nanoid();
-            return await store.insert(TABLA_CAT, category);
+        return await store.insert(TABLA_CAT, category);
     }
     /**
      * Logic to update a Category
@@ -34,7 +34,7 @@ function controllerCategories(injectedStore){
     async function updateCategory(body) {
         const category = {
             description: body.description,
-            cat_name: body.cat_name,
+            category_name: body.cat_name,
             id_parent_category: body.id_parent_category,
         }
         const query = `UPDATE ${TABLA_CAT} SET ? WHERE id_categories='${body.id_categories}'`;
