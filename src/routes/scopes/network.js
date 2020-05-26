@@ -38,7 +38,7 @@ router.delete('/:id',
         passport.authenticate('jwt', { session: false }), 
         scopesValidationHandler(['delete:scopes']),
         deleteScopes);        
-router.get('/:id',
+router.get('/:idSecurity',
         passport.authenticate('jwt', { session: false }), 
         scopesValidationHandler(['read:scopes']),
         listScopes);
@@ -80,8 +80,8 @@ async function deleteScopes(req, res, next){
  */
 async function listScopes(req, res, next){
     try{
-        const { id } = req.params;
-        const resListScopes = await ControllerScopes.listScopes(id);
+        const { idSecurity } = req.params;
+        const resListScopes = await ControllerScopes.listScopes(idSecurity);
         response.success(req, res, resListScopes, 200);
     }catch(err){
         response.error(req, res, err.message, 500, 'error network Products');
