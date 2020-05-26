@@ -9,6 +9,7 @@ const products = require('./routes/products/network');
 const categories = require('./routes/categories/network');
 const addresses = require('./routes/addresses/network');
 const shopCart = require('./routes/shopping_carts/network');
+const scopes = require('./routes/scopes/network');
 const swaggerDoc = require('../api_doc/swagger.js');
 const auth = require('./routes/auth/network');
 
@@ -19,6 +20,7 @@ app.use(express.json());
  */
 app.use('/api/auth/', auth);
 app.use('/api/users/', user);
+app.use('/api/scopes/', scopes);
 app.use('/api/products', products);
 app.use('/api/categories', categories);
 app.use('/api/addresses', addresses);
