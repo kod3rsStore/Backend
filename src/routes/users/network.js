@@ -7,14 +7,17 @@ const response = require('../../../network/response');
 const ControllerUser = require('./index')
 /**Validations */
 const validationHandler = require('../../utils/middleware/validationHandler');
-const { createUserSchema } = require('../../utils/schemas/users');
 const { updateUserSchema } = require('../../utils/schemas/users');
 const { userIdSchema } = require('../../utils/schemas/users');
 
 const scopesValidationHandler = require('../../utils/middleware/scopesValidationHandler');
-
+/**Upload files */
+const multer = require('multer');
+const upload = multer({
+    dest: 'uploads/images/users'
+})
 /** Securing our Endpoints */
-
+//,
 /**JWT Strategy */
 const passport = require('passport');
 require('../../utils/auth/strategies/jwt');
@@ -22,7 +25,8 @@ require('../../utils/auth/strategies/jwt');
 router.put('/',
     passport.authenticate('jwt', { session: false }), 
     scopesValidationHandler(['read:products']),
-    validationHandler(updateUserSchema), 
+    upload.single('file'), 
+    validationHandler(updateUserSchema),
     updateUser);
 router.get('/:id', 
     passport.authenticate('jwt', { session: false }),
@@ -30,35 +34,10 @@ router.get('/:id',
     validationHandler(userIdSchema, 'params'), 
     get);
 /**
- * API Endpoint to insert an User in the data base.
- * @method POST 
- * @param {Object} req - The User information 
- * @returns {Object} res - result of User insertion
- * @example
- *      body = {
- *          "email": "email@host.com"
- * 	        "password": "1234"     
- *      }
- */
-async function insertUser(req, res, next) {
-    try {
-        const userRes = await ControllerUser.insertUser(req.body);
-        response.success(req, res, userRes, 201);
-    } catch (err) {
-        response.error(req, res, err.message, 500, 'error network user Insert');
-    }
-}
-
-/**
  * API Endpoint to update an User information.
  * @method PUT 
  * @param {Object} req - The User information to be updated
  * @returns {Object} res - result of User update
- * @example
- *      body = {
- *          "email": "email@host.com"
- * 	        "password": "1234"     
- *      }
  */
 async function updateUser(req, res, next) {
     try {

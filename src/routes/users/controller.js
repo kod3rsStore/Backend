@@ -3,7 +3,6 @@
  */
 const { nanoid } = require('nanoid');
 const bcrypt = require('bcryptjs');
-
 const TABLA_USERS = 'Users';
 
 function controllerUser(injectedStore){
