@@ -2,6 +2,7 @@
  * @module routes/products/controller
  */
 const { nanoid } = require('nanoid');
+const config = require('../../config/index');
 
 const TABLA_PRODUCTS = 'Products';
 const TABLA_ALBUMS = 'Albums';
@@ -22,7 +23,7 @@ function controllerProducts(injectedStore){
      * @param {Object} body - The Product information 
      * @returns {Promise<object[]>} res - result of Product insertion
      */
-    async function insertProduct(body) {
+    async function insertProduct(body, file) {
         const product = {
             description: body.description,
             title: body.title,
@@ -43,28 +44,30 @@ function controllerProducts(injectedStore){
             created_date: new Date()
         }
         product.id_albums = album.id_albums;
-        try{
-            await store.insert(TABLA_ALBUMS, album);
-        }catch(err){
-            throw err;
+        try {
+            await store.insert(TABLA_PRODUCTS, product);
+        } catch (error) {
+            throw error;
         }
         
-        if(body.photo){
+        if(file){
+            console.log(file);
             const photo = {
                 id_product_photos: nanoid(),
-                description: body.photo.description,
-                photo: body.photo.url,
+                description: body.photo_desc,
+                photo: `http://localhost:${config.port}/statics/uploads/images/products/` + file.filename,
                 id_albums: album.id_albums,
                 created_date: new Date(),
                 visible: true,
             }
-            try{
+            try {
                 await store.insert(TABLA_PHOTOS, photo);
-            }catch(err){
-                throw err;
+            } catch (error) {
+                throw error;
             }
         }
-            return await store.insert(TABLA_PRODUCTS, product);
+        
+        return await store.insert(TABLA_ALBUMS, album);
     }
 
     /**

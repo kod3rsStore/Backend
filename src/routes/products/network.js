@@ -8,7 +8,7 @@ const ControllerProducts = require('./index')
 /**Upload files */
 const multer = require('multer');
 const upload = multer({
-    dest: 'public/uploads/images/profile'
+    dest: 'public/uploads/images/products'
 })
 /**validations */
 const validationHandler = require('../../utils/middleware/validationHandler');
@@ -34,6 +34,7 @@ require('../../utils/auth/strategies/jwt');
 router.post('/',
         passport.authenticate('jwt', { session: false }),
         scopesValidationHandler(['read:products']),
+        upload.single('file'),
         validationHandler(createProductsSchema) ,
         insertProduct);
 router.put('/',
@@ -80,7 +81,7 @@ router.get('/search/price',
  */
 async function insertProduct(req, res, next){
     try{
-        const resInsertProduct = await ControllerProducts.insertProduct(req.body);
+        const resInsertProduct = await ControllerProducts.insertProduct(req.body, req.file);
         response.success(req, res, resInsertProduct, 201);
     }catch(err){
         response.error(req, res, err.message, 500, 'error network Products Insertion');

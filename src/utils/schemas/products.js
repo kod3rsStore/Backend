@@ -27,13 +27,10 @@ const getProductsByPriceSchema = joi.object({
 const createProductsSchema = joi.object({
     description: joi.string().required(),
     title: joi.string().required(),
-    photo: joi.object({
-        url: joi.string().uri().required(),
-        description: joi.string().required()
-    }) ,
+    photo_desc: joi.string(),
 	cost: joi.number().required(),
 	quantity: joi.number().required(),
-	available: joi.boolean().required(),
+	available: joi.number().max(1).required(),
 	id_categories: joi.string().required().max(21).regex(/^[0-9a-zA-Z_-]{21}$/)
 });
 
