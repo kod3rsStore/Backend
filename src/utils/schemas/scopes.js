@@ -6,7 +6,6 @@ const createScopeSchema = joi.object({
     id_security_levels: joi.string().max(21).regex(/^[0-9a-zA-Z_-]{21}$/)
 });
 
-
 module.exports = {
     createScopeSchema
 }

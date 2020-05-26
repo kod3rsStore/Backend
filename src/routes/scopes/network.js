@@ -33,9 +33,10 @@ require('../../utils/auth/strategies/jwt');
  *@type {router} - Routs to manage Products
  */
 router.post('/',
+        function () {console.log(createScopeSchema.validate)},
         passport.authenticate('jwt', { session: false }),
         scopesValidationHandler(['create:scopes']),
-        validationHandler(createScopeSchema),
+        //validationHandler(createScopeSchema), 
         insertScopes);
 router.delete('/:id',
         passport.authenticate('jwt', { session: false }), 
