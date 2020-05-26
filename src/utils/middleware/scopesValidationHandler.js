@@ -3,7 +3,6 @@ const response = require('../../../network/response');
 
 function scopesValidationHandler(allowedScopes){
     return function(req,res, next){
-        console.log(req.user.scopes);
         if(!req.user || (req.user && !req.user.scopes)){
             response.error(req, res, error.message, 401, 'Missing scopes');
             return false;

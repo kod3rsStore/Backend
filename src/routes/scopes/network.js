@@ -15,15 +15,18 @@ const { productIdSchema,
         getProductsByPriceSchema,
         createProductsSchema,
         updateProductsSchema } = require('../../utils/schemas/products');
-
+validationHandler(createCategorySchema),
         */
+
+/**validations */
+const validationHandler = require('../../utils/middleware/validationHandler');  
+const createScopeSchema = require('../../utils/schemas/scopes'); 
 
 const scopesValidationHandler = require('../../utils/middleware/scopesValidationHandler');
 
 /**JWT Strategy */
 const passport = require('passport');
 require('../../utils/auth/strategies/jwt');
-
 
 /**
  * Router to manage the endpoint of products
@@ -32,7 +35,7 @@ require('../../utils/auth/strategies/jwt');
 router.post('/',
         passport.authenticate('jwt', { session: false }),
         scopesValidationHandler(['create:scopes']),
-        validationHandler(createProductsSchema) ,
+        validationHandler(createScopeSchema),
         insertScopes);
 router.delete('/:id',
         passport.authenticate('jwt', { session: false }), 
@@ -50,11 +53,12 @@ router.get('/:idSecurity',
  * @returns {Object} res - result of Scope insertion
  */
 async function insertScopes(req, res, next){
+    console.log(req.body);
     try{
         const resInsertScope = await ControllerScopes.insertScopes(req.body);
         response.success(req, res, resInsertScope, 201);
     }catch(err){
-        response.error(req, res, err.message, 500, 'error network Products Insertion');
+        response.error(req, res, err.message, 500, 'error network Scopes Insertion');
     }
 }
 /**
@@ -69,14 +73,14 @@ async function deleteScopes(req, res, next){
         const resDeleteScopes = await ControllerScopes.deleteScopes(id);
         response.success(req, res, resDeleteScopes, 201);
     }catch(err){
-        response.error(req, res, err.message, 500, 'error network Products Update');
+        response.error(req, res, err.message, 500, 'error network Scopes Delete');
     }
 }
 
 /**
  * API Endpoint to list all Scopes belonging to user from the data base.
  * @method GET 
- * @returns {Array.<Object>} res - list of Products
+ * @returns {Array.<Object>} res - list of Scopes
  */
 async function listScopes(req, res, next){
     try{
@@ -84,7 +88,7 @@ async function listScopes(req, res, next){
         const resListScopes = await ControllerScopes.listScopes(idSecurity);
         response.success(req, res, resListScopes, 200);
     }catch(err){
-        response.error(req, res, err.message, 500, 'error network Products');
+        response.error(req, res, err.message, 500, 'error network Scopes');
     }
 }
 

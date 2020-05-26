@@ -3,7 +3,7 @@
  */
 const { nanoid } = require('nanoid');
 
-const TABLE_SCOPES = 'Scopes';
+const TABLE_SCOPES = 'Module_access';
 
 function controllerScopes(injectedStore){
     let store = injectedStore;
@@ -15,7 +15,8 @@ function controllerScopes(injectedStore){
      * @param {Object} body - The Scope information 
      * @returns {Promise<object[]>} res - result of Scope insertion
      */
-    async function insertScope(body) {
+    async function insertScopes(body) {
+        console.log(`[insertScopes] ${body}`);
         const scope = {
             id_module_access: nanoid(),
             module: body.module,
@@ -31,7 +32,7 @@ function controllerScopes(injectedStore){
      * @param {id} - The id of the Scope to be deleted
      * @returns {Object} res - result of Scope delete operation
     */
-    async function deleteScope(id) {
+    async function deleteScopes(id) {
         /**
          * @const {id} - object to insert into product table
          */
@@ -55,10 +56,10 @@ function controllerScopes(injectedStore){
         return scopes;
     }
     return {
-        insertScope,
-        deleteScope,
+        insertScopes,
+        deleteScopes,
         listScopes
     }
 }
 
-module.exports = controllerProducts;
+module.exports = controllerScopes;
