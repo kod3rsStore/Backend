@@ -3,7 +3,6 @@ stages:
     - install
     - test
     - dast
-
 install-dependencies:
     stage: install
     script:
@@ -15,6 +14,11 @@ install-dependencies:
     cache:
         paths:
             - node_modules/
+include:
+    - template: Code-Quality.gitlab-ci.yml              
+    - template: Container-Scanning.gitlab-ci.yml    
+    - template: Dependency-Scanning.gitlab-ci.yml     
+    - template: SAST.gitlab-ci.yml        
 test-apps:
     stage: test
     dependencies:
@@ -22,16 +26,6 @@ test-apps:
     before_script:
         - apt-get upgrade && apt-get update
     script:
-        - npm run test:ci 
-include:     
-    - template: Code-Quality.gitlab-ci.yml              
+        - npm run test:ci
 include:
-    - template: Container-Scanning.gitlab-ci.yml 
-include:     
-    - template: Dependency-Scanning.gitlab-ci.yml   
-include:    
-    - template: SAST.gitlab-ci.yml        
-include:
-    - template: DAST.gitlab-ci.yml       
-
-
+    - template: DAST.gitlab-ci.yml 
