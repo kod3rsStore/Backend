@@ -20,4 +20,10 @@ test-apps:
     before_script:
         - apt-get upgrade && apt-get update
     script:
-        - npm run test:ci        
+        - npm run test:ci  
+include:
+    template: SAST.gitlab-ci.yml
+    template: Container-Scanning.gitlab-ci.yml     
+    template: Dependency-Scanning.gitlab-ci.yml
+    template: DAST.gitlab-ci.yml
+
