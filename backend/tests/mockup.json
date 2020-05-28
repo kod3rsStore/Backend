@@ -40,8 +40,7 @@
         "password":"root",
         "first_name":"Wilson",
         "last_name": "Antury",
-        "available": true,
-        "photo": "http://dummyimage.com/213x225.bmp/cc0000/ffffff "
+        "available": 1
     },
     "products":{
         "id_products":"i1CfWy7JyBN2NYaQaqtgR",
