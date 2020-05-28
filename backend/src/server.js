@@ -10,11 +10,18 @@ const categories = require('./routes/categories/network');
 const addresses = require('./routes/addresses/network');
 const shopCart = require('./routes/shopping_carts/network');
 const scopes = require('./routes/scopes/network');
+const paypalPayment = require('./routes/paypal/network');
 const swaggerDoc = require('../api_doc/swagger.js');
 const auth = require('./routes/auth/network');
 
 const app = express();
 app.use(express.json());
+app.use(function(req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    next();
+  });
 /**
  * API Routes 
  */
@@ -22,6 +29,7 @@ app.use('/api/auth/', auth);
 app.use('/api/users/', user);
 app.use('/api/scopes/', scopes);
 app.use('/api/products', products);
+app.use('/api/payment/paypal', paypalPayment);
 app.use('/api/categories', categories);
 app.use('/api/addresses', addresses);
 app.use('/api/shopcarts', shopCart);
