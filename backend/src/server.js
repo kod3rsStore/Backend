@@ -37,7 +37,7 @@ app.use('/api/documentation/swagger', swaggerDoc);
 app.use('/statics', express.static('public'));
 
 app.listen(config.port, function (){
-    console.log(`Server is listening in: http://localhost:${config.port}`);
+    console.log(`Server is listening in: http://${config.server}:${config.port}`);
 });
 
 module.exports = app;

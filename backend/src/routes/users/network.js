@@ -24,13 +24,13 @@ require('../../utils/auth/strategies/jwt');
 
 router.put('/',
     passport.authenticate('jwt', { session: false }), 
-    scopesValidationHandler(['read:products']),
+    scopesValidationHandler(['read:users']),
     upload.single('file'), 
     validationHandler(updateUserSchema),
     updateUser);
 router.get('/:id', 
     passport.authenticate('jwt', { session: false }),
-    scopesValidationHandler(['read:products']),     
+    scopesValidationHandler(['read:users']),     
     validationHandler(userIdSchema, 'params'), 
     get);
 /**
