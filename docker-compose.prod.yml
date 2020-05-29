@@ -34,7 +34,6 @@ services:
         - traefik.webservice.frontend.entryPoints=https
     networks:
       - traefik-public
-      - default
 networks:
   traefik-public:
     external: true
