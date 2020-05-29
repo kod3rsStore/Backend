@@ -23,7 +23,7 @@ services:
     container_name: backend-api
     build:
       context: ./backend
-      dockerfile: ./backend/Dockerfile
+      dockerfile: Dockerfile
     environment:
       - PORT=${PORT}
       - DB_USER=${DB_USER}
