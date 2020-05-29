@@ -7,6 +7,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
     environment:
       - PORT=${PORT}
       - DB_USER=${DB_USER}
