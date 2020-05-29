@@ -33,50 +33,45 @@ const express = require('express');
 const router = express.Router();
 const response = require('../../../network/response');
 const ControllerUser = require('./index')
+/**Validations */
+const validationHandler = require('../../utils/middleware/validationHandler');
+const { updateUserSchema } = require('../../utils/schemas/users');
+const { userIdSchema } = require('../../utils/schemas/users');
 
-/**
- * Router endpoint of User
- *@type {router} - Routs to manage Users
- */
-router.post('/signup', insertUser);
-router.put('/', updateUser);
-router.get('/:id', get);
-/**
- * API Endpoint to insert an User in the data base.
- * @method POST 
- * @param {Object} req - The User information 
- * @returns {Object} res - result of User insertion
- * @example
- *      body = {
- *          "email": "email@host.com"
- * 	        "password": "1234"     
- *      }
- */
-async function insertUser(req, res, next){
-    try {
-        const userRes = await ControllerUser.insertUser(req.body);
-        response.success(req, res, userRes, 201);
-    } catch( err){
-        response.error(req, res, err.message, 500, 'error network user Insert');
-    }
-}
+const scopesValidationHandler = require('../../utils/middleware/scopesValidationHandler');
+/**Upload files */
+const multer = require('multer');
+const upload = multer({
+    dest: 'public/uploads/images/profile'
+})
+/** Securing our Endpoints */
+//,
+/**JWT Strategy */
+const passport = require('passport');
+require('../../utils/auth/strategies/jwt');
 
+router.put('/',
+    passport.authenticate('jwt', { session: false }), 
+    scopesValidationHandler(['read:products']),
+    upload.single('file'), 
+    validationHandler(updateUserSchema),
+    updateUser);
+router.get('/:id', 
+    passport.authenticate('jwt', { session: false }),
+    scopesValidationHandler(['read:products']),     
+    validationHandler(userIdSchema, 'params'), 
+    get);
 /**
  * API Endpoint to update an User information.
  * @method PUT 
  * @param {Object} req - The User information to be updated
  * @returns {Object} res - result of User update
- * @example
- *      body = {
- *          "email": "email@host.com"
- * 	        "password": "1234"     
- *      }
  */
-async function updateUser(req, res, next){
+async function updateUser(req, res, next) {
     try {
-        const updateRes = await ControllerUser.updateUser(req.body);
+        const updateRes = await ControllerUser.updateUser(req.body, req.file);
         response.success(req, res, updateRes, 201);
-    } catch( err){
+    } catch (err) {
         response.error(req, res, err.message, 500, 'error network user update');
     }
 }
@@ -87,11 +82,11 @@ async function updateUser(req, res, next){
  * @param {params} req - The User ID 
  * @returns {Array.&lt;Object>} res - User
  */
-async function get(req, res, next){
+async function get(req, res, next) {
     try {
         const userGetById = await ControllerUser.getUser(req.params.id);
         response.success(req, res, userGetById, 200);
-    } catch( err){
+    } catch (err) {
         response.error(req, res, err.message, 500, 'error network user');
     }
 }
@@ -105,13 +100,13 @@ module.exports = router;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-mysql.html">mysql</a></li><li><a href="module-routes_addresses_controller.html">routes/addresses/controller</a></li><li><a href="module-routes_addresses_network.html">routes/addresses/network</a></li><li><a href="module-routes_categories_controller.html">routes/categories/controller</a></li><li><a href="module-routes_categories_network.html">routes/categories/network</a></li><li><a href="module-routes_products_controller.html">routes/products/controller</a></li><li><a href="module-routes_products_network.html">routes/products/network</a></li><li><a href="module-routes_shopping_carts_controller.html">routes/shopping_carts/controller</a></li><li><a href="module-routes_shopping_carts_network.html">routes/shopping_carts/network</a></li><li><a href="module-routes_user_controller.html">routes/user/controller</a></li><li><a href="module-routes_user_network.html">routes/user/network</a></li><li><a href="module-server.html">server</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-mysql.html">mysql</a></li><li><a href="module-routes_addresses_controller.html">routes/addresses/controller</a></li><li><a href="module-routes_addresses_network.html">routes/addresses/network</a></li><li><a href="module-routes_auth_network.html">routes/auth/network</a></li><li><a href="module-routes_categories_controller.html">routes/categories/controller</a></li><li><a href="module-routes_categories_network.html">routes/categories/network</a></li><li><a href="module-routes_paypal_network.html">routes/paypal/network</a></li><li><a href="module-routes_products_controller.html">routes/products/controller</a></li><li><a href="module-routes_products_network.html">routes/products/network</a></li><li><a href="module-routes_shopping_carts_controller.html">routes/shopping_carts/controller</a></li><li><a href="module-routes_shopping_carts_network.html">routes/shopping_carts/network</a></li><li><a href="module-routes_user_controller.html">routes/user/controller</a></li><li><a href="module-routes_user_network.html">routes/user/network</a></li><li><a href="module-server.html">server</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri May 22 2020 14:53:06 GMT-0500 (Colombia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Thu May 28 2020 16:17:33 GMT-0500 (Colombia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
