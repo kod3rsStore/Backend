@@ -1,8 +1,12 @@
-# Kod3rs Store Backend
+# Kod3rs Store (Backend)
 
-This project is a backend, developed in nodejs connecting a mysql database for kod3rsStore.
+*This is the back-end repository of the Kod3rs Store project. 
+For the front-end repository please see [this link](https://github.com/kod3rsStore/Frontend)
+To read the full documentation see our notes in [Notion](https://www.notion.so/Kod3rs-Store-c7223ee165974827b5577b7ce00967a3)*
 
-This server implement security with passport js using Json Web Tokens.
+Kod3rs Store is developed using Nodejs connecting a MySQL database.
+
+This server implements security using Passport js using Json Web Tokens.
 
 
 ## Getting Started
@@ -20,8 +24,7 @@ git clone https://github.com/kod3rsStore/Backend.git
 
 ### Prerequisites
 
-This project run using
-
+To run this project please use the following command:
 ```
 node
 ```
@@ -49,7 +52,7 @@ npm intall
 npm run dev
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+>End with an example of getting some data out of the system or using it for a little demo
 (This will be added when we have the seed scripts)
 
 ## Running the tests
@@ -63,18 +66,10 @@ npm run test
 npm run coverage
 ```
 ## API documentation
-Yo need to start the server ``` nom run dev ``` to get access to documentation.
+Start the server ``` nom run dev ``` to get access to documentation.
 > Go to:  [http://localhost:3000/api/documentation/swagger/](http://localhost:3000/api/documentation/swagger/)
 
 ### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
 
 Explain what these tests test and why
 
@@ -105,10 +100,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 * **Wilson Antury**  [Wilantury](https://github.com/wilantury)
 * **Luis Antonio Rodriguez Garcia**  [Luisrdz5](https://github.com/luisrdz5)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-
