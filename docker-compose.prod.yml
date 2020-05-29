@@ -1,23 +1,6 @@
 version: "3.7"
 
 services:
-  viz:
-    image: 'dockersamples/visualizer:latest'
-    volumes:
-    - "/var/run/docker.sock:/var/run/docker.sock"
-    deploy:
-      labels:
-        - traefik.frontend.rule=Host:viz.kod3rsstore.com
-        - traefik.enable=true
-        - traefik.port=8080
-        - traefik.tags=traefik-public
-        - traefik.docker.network=traefik-public
-        - traefik.redirectorservice.frontend.entryPoints=http
-        - traefik.redirectorservice.frontend.redirect.entryPoint=https
-        - traefik.webservice.frontend.entryPoints=https
-    networks:
-      - traefik-public
-      - default
   backend_api:
     image: '${CI_REGISTRY_IMAGE}/api:latest'
     container_name: backend-api

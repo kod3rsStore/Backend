@@ -5,7 +5,7 @@ services:
       image: 'backend-api:latest'
       build:
         context: ./backend
-        dockerfile: ./dockerfile
+        dockerfile: Dockerfile
       ports:
         - '3000:3000'
       environment:
