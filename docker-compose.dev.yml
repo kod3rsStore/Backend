@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+    backend_api:
+      image: 'backend-api:latest'
+      build:
+        context: ./backend
+        dockerfile: ./dockerfile
+      ports:
+        - '3000:3000'
+      environment:
+        - PORT=${PORT}
+        - DB_USER=${DB_USER}
+        - DB_PASSWORD=${DB_PASSWORD}
+        - DB_HOST=${DB_HOST}
+        - DB_NAME=${DB_NAME}
+        - DBPORT=${DBPORT}
+        - DEFAULT_ADMIN_PASSWORD=${DEFAULT_ADMIN_PASSWORD}
+        - DEFAULT_USER_PASSWORD=${DEFAULT_USER_PASSWORD}
+        - AUTH_JWT_SECRET=${AUTH_JWT_SECRET}
+        - PUBLIC_API_KEY_TOKEN=${PUBLIC_API_KEY_TOKEN}
+        - USER_API_KEY_TOKEN=${USER_API_KEY_TOKEN}
+        - ADMIN_API_KEY_TOKEN=${ADMIN_API_KEY_TOKEN}
+        - SELLER_API_KEY_TOKEN=${SELLER_API_KEY_TOKEN}
+        - PAYPAL_ACCESS_TOKEN=${PAYPAL_ACCESS_TOKEN}
+      command: /bin/sh -c "npm install && npm run dev"
+
+            
+  

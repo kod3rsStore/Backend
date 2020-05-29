@@ -1,0 +1,62 @@
+version: "3.7"
+
+services:
+    viz:
+      image: 'dockersamples/visualizer:latest'
+      build: .
+      volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      deploy:
+        labels:
+          - traefik.frontend.rule=Host:viz.kod3rsstore.com
+          - traefik.enable=true
+          - traefik.port=8080
+          - traefik.tags=traefik-public
+          - traefik.docker.network=traefik-public
+          - traefik.redirectorservice.frontend.entryPoints=http
+          - traefik.redirectorservice.frontend.redirect.entryPoint=https
+          - traefik.webservice.frontend.entryPoints=https
+      networks:
+        - traefik-public
+        - default
+    backend_api:
+      image: '${CI_REGISTRY_IMAGE}/api:latest'
+      container_name: backend-api
+      build:
+        context: ./backend
+        dockerfile: dockerfile
+      environment:
+        - PORT=${PORT}
+        - DB_USER=${DB_USER}
+        - DB_PASSWORD=${DB_PASSWORD}
+        - DB_HOST=${DB_HOST}
+        - DB_NAME=${DB_NAME}
+        - DBPORT=${DBPORT}
+        - DEFAULT_ADMIN_PASSWORD=${DEFAULT_ADMIN_PASSWORD}
+        - DEFAULT_USER_PASSWORD=${DEFAULT_USER_PASSWORD}
+        - AUTH_JWT_SECRET=${AUTH_JWT_SECRET}
+        - PUBLIC_API_KEY_TOKEN=${PUBLIC_API_KEY_TOKEN}
+        - USER_API_KEY_TOKEN=${USER_API_KEY_TOKEN}
+        - ADMIN_API_KEY_TOKEN=${ADMIN_API_KEY_TOKEN}
+        - SELLER_API_KEY_TOKEN=${SELLER_API_KEY_TOKEN}
+        - PAYPAL_ACCESS_TOKEN=${PAYPAL_ACCESS_TOKEN}
+      command: /bin/sh -c "npm install && npm run dev"
+      deploy:
+        labels:
+          - traefik.frontend.rule=Host:api.kod3rsstore.com
+          - traefik.enable=true
+          - traefik.port=3000
+          - traefik.tags=traefik-public
+          - traefik.docker.network=traefik-public
+          - traefik.redirectorservice.frontend.entryPoints=http
+          - traefik.redirectorservice.frontend.redirect.entryPoint=https
+          - traefik.webservice.frontend.entryPoints=https
+      networks:
+        - traefik-public
+        - default
+networks:
+  traefik-public:
+    external: true
+        
+            
+  
