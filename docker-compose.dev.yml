@@ -24,7 +24,6 @@ services:
         - ADMIN_API_KEY_TOKEN=${ADMIN_API_KEY_TOKEN}
         - SELLER_API_KEY_TOKEN=${SELLER_API_KEY_TOKEN}
         - PAYPAL_ACCESS_TOKEN=${PAYPAL_ACCESS_TOKEN}
-      command: /bin/sh -c "npm install && npm run dev"
 
             
   
