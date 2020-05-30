@@ -2,7 +2,6 @@
  * @module server
  */
 const express = require('express');
-const router = express.Router();
 const config = require('./config/index');
 
 const user = require('./routes/users/network');
@@ -15,6 +14,9 @@ const paypalPayment = require('./routes/paypal/network');
 const swaggerDoc = require('../api_doc/swagger.js');
 const auth = require('./routes/auth/network');
 const initial = require('./routes/initial/network');
+const stripe = require('./routes/stripe/network');
+
+
 
 const app = express();
 app.use(express.json());
@@ -35,6 +37,7 @@ app.use('/api/users/', user);
 app.use('/api/scopes/', scopes);
 app.use('/api/products', products);
 app.use('/api/payment/paypal', paypalPayment);
+app.use('/api/payment/stripe', stripe);
 app.use('/api/categories', categories);
 app.use('/api/addresses', addresses);
 app.use('/api/shopcarts', shopCart);
