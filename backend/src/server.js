@@ -2,6 +2,7 @@
  * @module server
  */
 const express = require('express');
+const router = express.Router();
 const config = require('./config/index');
 
 const user = require('./routes/users/network');
@@ -13,6 +14,7 @@ const scopes = require('./routes/scopes/network');
 const paypalPayment = require('./routes/paypal/network');
 const swaggerDoc = require('../api_doc/swagger.js');
 const auth = require('./routes/auth/network');
+const initial = require('./routes/initial/network');
 
 const app = express();
 app.use(express.json());
@@ -25,6 +27,9 @@ app.use(function(req, res, next) {
 /**
  * API Routes 
  */
+
+
+app.use('/', initial)
 app.use('/api/auth/', auth);
 app.use('/api/users/', user);
 app.use('/api/scopes/', scopes);
