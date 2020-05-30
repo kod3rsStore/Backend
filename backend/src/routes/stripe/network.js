@@ -1,20 +1,23 @@
 /**Network to manage endpoints about Paypal payment
- * @module routes/paypal/network
+ * @module routes/stripe/network
  */
 const express = require('express');
 const router = express.Router();
 const response = require('../../../network/response');
 const ControllerStripe = require('./index')
+const ControllerShoppingCart = require('../shopping_carts/index');
 const config = require('../../config/index');
 // Stripe
 const stripe = require('stripe')(config.stripeSecretKey);
-
+//body-parser
+const bodyParser = require('body-parser')
+let urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 /**Routes*/
 router.get('/', (req, res) => {
     res.send(`API stripe endpoint  v 0.01`);
   });
-router.post('/checkout/:id', checkoutStripe);
+router.post('/checkout/:id', urlencodedParser, checkoutStripe);
 
 
 /**
@@ -24,16 +27,24 @@ router.post('/checkout/:id', checkoutStripe);
  * @returns {Object} res - result of Category insertion
  */
 async function checkoutStripe(req, res, next){
+
   try{
     const id = req.params.id;
+    // get the shopping cart from the user
+    const shoppingCart = await ControllerShoppingCart.getUserShoppingCart(id);
+    // get payment info 
+    let amount=0;
+    shoppingCart.forEach((item) => {
+         amount = amount + parseInt(item.cost);
+      },)
       const customer = await stripe.customers.create({
         email: req.body.stripeEmail,
         source: req.body.stripeToken
       });
       const charge = await stripe.charges.create({
-        amount: req.body.amount,
+        amount: amount*100,
         description: req.body.description,
-        currency: req.body.currency,
+        currency: 'MXN',
         customer: customer.id
       });
       //console.log(charge);
