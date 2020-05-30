@@ -46,12 +46,9 @@ router.get('/',
         passport.authenticate('jwt', { session: false }), 
         scopesValidationHandler(['read:products']),
         listProducts);
-/* router.get('/latest',
+router.get('/latest',
         passport.authenticate('jwt', { session: false }),
         scopesValidationHandler(['read:products']),         
-        validationHandler(getLatestProductsSchema, 'query'), 
-        latestProducts); */
-router.get('/latest',         
         validationHandler(getLatestProductsSchema, 'query'), 
         latestProducts);
 router.get('/:id',
