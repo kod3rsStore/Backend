@@ -17,7 +17,7 @@ let urlencodedParser = bodyParser.urlencoded({ extended: false })
 router.get('/', (req, res) => {
     res.send(`API stripe endpoint  v 0.01`);
   });
-router.post('/checkout/:id', urlencodedParser, checkoutStripe);
+router.post('/checkout/:id',  checkoutStripe);
 
 
 /**
@@ -27,7 +27,6 @@ router.post('/checkout/:id', urlencodedParser, checkoutStripe);
  * @returns {Object} res - result of Category insertion
  */
 async function checkoutStripe(req, res, next){
-
   try{
     const id = req.params.id;
     // get the shopping cart from the user
