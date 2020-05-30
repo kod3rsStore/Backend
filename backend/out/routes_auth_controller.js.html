@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: routes/users/index.js</title>
+    <title>JSDoc: Source: routes/auth/controller.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: routes/users/index.js</h1>
+    <h1 class="page-title">Source: routes/auth/controller.js</h1>
 
     
 
@@ -26,12 +26,64 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const store = require('../../store/mysql');
-const ctrlUser = require('./controller');
-/**
- * dependencies injection
+            <pre class="prettyprint source linenums"><code>/**Controller to manage store of addresses endpoint
+ * @module routes/addresses/controller
  */
-module.exports = ctrlUser(store);</code></pre>
+const { nanoid } = require('nanoid');
+const config = require('../../config/index');
+
+const database = config.mysql.database;
+
+function authController(injectedStore){
+    let store = injectedStore;
+    if (!store) {
+        store = require('../../store/mysql');
+    }
+
+    /**
+     * Logic to get all authentication.
+     * @method GET
+     * @param {string} key - The ApiKey sending by the client 
+     * @returns {Promise&lt;object[]>} res - access list own to an user ID
+     */
+
+    async function getAuth(key) {
+        const query = `
+        SELECT concat(M.endpoint,":",M.module) as access
+        FROM ${database}.Security_levels  as S
+        JOIN ${database}.Module_access as M on S.id_security_levels=M.id_security_levels
+        where S.token ='${key}'
+        `;
+        return await store.get(query);
+    }
+    async function getAuthbyIdUser(id) {
+        const query = `
+        SELECT concat(M.endpoint,":",M.module) as access
+        FROM ${database}.Security_levels  as S
+        JOIN ${database}.Module_access as M on S.id_security_levels=M.id_security_levels
+        JOIN ${database}.Users as U on U.security_code=S.security_code
+        where U.id_users='${id}'
+        `;
+        let result = await store.get(query);
+        let scopes = [];
+        result.forEach((item) => {
+          scopes.push(item.access);
+        })
+        return scopes;
+    }
+
+    return {
+       getAuth,
+       getAuthbyIdUser,
+    }
+
+}
+
+module.exports = authController;
+
+
+
+</code></pre>
         </article>
     </section>
 
