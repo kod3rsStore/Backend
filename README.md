@@ -83,9 +83,19 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+
+* [@hapi](https://www.npmjs.com/package/@hapi/joi) - The most powerful schema description language and data validator for JavaScript.
+* [bcryptjs](https://www.npmjs.com/package/bcryptjs) - Used to crypt information between servers
+* [braintree](https://www.npmjs.com/package/braintree) - The Braintree Node library provides integration access to the Paypal Gateway.
+* [dotenv](https://www.npmjs.com/package/dotenv) - that loads environment variables
+* [express](https://www.npmjs.com/package/express) - Fast, unopinionated, minimalist web framework for node.
+* [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - Used to generate server-to-server authentication 
+* [multer](https://www.npmjs.com/package/multer) - Multer is a node.js middleware for handling multipart/form-data
+* [mysql](https://www.npmjs.com/package/mysql) - Used to connect with the Mysql Database
+* [nanoid](https://www.npmjs.com/package/nanoid) - A tiny, secure, URL-friendly, unique string ID generator for JavaScript.
+* [Passport](https://www.npmjs.com/package/passport/) - Used to authenticate users in a simple form and with Google
+* [stripe](https://www.npmjs.com/package/stripe) - The Stripe Node library provides convenient access to the Stripe API
+
 
 ## Contributing
 
