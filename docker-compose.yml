@@ -31,3 +31,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - '5000:3000'
+  internal:
+    container_name: internal-documentation 
+    build:
+      context: ./internaldocs
+      dockerfile: Dockerfile
+    ports:
+      - '4000:3000'
+    

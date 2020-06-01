@@ -52,6 +52,23 @@ services:
         - traefik.webservice.frontend.entryPoints=https
     networks:
       - traefik-public
+  internal:
+    container_name: internal-documentation 
+    build:
+      context: ./internaldocs
+      dockerfile: Dockerfile
+    deploy:
+      labels:
+        - traefik.frontend.rule=Host:internal.kod3rsstore.com
+        - traefik.enable=true
+        - traefik.port=3000
+        - traefik.tags=traefik-public
+        - traefik.docker.network=traefik-public
+        - traefik.redirectorservice.frontend.entryPoints=http
+        - traefik.redirectorservice.frontend.redirect.entryPoint=https
+        - traefik.webservice.frontend.entryPoints=https
+    networks:
+      - traefik-public    
 networks:
   traefik-public:
     external: true
