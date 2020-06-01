@@ -5,6 +5,7 @@ before_script:
 
 stages:
     - build
+    - test
     - deploy
 
 build-prod:
@@ -16,7 +17,13 @@ build-prod:
         - master
     tags:
         - build
-    
+        
+include:
+    - template: Code-Quality.gitlab-ci.yml              
+    - template: Container-Scanning.gitlab-ci.yml    
+    - template: Dependency-Scanning.gitlab-ci.yml     
+    - template: SAST.gitlab-ci.yml  
+        
 deploy-prod:
     stage: deploy
     script:
