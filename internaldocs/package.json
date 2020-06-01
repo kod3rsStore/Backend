@@ -1,0 +1,29 @@
+{
+  "name": "internaldocumentation",
+  "version": "1.0.0",
+  "description": "Documentation to internal developers ",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kod3rsStore/Backend.git"
+  },
+  "keywords": [
+    "documentation",
+    "kod3rsstore",
+    "kod3rs",
+    "store"
+  ],
+  "author": "kod3rs store team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kod3rsStore/Backend/issues"
+  },
+  "homepage": "https://github.com/kod3rsStore/Backend#readme",
+  "dependencies": {
+    "express": "4.16.4"
+  }
+}
