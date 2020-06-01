@@ -9,7 +9,7 @@
     "test": "./node_modules/.bin/mocha ./tests/integration/integration_test.js",
     "coverage": "./node_modules/.bin/nyc npm run test",
     "test:ci": "echo \"no test specified\" && exit 0",
-    "start": "NODE_ENV=production node src/server/index"
+    "start": "NODE_ENV=production node src/server.js"
   },
   "repository": {
     "type": "git",

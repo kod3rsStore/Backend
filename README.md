@@ -2,7 +2,7 @@
 
 *This is the back-end repository of the Kod3rs Store project. 
 For the front-end repository please see [this link](https://github.com/kod3rsStore/Frontend)
-To read the full documentation see our notes in [Notion](https://www.notion.so/Kod3rs-Store-c7223ee165974827b5577b7ce00967a3)*
+To read the full documentation see our notes in [Notion](https://www.notion.so/Kod3rs-Store-c7223ee165974827b5577b7ce00967a3) and visit our website [Website](https://www.kod3rsstore.com)*
 
 Kod3rs Store is developed using Nodejs connecting a MySQL database.
 
@@ -66,7 +66,7 @@ npm run test
 npm run coverage
 ```
 ## API documentation
-Start the server ``` nom run dev ``` to get access to documentation.
+Start the server ``` npm run dev ``` to get access to documentation.
 > Go to:  [http://localhost:3000/api/documentation/swagger/](http://localhost:3000/api/documentation/swagger/)
 
 ### Break down into end to end tests
@@ -83,9 +83,19 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+
+* [@hapi](https://www.npmjs.com/package/@hapi/joi) - The most powerful schema description language and data validator for JavaScript.
+* [bcryptjs](https://www.npmjs.com/package/bcryptjs) - Used to crypt information between servers
+* [braintree](https://www.npmjs.com/package/braintree) - The Braintree Node library provides integration access to the Paypal Gateway.
+* [dotenv](https://www.npmjs.com/package/dotenv) - that loads environment variables
+* [express](https://www.npmjs.com/package/express) - Fast, unopinionated, minimalist web framework for node.
+* [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - Used to generate server-to-server authentication 
+* [multer](https://www.npmjs.com/package/multer) - Multer is a node.js middleware for handling multipart/form-data
+* [mysql](https://www.npmjs.com/package/mysql) - Used to connect with the Mysql Database
+* [nanoid](https://www.npmjs.com/package/nanoid) - A tiny, secure, URL-friendly, unique string ID generator for JavaScript.
+* [Passport](https://www.npmjs.com/package/passport/) - Used to authenticate users in a simple form and with Google
+* [stripe](https://www.npmjs.com/package/stripe) - The Stripe Node library provides convenient access to the Stripe API
+
 
 ## Contributing
 

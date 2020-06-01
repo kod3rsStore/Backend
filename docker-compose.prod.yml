@@ -34,6 +34,24 @@ services:
         - traefik.webservice.frontend.entryPoints=https
     networks:
       - traefik-public
+  developers:
+    image: '${CI_REGISTRY_IMAGE}/developers:latest'
+    container_name: developer-documentation 
+    build:
+      context: ./developerDocumentation
+      dockerfile: Dockerfile
+      deploy:
+        labels:
+          - traefik.frontend.rule=Host:developers.kod3rsstore.com
+          - traefik.enable=true
+          - traefik.port=3000
+          - traefik.tags=traefik-public
+          - traefik.docker.network=traefik-public
+          - traefik.redirectorservice.frontend.entryPoints=http
+          - traefik.redirectorservice.frontend.redirect.entryPoint=https
+          - traefik.webservice.frontend.entryPoints=https
+      networks:
+        - traefik-public
 networks:
   traefik-public:
     external: true
