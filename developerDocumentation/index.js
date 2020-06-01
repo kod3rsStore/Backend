@@ -1,12 +1,16 @@
 const express = require('express')
-const os = require('os');
 const app = express();
 const port = 3000;
+const swagger = require('./swagger');
 
-const hostname = os.hostname();
+app.use(express.json());
+app.use('/', swagger);
 
+
+
+/*
 app.get('/', (req, res) => {
-  res.send(`Saludos desde ${hostname}!`);
-});
-
+    res.send(`API auth v 0.01`);
+  });
+*/
 app.listen(port, () => console.log(`Server listening on port ${port}!`))

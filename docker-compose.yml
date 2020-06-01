@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  backend_api:
+    image: 'backend-api:latest'
+    container_name: backend-api
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - PORT=${PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - DBPORT=${DBPORT}
+      - DEFAULT_ADMIN_PASSWORD=${DEFAULT_ADMIN_PASSWORD}
+      - DEFAULT_USER_PASSWORD=${DEFAULT_USER_PASSWORD}
+      - AUTH_JWT_SECRET=${AUTH_JWT_SECRET}
+      - PUBLIC_API_KEY_TOKEN=${PUBLIC_API_KEY_TOKEN}
+      - USER_API_KEY_TOKEN=${USER_API_KEY_TOKEN}
+      - ADMIN_API_KEY_TOKEN=${ADMIN_API_KEY_TOKEN}
+      - SELLER_API_KEY_TOKEN=${SELLER_API_KEY_TOKEN}
+      - PAYPAL_ACCESS_TOKEN=${PAYPAL_ACCESS_TOKEN}
+  developers:
+    container_name: developer-documentation 
+    build:
+      context: ./developerDocumentation
+      dockerfile: Dockerfile
+    ports:
+      - '5000:3000'

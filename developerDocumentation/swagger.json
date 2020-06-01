@@ -1,0 +1,1373 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is an API that serve services to an Online store, It is able to manage users, shopping carts, products loader, etc.",
+    "version": "0.1.0",
+    "title": "Online store"
+  },
+  "host": "kod3rsstore.com",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "products",
+      "description": "Everything about products"
+    },
+    {
+      "name": "Categories",
+      "description": "Everything about Categories of products"
+    },
+    {
+      "name": "Addresses",
+      "description": "Everything about Addresses of users"
+    },
+    {
+      "name": "Shopping carts",
+      "description": "Everything about Shopping carts of users"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/products": {
+      "post": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Add a new product to the store",
+        "description": "",
+        "operationId": "addProduct",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Product object that needs to be added at the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createProducts"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "product created"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "products"
+        ],
+        "summary": "update the product information",
+        "description": "You will be able to change the title, description, photo, cost, stock, category, etc",
+        "operationId": "updateProduct",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Information of product to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateProducts"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "product updated"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/products/latest": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "type": "string",
+            "description": "how many products do you want to fetch"
+          }
+        ],
+        "summary": "Gets the latest products uploaded",
+        "description": "You can fetch the q latest products uploaded into store",
+        "operationId": "getLatestProducts",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "get the latest products into an array [ {produtc1:info}, {roduct2:info2} ]",
+            "schema": {
+              "$ref": "#/definitions/responseGetProducts"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/products/search/category": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "parameters": [
+          {
+            "name": "cat_id",
+            "in": "query",
+            "type": "string",
+            "description": "The ID of a category. \n"
+          }
+        ],
+        "summary": "Gets the products that belong to a category",
+        "description": "You can search a product by category",
+        "operationId": "getSearchProductsByCategory",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "search done",
+            "schema": {
+              "$ref": "#/definitions/responseGetProducts"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/products/search/name": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "parameters": [
+          {
+            "name": "s",
+            "in": "query",
+            "type": "string",
+            "description": "key word to search into products table of database"
+          }
+        ],
+        "summary": "Gets the products that match with the key word in the title or description",
+        "description": "You can search a product by name or some key word",
+        "operationId": "getSearchProductsByName",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The result of search will be on body[0]",
+            "schema": {
+              "$ref": "#/definitions/responseGetProducts"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/products/search/price": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "parameters": [
+          {
+            "name": "cat_id",
+            "in": "query",
+            "type": "string",
+            "description": "category ID"
+          },
+          {
+            "name": "s",
+            "in": "query",
+            "type": "string",
+            "description": "key word to search into database"
+          },
+          {
+            "name": "min_price",
+            "in": "query",
+            "type": "string",
+            "description": "Min price"
+          },
+          {
+            "name": "max_price",
+            "in": "query",
+            "type": "string",
+            "description": "Max price"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "description": "Sort order:\n * asc - Ascending.\n * desc - Descending.\n"
+          }
+        ],
+        "summary": "Search products by category or name and filter the result by a price range, furthermore you might sort the results of search by price ascendent or descendent",
+        "description": "**First** you have to do a search by name or category **then** you might filter that result by a price range **furthermore** you can sort that result ascendent or descendent ***example:*** `api/products/search/price?s=shirt&min_price=1000&max_price=2000&sort=desc` - fetch all products that match with the key word **shirt**, filter the result between 1000 and 2000 and sort this result by price descendent",
+        "operationId": "getSearchProductsFilters",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "search done",
+            "schema": {
+              "$ref": "#/definitions/responseGetProducts"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/products/{id}": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Gets a product by ID",
+        "description": "You can fetch an unique product by id",
+        "operationId": "getProductById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of product",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get the product",
+            "schema": {
+              "$ref": "#/definitions/responseGetProducts"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/categories": {
+      "post": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Add a new Category to the store",
+        "description": "Creates a Category of products",
+        "operationId": "addCategory",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Category object to be inserted in the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createCategories"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "category created"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "update the Category information",
+        "description": "You will be able to change the name, description and parent category",
+        "operationId": "updateCategory",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Information of category to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateCategories"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "category updated"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Fetch all categories from database",
+        "description": "You will get an array of objects with categories information",
+        "operationId": "getCategories",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "categories fetched",
+            "schema": {
+              "$ref": "#/definitions/responseGetCategories"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/categories/{id}": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Gets a category by ID",
+        "description": "You can fetch an unique category by id",
+        "operationId": "getCategoryById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of category",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get the category",
+            "schema": {
+              "$ref": "#/definitions/responseGetCategories"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/addresses": {
+      "post": {
+        "tags": [
+          "Addresses"
+        ],
+        "summary": "Add a new address to an user",
+        "description": "",
+        "operationId": "addAddress",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Address object to be saved into user account",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createAddresses"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "address created"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Addresses"
+        ],
+        "summary": "update the address information",
+        "description": "You will be able to change the addres of an user",
+        "operationId": "updateAddresses",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Information of address to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateAddresses"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "address updated"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/addresses/{id}": {
+      "get": {
+        "tags": [
+          "Addresses"
+        ],
+        "summary": "Gets all addresses of an user, by user ID",
+        "description": "You might fetch all addresses of an user",
+        "operationId": "getAddressById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of an authorized user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get the addresses",
+            "schema": {
+              "$ref": "#/definitions/responseGetAddresses"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/shopcarts": {
+      "post": {
+        "tags": [
+          "Shopping carts"
+        ],
+        "summary": "Add a new product into the shopping cart of an user",
+        "description": "",
+        "operationId": "addProductToCart",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Product object to be added to cart",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addProductsToCart"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "product added"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Shopping carts"
+        ],
+        "summary": "Update a product that is into a user cart",
+        "description": "You will be able to change the quantity",
+        "operationId": "updateQuantityProductOfcart",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Information of cart and product to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateQuantityProductOfCart"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "product quantity updated"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Shopping carts"
+        ],
+        "summary": "Remove a product that is into the shopping cart of an user",
+        "description": "",
+        "operationId": "removeProductFromCart",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Product object to be removed from cart",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/removeProductsFromCart"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "product removed"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/shopcarts/{id}": {
+      "get": {
+        "tags": [
+          "Shopping carts"
+        ],
+        "summary": "Gets the shopping cart of an user, by user ID",
+        "description": "You might fetch all products of an user cart",
+        "operationId": "getCartById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of an authorized user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get the cart",
+            "schema": {
+              "$ref": "#/definitions/responseGetShoppingCart"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/user/signup": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create a new user",
+        "description": "",
+        "operationId": "createUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Object with User information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createUsers"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "user created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id_user": {
+                  "type": "string",
+                  "description": "The user ID."
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/user": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "update the user information",
+        "description": "You will be able to change the user information",
+        "operationId": "updateUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Information of user to be updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateUsers"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "user update accomplished"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/login": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "summary": "Autenticate an user",
+        "description": "",
+        "operationId": "authUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Object with User information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/authUsers"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user authenticated"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "createProducts": {
+      "type": "object",
+      "required": [
+        "title",
+        "cost",
+        "quantity",
+        "description",
+        "id_categories"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Beautiful pink shirt"
+        },
+        "description": {
+          "type": "string",
+          "example": "Shirt color blue, size S"
+        },
+        "photo": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "example": "https://images.pexels.com/photos/3377538/pexels-photo-3377538.jpeg"
+            },
+            "description": {
+              "type": "string",
+              "example": "shirt color pink"
+            }
+          },
+          "example": {
+            "url": "https://images.pexels.com/photos/3377538/pexels-photo-3377538.jpeg",
+            "description": "shirt color pink"
+          }
+        },
+        "cost": {
+          "type": "integer",
+          "example": 1000
+        },
+        "quantity": {
+          "type": "integer",
+          "example": 25
+        },
+        "available": {
+          "type": "boolean",
+          "example": true
+        },
+        "id_categories": {
+          "type": "string",
+          "example": "N2p-6SxI0Zlcd0HtAZFBH"
+        }
+      }
+    },
+    "updateProducts": {
+      "type": "object",
+      "required": [
+        "id_products"
+      ],
+      "properties": {
+        "id_products": {
+          "type": "string",
+          "example": "N2p-6SxI0Zlcd0HtAZFBH"
+        },
+        "title": {
+          "type": "string",
+          "example": "Beautiful blue shirt"
+        },
+        "description": {
+          "type": "string",
+          "example": "Shirt color blue, size S"
+        },
+        "photo": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "example": "https://images.pexels.com/photos/3377538/pexels-photo-3377538.jpeg"
+            },
+            "description": {
+              "type": "string",
+              "example": "shirt color blue"
+            },
+            "visible": {
+              "type": "boolean",
+              "example": false
+            }
+          },
+          "example": {
+            "url": "https://images.pexels.com/photos/3377538/pexels-photo-3377538.jpeg",
+            "description": "shirt color blue",
+            "visible": false
+          }
+        },
+        "cost": {
+          "type": "integer",
+          "example": 1500
+        },
+        "quantity": {
+          "type": "integer",
+          "example": 20
+        },
+        "available": {
+          "type": "boolean",
+          "example": false
+        },
+        "id_categories": {
+          "type": "string",
+          "example": "N2p-6SxI0Zlcd0HtAZFBH"
+        }
+      }
+    },
+    "createCategories": {
+      "type": "object",
+      "required": [
+        "cat_name"
+      ],
+      "properties": {
+        "cat_name": {
+          "type": "string",
+          "example": "Accesories"
+        },
+        "description": {
+          "type": "string",
+          "example": "Accesories to wear any time"
+        },
+        "id_parent_category": {
+          "type": "string",
+          "example": "Man"
+        }
+      }
+    },
+    "updateCategories": {
+      "type": "object",
+      "required": [
+        "id_categories"
+      ],
+      "properties": {
+        "id_categories": {
+          "type": "string",
+          "example": "mzPn86pLs9GS2TttBr9EN"
+        },
+        "cat_name": {
+          "type": "string",
+          "example": "Gold accesories"
+        },
+        "description": {
+          "type": "string",
+          "example": "Accesories to wear any season"
+        },
+        "id_parent_category": {
+          "type": "string",
+          "example": "Woman"
+        }
+      }
+    },
+    "createAddresses": {
+      "type": "object",
+      "required": [
+        "id_user",
+        "id_cities_catalog",
+        "id_countries_catalog",
+        "street"
+      ],
+      "properties": {
+        "id_user": {
+          "type": "string",
+          "example": "Ah81pi_zHZreS8yvL3rMc"
+        },
+        "id_cities_catalog": {
+          "type": "string",
+          "example": "2"
+        },
+        "id_countries_catalog": {
+          "type": "string",
+          "example": "2"
+        },
+        "id_states_catalog": {
+          "type": "string",
+          "example": "2"
+        },
+        "street": {
+          "type": "string",
+          "example": "carrera 20 # 12-25 oficina 1203"
+        },
+        "street_number": {
+          "type": "string",
+          "example": "La 20"
+        },
+        "id_postal_codes": {
+          "type": "string",
+          "example": "112356"
+        }
+      }
+    },
+    "updateAddresses": {
+      "type": "object",
+      "required": [
+        "id_directions",
+        "id_user"
+      ],
+      "properties": {
+        "id_user": {
+          "type": "string",
+          "example": "Ah81pi_zHZreS8yvL3rMc"
+        },
+        "id_directions": {
+          "type": "string",
+          "example": "l7HHxanQbEDZDU6myrPTU"
+        },
+        "id_cities_catalog": {
+          "type": "string",
+          "example": "2"
+        },
+        "id_countries_catalog": {
+          "type": "string",
+          "example": "2"
+        },
+        "id_states_catalog": {
+          "type": "string",
+          "example": "2"
+        },
+        "street": {
+          "type": "string",
+          "example": "carrera 20 # 12-25 oficina 1203"
+        },
+        "street_number": {
+          "type": "string",
+          "example": "La 20"
+        },
+        "id_postal_codes": {
+          "type": "string",
+          "example": "112356"
+        },
+        "available": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "addProductsToCart": {
+      "type": "object",
+      "required": [
+        "id_user",
+        "id_product",
+        "quantity"
+      ],
+      "properties": {
+        "id_user": {
+          "type": "string",
+          "example": "Rl-dXyS_gwxxrgI9jJXyv"
+        },
+        "id_product": {
+          "type": "string",
+          "example": "Jx0oWtdnENdjCDoRqH7AT"
+        },
+        "quantity": {
+          "type": "integer",
+          "example": 17
+        }
+      }
+    },
+    "updateQuantityProductOfCart": {
+      "type": "object",
+      "required": [
+        "id_user",
+        "id_product",
+        "quantity"
+      ],
+      "properties": {
+        "id_user": {
+          "type": "string",
+          "example": "Rl-dXyS_gwxxrgI9jJXyv"
+        },
+        "id_product": {
+          "type": "string",
+          "example": "Jx0oWtdnENdjCDoRqH7AT"
+        },
+        "quantity": {
+          "type": "integer",
+          "example": 29
+        }
+      }
+    },
+    "removeProductsFromCart": {
+      "type": "object",
+      "required": [
+        "id_user",
+        "id_product"
+      ],
+      "properties": {
+        "id_user": {
+          "type": "string",
+          "example": "Rl-dXyS_gwxxrgI9jJXyv"
+        },
+        "id_product": {
+          "type": "string",
+          "example": "Jx0oWtdnENdjCDoRqH7AT"
+        }
+      }
+    },
+    "createUsers": {
+      "type": "object",
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "email@host.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "secure-password"
+        }
+      }
+    },
+    "updateUsers": {
+      "type": "object",
+      "required": [
+        "id_user"
+      ],
+      "properties": {
+        "id_user": {
+          "type": "string",
+          "example": "Rl-dXyS_gwxxrgI9jJXyv"
+        },
+        "email": {
+          "type": "string",
+          "example": "email@host.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "secure-password"
+        },
+        "first_name": {
+          "type": "string",
+          "example": "Juan"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Vega"
+        }
+      }
+    },
+    "authUsers": {
+      "type": "object",
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "email@host.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "secure-password"
+        }
+      }
+    },
+    "responseGetProducts": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "boolean",
+          "example": false
+        },
+        "status": {
+          "type": "integer",
+          "example": 200
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id_products": {
+                "type": "string",
+                "example": "x2hiDguB0JtNZK-o14DDg"
+              },
+              "title": {
+                "type": "string",
+                "example": "Cinturon correa en cuero"
+              },
+              "description": {
+                "type": "string",
+                "example": "correa cuero, 10 años de garantia"
+              },
+              "url": {
+                "type": "string",
+                "example": "http://dummyimage.com/101x176.png/dddddd/000000"
+              },
+              "alt": {
+                "type": "string",
+                "example": "photography description"
+              },
+              "cost": {
+                "type": "integer",
+                "example": 60000
+              },
+              "quantity": {
+                "type": "integer",
+                "example": 106
+              },
+              "available": {
+                "type": "boolean",
+                "example": 1
+              },
+              "id_categories": {
+                "type": "string",
+                "example": "8RM9U-ouzTTvGThIqoKOl"
+              },
+              "score": {
+                "type": "integer",
+                "example": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    "responseGetCategories": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "boolean",
+          "example": false
+        },
+        "status": {
+          "type": "integer",
+          "example": 200
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id_categories": {
+                "type": "string",
+                "example": "x2hiDguB0JtNZK-o14DDg"
+              },
+              "cat_name": {
+                "type": "string",
+                "example": "Accesorios"
+              },
+              "description": {
+                "type": "string",
+                "example": "Accesorios en cuero"
+              },
+              "id_parent_category": {
+                "type": "string",
+                "example": null
+              },
+              "creation_date": {
+                "type": "string",
+                "example": "2020-05-14T05:00:00.000Z"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responseGetAddresses": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "boolean",
+          "example": false
+        },
+        "status": {
+          "type": "integer",
+          "example": 200
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id_directions": {
+                "type": "string",
+                "example": "F-4fVj1__ZZP-M9wmFNUS"
+              },
+              "id_cities_catalog": {
+                "type": "string",
+                "example": "1"
+              },
+              "id_countries_catalog": {
+                "type": "string",
+                "example": "1"
+              },
+              "id_states_catalog": {
+                "type": "string",
+                "example": "1"
+              },
+              "street": {
+                "type": "string",
+                "example": "Carrera 10 n 34-50"
+              },
+              "street_number": {
+                "type": "string",
+                "example": "la 20"
+              },
+              "id_postal_codes": {
+                "type": "string",
+                "example": "11032388"
+              },
+              "available": {
+                "type": "boolean",
+                "example": true
+              },
+              "creation_date": {
+                "type": "string",
+                "example": "2020-05-17T05:00:00.000Z"
+              },
+              "id_users": {
+                "type": "string",
+                "example": "0kfJIxZCKeRopOjtx4fVg"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responseGetShoppingCart": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "boolean",
+          "example": false
+        },
+        "status": {
+          "type": "integer",
+          "example": 200
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id_products": {
+                "type": "string",
+                "example": "x2hiDguB0JtNZK-o14DDg"
+              },
+              "title": {
+                "type": "string",
+                "example": "Cinturon correa en cuero"
+              },
+              "description": {
+                "type": "string",
+                "example": "correa cuero, 10 años de garanti"
+              },
+              "photo": {
+                "type": "string",
+                "example": "https://cdn.pixabay.com/photo/2015/06/24/01/15/morning-819362_960_720.jpg"
+              },
+              "alt": {
+                "type": "string",
+                "example": "Description of photography"
+              },
+              "cost": {
+                "type": "integer",
+                "example": 6000
+              },
+              "quantity": {
+                "type": "integer",
+                "example": 4
+              },
+              "stock": {
+                "type": "integer",
+                "example": 26
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

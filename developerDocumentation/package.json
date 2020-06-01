@@ -4,7 +4,7 @@
   "description": "Documentation to developers ",
   "main": "index.js",
   "scripts": {
-    "start":"node index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/kod3rsStore/Backend#readme",
   "dependencies": {
-    "express": "4.16.4"
+    "express": "4.16.4",
+    "swagger-ui-express": "^4.1.4"
   }
 }
