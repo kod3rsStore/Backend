@@ -2,7 +2,7 @@
 
 *This is the back-end repository of the Kod3rs Store project. 
 For the front-end repository please see [this link](https://github.com/kod3rsStore/Frontend)
-To read the full documentation see our notes in [Notion](https://www.notion.so/Kod3rs-Store-c7223ee165974827b5577b7ce00967a3)*
+To read the full documentation see our notes in [Notion](https://www.notion.so/Kod3rs-Store-c7223ee165974827b5577b7ce00967a3) and visit our website [Website](https://www.kod3rsstore.com)*
 
 Kod3rs Store is developed using Nodejs connecting a MySQL database.
 
@@ -66,7 +66,7 @@ npm run test
 npm run coverage
 ```
 ## API documentation
-Start the server ``` nom run dev ``` to get access to documentation.
+Start the server ``` npm run dev ``` to get access to documentation.
 > Go to:  [http://localhost:3000/api/documentation/swagger/](http://localhost:3000/api/documentation/swagger/)
 
 ### Break down into end to end tests
