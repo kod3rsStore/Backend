@@ -69,17 +69,6 @@ npm run coverage
 Start the server ``` npm run dev ``` to get access to documentation.
 > Go to:  [http://localhost:3000/api/documentation/swagger/](http://localhost:3000/api/documentation/swagger/)
 
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
