@@ -23,17 +23,24 @@ services:
       - SELLER_API_KEY_TOKEN=${SELLER_API_KEY_TOKEN}
       - PAYPAL_ACCESS_TOKEN=${PAYPAL_ACCESS_TOKEN}
     deploy:
+      placement:
+        constraints:
+          - node.role == worker       
       labels:
-        - traefik.frontend.rule=Host:api.kod3rsstore.com
         - traefik.enable=true
-        - traefik.port=3000
-        - traefik.tags=traefik-public
         - traefik.docker.network=traefik-public
-        - traefik.redirectorservice.frontend.entryPoints=http
-        - traefik.redirectorservice.frontend.redirect.entryPoint=https
-        - traefik.webservice.frontend.entryPoints=https
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.api-http.rule=Host(`api.kod3rsstore.com`)
+        - traefik.http.routers.api-http.entrypoints=http
+        - traefik.http.routers.api-http.middlewares=https-redirect
+        - traefik.http.routers.api-https.rule=Host(`api.kod3rsstore.com`)
+        - traefik.http.routers.api-https.entrypoints=https
+        - traefik.http.routers.api-https.tls=true
+        - traefik.http.routers.api-https.tls.certresolver=le
+        - traefik.http.services.api.loadbalancer.server.port=3000
     networks:
-      - traefik-public
+      - default
+      - traefik-public       
   developers:
     image: '${CI_REGISTRY_IMAGE}/developers:latest'
     container_name: developers 
@@ -41,17 +48,24 @@ services:
       context: ./developerDocumentation
       dockerfile: Dockerfile
     deploy:
+      placement:
+        constraints:
+          - node.role == worker       
       labels:
-        - traefik.frontend.rule=Host:developers.kod3rsstore.com
         - traefik.enable=true
-        - traefik.port=3000
-        - traefik.tags=traefik-public
         - traefik.docker.network=traefik-public
-        - traefik.redirectorservice.frontend.entryPoints=http
-        - traefik.redirectorservice.frontend.redirect.entryPoint=https
-        - traefik.webservice.frontend.entryPoints=https
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.developers-http.rule=Host(`developers.kod3rsstore.com`)
+        - traefik.http.routers.developers-http.entrypoints=http
+        - traefik.http.routers.developers-http.middlewares=https-redirect
+        - traefik.http.routers.developers-https.rule=Host(`developers.kod3rsstore.com`)
+        - traefik.http.routers.developers-https.entrypoints=https
+        - traefik.http.routers.developers-https.tls=true
+        - traefik.http.routers.developers-https.tls.certresolver=le
+        - traefik.http.services.developers.loadbalancer.server.port=4000
     networks:
-      - traefik-public
+      - default
+      - traefik-public       
   internal:
     image: '${CI_REGISTRY_IMAGE}/internal:latest'
     container_name: internal
@@ -59,17 +73,24 @@ services:
       context: ./internaldocs
       dockerfile: Dockerfile
     deploy:
+      placement:
+        constraints:
+          - node.role == worker    
       labels:
-        - traefik.frontend.rule=Host:internal.kod3rsstore.com
         - traefik.enable=true
-        - traefik.port=3000
-        - traefik.tags=traefik-public
         - traefik.docker.network=traefik-public
-        - traefik.redirectorservice.frontend.entryPoints=http
-        - traefik.redirectorservice.frontend.redirect.entryPoint=https
-        - traefik.webservice.frontend.entryPoints=https
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.developers-http.rule=Host(`internal.kod3rsstore.com`)
+        - traefik.http.routers.developers-http.entrypoints=http
+        - traefik.http.routers.developers-http.middlewares=https-redirect
+        - traefik.http.routers.developers-https.rule=Host(`internal.kod3rsstore.com`)
+        - traefik.http.routers.developers-https.entrypoints=https
+        - traefik.http.routers.developers-https.tls=true
+        - traefik.http.routers.developers-https.tls.certresolver=le
+        - traefik.http.services.developers.loadbalancer.server.port=5000
     networks:
-      - traefik-public    
+      - default
+      - traefik-public          
 networks:
   traefik-public:
     external: true
