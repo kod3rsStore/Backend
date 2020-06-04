@@ -23,7 +23,7 @@ services:
       - SELLER_API_KEY_TOKEN=${SELLER_API_KEY_TOKEN}
       - PAYPAL_ACCESS_TOKEN=${PAYPAL_ACCESS_TOKEN}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
-      - STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
+      - STRIPE_PUBLISHABLE_KEY=${}
     deploy:
       placement:
         constraints:
@@ -42,7 +42,57 @@ services:
         - traefik.http.services.api.loadbalancer.server.port=2000
     networks:
       - default
-      - traefik-public                
+      - traefik-public       
+  developers:
+    image: '${CI_REGISTRY_IMAGE}/developers:latest'
+    container_name: developers 
+    build:
+      context: ./developerDocumentation
+      dockerfile: Dockerfile
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker       
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.developers-http.rule=Host(`developers.kod3rsstore.com`)
+        - traefik.http.routers.developers-http.entrypoints=http
+        - traefik.http.routers.developers-http.middlewares=https-redirect
+        - traefik.http.routers.developers-https.rule=Host(`developers.kod3rsstore.com`)
+        - traefik.http.routers.developers-https.entrypoints=https
+        - traefik.http.routers.developers-https.tls=true
+        - traefik.http.routers.developers-https.tls.certresolver=le
+        - traefik.http.services.developers.loadbalancer.server.port=4000
+    networks:
+      - default
+      - traefik-public       
+  internal:
+    image: '${CI_REGISTRY_IMAGE}/internal:latest'
+    container_name: internal
+    build:
+      context: ./internaldocs
+      dockerfile: Dockerfile
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker    
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.internal-http.rule=Host(`internal.kod3rsstore.com`)
+        - traefik.http.routers.internal-http.entrypoints=http
+        - traefik.http.routers.internal-http.middlewares=https-redirect
+        - traefik.http.routers.internal-https.rule=Host(`internal.kod3rsstore.com`)
+        - traefik.http.routers.internal-https.entrypoints=https
+        - traefik.http.routers.internal-https.tls=true
+        - traefik.http.routers.internal-https.tls.certresolver=le
+        - traefik.http.services.internal.loadbalancer.server.port=5000
+    networks:
+      - default
+      - traefik-public          
 networks:
   traefik-public:
     external: true
