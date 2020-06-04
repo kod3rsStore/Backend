@@ -23,7 +23,7 @@ services:
       - SELLER_API_KEY_TOKEN=${SELLER_API_KEY_TOKEN}
       - PAYPAL_ACCESS_TOKEN=${PAYPAL_ACCESS_TOKEN}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
-      - STRIPE_PUBLISHABLE_KEY=${}
+      - STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
     deploy:
       placement:
         constraints:
