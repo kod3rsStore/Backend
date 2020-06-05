@@ -1,7 +1,8 @@
 require('dotenv').config()
 
 const config = {
-    port: process.env.PORT || 3000,
+    env: process.env.ENV || 'production',
+    port: process.env.PORT || 2000,
     server: process.env.SERVER || 'localhost',
     paypalAccessToken: process.env.PAYPAL_ACCESS_TOKEN,
     stripeSecretKey: process.env.STRIPE_SECRET_KEY,

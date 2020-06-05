@@ -2,10 +2,9 @@ const passport = require('passport');
 const { BasicStrategy } = require('passport-http');
 const boom = require('@hapi/boom');
 const bcrypt = require('bcryptjs');
-const { config } = require('../../../config/index');
+const config = require('../../../config/index');
 const userController = require('../../../routes/users/index');
 
-console.log(`[basic.js] ${config}`);
 /**
  * Basic authentication using passport 
  */

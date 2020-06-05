@@ -1,11 +1,12 @@
 const braintree = require('braintree');
 const config = require('../../config/index');
 
-let gateway = braintree.connect({
-    accessToken: config.paypalAccessToken
-});
+
 
 function getClientKeyToken(){
+    let gateway = braintree.connect({
+        accessToken: config.paypalAccessToken
+    });
     return new Promise( (resolve, reject) => {
         gateway.clientToken.generate({}, function (err, response) {
             if(err){
@@ -17,6 +18,9 @@ function getClientKeyToken(){
 }
 
 function executePayment(req){
+    let gateway = braintree.connect({
+        accessToken: config.paypalAccessToken
+    });
     console.log(req.body.nonce)
     return new Promise( (resolve, reject) => {
         let saleRequest = {
