@@ -29,6 +29,8 @@ router.post('/checkout/:id',  checkoutStripe);
 async function checkoutStripe(req, res, next){
   try{
     const id = req.params.id;
+    console.log(req.body.stripeEmail);
+    console.log(req.body.stripeToken);
     // get the shopping cart from the user
     const shoppingCart = await ControllerShoppingCart.getUserShoppingCart(id);
     // get payment info 
@@ -61,6 +63,7 @@ async function checkoutStripe(req, res, next){
       const resCreatePayment = await ControllerStripe.insertPayment(id, infoPayment);
       response.success(req, res, infoPayment, 201);
   }catch(err){
+      console.log(err)
       response.error(req, res, err.message, 500, 'error network processing the payment');
   }
 }
