@@ -56,17 +56,18 @@ router.post('/sign-in', async function (req, res, next) {
               response.error(req, res, error.message, 401, 'Unauthorized');
               return false;
             } 
-            const { id_users, login, email} = user;
+            const { id_users, first_name, email, photo } = user;
             const payload = {
               sub: id_users,
-              login,
+              first_name,
               email,
+              photo,
               scopes: apiKey
             };
             const token = jwt.sign(payload, config.authJwtSecret, {
               expiresIn: '15m'
             });
-            response.success(req, res, { token, user: { id_users, login, email } }, 200);
+            response.success(req, res, { token, user: { id_users, first_name, email, photo } }, 200);
           });
         } catch (error) {
           next(error);
@@ -89,8 +90,7 @@ router.post('/sign-up',
           
           try {
             try {
-
-              const createdUserId = await ControllerUser.insertUser({ email: user.email, password: user.password });
+              const createdUserId = await ControllerUser.insertUser({ email: user.email, password: user.password, name: user.name });
               response.success(req, res, createdUserId, 201);
             } catch( err){
                 response.error(req, res, err.message, 500, 'error network user Insert');

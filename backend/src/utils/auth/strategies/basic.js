@@ -10,7 +10,6 @@ const userController = require('../../../routes/users/index');
  */
 passport.use(new BasicStrategy(async function (email, password, cb) {
     try {
-        //console.log(`[basic.js] email:${email}`);
         const userData = await userController.getUserbyEmail(email);
         user = JSON.parse(JSON.stringify(userData[0]));
         if(!user){
